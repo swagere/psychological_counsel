@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caper.psychological_counseling.mapper.ApplicationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.caper.psychological_counseling.model.domain.Application">
+        <id column="id" property="id" />
+        <result column="stu_id" property="stuId" />
+        <result column="rank" property="rank" />
+        <result column="type" property="type" />
+        <result column="answer" property="answer" />
+        <result column="grade" property="grade" />
+        <result column="urgency" property="urgency" />
+        <result column="description" property="description" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+</mapper>
