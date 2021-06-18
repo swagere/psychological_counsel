@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout()
                 .logoutUrl("/logout")
-                .addLogoutHandler(tokenClearLogoutHandler)
+//                .addLogoutHandler(tokenClearLogoutHandler)
                 .logoutSuccessHandler(myLogoutSuccessHandler)
 //             .and().rememberMe()
 //                .rememberMeParameter("remember-me-new")

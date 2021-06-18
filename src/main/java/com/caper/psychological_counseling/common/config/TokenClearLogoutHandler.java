@@ -27,8 +27,8 @@ public class TokenClearLogoutHandler implements LogoutHandler {
         if(authentication == null)
             return;
         UserDetails user = (UserDetails)authentication.getPrincipal();
-        if(user!=null && user.getUsername()!=null)
-            myUserDetailsService.deleteUserLoginInfo(user.getUsername());
+//        if(user!=null && user.getUsername()!=null)
+//            myUserDetailsService.deleteUserLoginInfo(user.getUsername());
     }
 
 }
