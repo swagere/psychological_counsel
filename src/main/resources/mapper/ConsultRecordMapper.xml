@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caper.psychological_counseling.mapper.ConsultRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.caper.psychological_counseling.model.domain.ConsultRecord">
+        <id column="id" property="id" />
+        <result column="consult_id" property="consultId" />
+        <result column="stu_id" property="stuId" />
+        <result column="assistant_id" property="assistantId" />
+        <result column="is_checked" property="isChecked" />
+        <result column="times" property="times" />
+        <result column="status" property="status" />
+        <result column="result" property="result" />
+        <result column="evaluate" property="evaluate" />
+        <result column="schedule_id" property="scheduleId" />
+        <result column="is_deleted" property="isDeleted" />
+    </resultMap>
+
+</mapper>
