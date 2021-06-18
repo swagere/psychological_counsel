@@ -8,6 +8,9 @@ spring:
   mvc:
     format:
       date: yyyy-MM-dd
+  security:
+    loginType: JSON
+
 server:
   servlet:
     encoding:

@@ -49,7 +49,12 @@ public class JwtAuthController {
      */
     @RequestMapping(value = "/refreshToken")
     public  AjaxResponse refresh(@RequestHeader("${jwt.header}") String token){
-            return AjaxResponse.success(jwtAuthService.refreshToken(token));
+            String newToken = jwtAuthService.refreshToken(token);
+            if (newToken == null) {
+                return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR,
+                        "旧令牌认证失败"));
+            }
+            return AjaxResponse.success(newToken);
     }
 
 }

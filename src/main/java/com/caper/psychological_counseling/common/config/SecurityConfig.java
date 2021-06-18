@@ -37,6 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
 
+    @Resource
+    private MyAccessDeniedHandler myAccessDeniedHandler;
+
+    @Resource
+    private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+
+    @Resource
+    private TokenClearLogoutHandler tokenClearLogoutHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -44,22 +52,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout()
                 .logoutUrl("/logout")
-                .deleteCookies("JSESSIONID")
+                .addLogoutHandler(tokenClearLogoutHandler)
                 .logoutSuccessHandler(myLogoutSuccessHandler)
 //             .and().rememberMe()
 //                .rememberMeParameter("remember-me-new")
 //                .rememberMeCookieName("remember-me-cookie")
 //                .tokenValiditySeconds(2 * 24 * 60 * 60)
 //                .tokenRepository(persistentTokenRepository())
-             .and().csrf().disable() //关闭跨站攻击防御
+             .and().csrf().disable()  //关闭跨站攻击防御
              .authorizeRequests()
                 .antMatchers("/authentication","/refreshToken").permitAll()
                 .antMatchers("/index").authenticated()
                 .anyRequest().access("@rabcService.hasPermission(request,authentication)")
              .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //不采用session
-
-
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //不采用session
+             .and().exceptionHandling()
+                .accessDeniedHandler(myAccessDeniedHandler)
+                .authenticationEntryPoint(myAuthenticationEntryPoint);
     }
 
 
