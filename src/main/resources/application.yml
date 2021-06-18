@@ -16,3 +16,8 @@ server:
 
 mybatis:
   mapper-locations: classpath:/mapper/*.xml, classpath:/mapper/extend/*.xml
+
+jwt:
+  secret: dscjaskcnsakjdc
+  expiration: 3600000
+  header: JWTHeaderName
