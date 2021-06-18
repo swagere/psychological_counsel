@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
              .and().csrf().disable()  //关闭跨站攻击防御
              .authorizeRequests()
                 .antMatchers("/authentication","/refreshToken").permitAll()
-                .antMatchers("/index").authenticated()
+                .antMatchers().authenticated()
                 .anyRequest().access("@rabcService.hasPermission(request,authentication)")
              .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //不采用session

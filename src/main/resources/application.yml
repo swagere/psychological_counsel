@@ -15,6 +15,7 @@ server:
   servlet:
     encoding:
       charset: UTF-8
+    context-path: /api
   port: 3738
 
 mybatis:
