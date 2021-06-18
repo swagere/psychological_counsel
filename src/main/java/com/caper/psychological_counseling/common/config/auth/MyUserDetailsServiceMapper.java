@@ -1,4 +1,4 @@
-package com.caper.psychological_counseling.mapper;
+package com.caper.psychological_counseling.common.config.auth;
 
 import com.caper.psychological_counseling.common.config.auth.MyUserDetails;
 import org.apache.ibatis.annotations.Param;
