@@ -32,7 +32,7 @@ public class JwtAuthController {
         if(StringUtils.isEmpty(username) || StringUtils.isEmpty(password)){
             return AjaxResponse.error(
                     new CustomException(CustomExceptionType.USER_INPUT_ERROR,
-                    "学号/工号或者密码不能为空"));
+                    "用户名或者密码不能为空"));
         }
         try {
             return AjaxResponse.success(jwtAuthService.login(username, password));

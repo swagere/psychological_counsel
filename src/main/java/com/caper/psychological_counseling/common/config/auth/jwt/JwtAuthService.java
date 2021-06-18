@@ -34,7 +34,7 @@ public class JwtAuthService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }catch (AuthenticationException e){
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
-                            ,"学号/工号或者密码不正确");
+                            ,"用户名或者密码不正确");
         }
 
         //登陆认证已成功

@@ -24,7 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
         MyUserDetails userDetails = myUserDetailsServiceMapper.findByUsername(s);
 
         if (userDetails == null) {
-            throw new UsernameNotFoundException("学号/工号不存在");
+            throw new UsernameNotFoundException("用户名/密码不存在");
         }
 
         //用户的角色列表
