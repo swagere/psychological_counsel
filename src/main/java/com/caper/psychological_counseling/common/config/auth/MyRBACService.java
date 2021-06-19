@@ -19,9 +19,6 @@ public class MyRBACService {
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    @Resource
-    private MyUserDetailsServiceMapper myUserDetailsServiceMapper;
-
     /**
      * 判断某用户是否具有该request资源的访问权限（页面）
      */
@@ -45,20 +42,5 @@ public class MyRBACService {
         }
 
         return false;
-    }
-
-    @Cacheable(value = USER_DETAIL,key = "#username")
-    public MyUserDetails findByUserName(String username) {
-        return myUserDetailsServiceMapper.findByUserName(username);
-    }
-
-    @Cacheable(value = ROLE_CODES,key = "#username")
-    public List<String> findRoleByUserName(String username) {
-        return myUserDetailsServiceMapper.findRoleByUserName(username);
-    }
-
-    @Cacheable(value = API_URLS,key = "#roleCode")
-    public List<String> findApiByRoleCode(String roleCode) {
-        return myUserDetailsServiceMapper.findApiByRoleCode(roleCode);
     }
 }

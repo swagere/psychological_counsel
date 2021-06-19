@@ -15,26 +15,26 @@ import java.util.stream.Collectors;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Resource
-    MyRBACService myRBACService;
+    private MyUserDetailsServiceMapper myUserDetailsServiceMapper;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         //用户基础数据加载
-        MyUserDetails userDetails = myRBACService.findByUsername(s);
+        MyUserDetails userDetails = myUserDetailsServiceMapper.findByUsername(s);
 
         if (userDetails == null) {
             throw new UsernameNotFoundException("用户名/密码不存在");
         }
 
         //用户的角色列表
-        List<String> roleCodes = myRBACService.findRoleByUsername(s);
+        List<String> roleCodes = myUserDetailsServiceMapper.findRoleByUsername(s);
 
         //根据角色加载权限
         List<String> authorities = new ArrayList<>();
         for(String roleCode : roleCodes){
             //通过用户角色列表加载用户的资源权限列表
-            authorities.addAll(myRBACService.findApiByRoleCode(roleCode));
+            authorities.addAll(myUserDetailsServiceMapper.findApiByRoleCode(roleCode));
         }
 
         //角色是一个特殊的权限，ROLE_前缀
