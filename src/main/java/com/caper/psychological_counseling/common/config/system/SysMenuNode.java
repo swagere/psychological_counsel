@@ -1,6 +1,7 @@
-package com.caper.psychological_counseling.model.domain;
+package com.caper.psychological_counseling.common.config.system;
 
-import com.caper.psychological_counseling.common.config.utils.DataTree;
+import com.caper.psychological_counseling.common.config.system.utils.DataTree;
+import com.caper.psychological_counseling.model.domain.SysMenu;
 
 import java.util.List;
 

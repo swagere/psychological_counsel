@@ -1,4 +1,4 @@
-package com.caper.psychological_counseling.common.config.utils;
+package com.caper.psychological_counseling.common.config.system.utils;
 
 import java.util.List;
 
