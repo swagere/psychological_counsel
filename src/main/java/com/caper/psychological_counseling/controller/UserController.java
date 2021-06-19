@@ -3,9 +3,11 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.SysUser;
+import com.caper.psychological_counseling.service.SysUserService;
 import com.caper.psychological_counseling.service.impl.ApplicationServiceImpl;
 import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,14 +19,15 @@ import java.util.ArrayList;
 @Slf4j
 @RestController
 public class UserController {
-
+    @Autowired
+    private SysUserService sysUserService;
 
 
     //获取用户信息，根据当前ID获取
 
-    @GetMapping("/user/{id}")
+    @RequestMapping(value = "/user/{id}", method =  RequestMethod.GET)
     public AjaxResponse getUser(@PathVariable("id")Long id){
-        SysUserServiceImpl sysUserService = new SysUserServiceImpl();
+        //System.out.println(id);
         SysUser sysUser = sysUserService.getSysUser(id);
 
         return AjaxResponse.success(sysUser);

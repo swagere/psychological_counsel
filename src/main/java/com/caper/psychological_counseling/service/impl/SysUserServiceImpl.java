@@ -14,9 +14,7 @@ import javax.annotation.Resource;
  * author: meidou
  */
 
-
-
-
+@Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
     @Resource
@@ -28,7 +26,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     //查询
     @Override
     public SysUser getSysUser(Long id){
-        return dozerMapper.map(sysUserMapper.selectById(id),SysUser.class);
+        System.out.println(id);
+        return dozerMapper.map(sysUserMapper.findByUserId(id),SysUser.class);
     }
 
     //更新
