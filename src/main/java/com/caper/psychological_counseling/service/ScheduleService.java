@@ -11,6 +11,14 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author kve
  * @since 2021-06-18
  */
+
+/**
+ * author: meidou
+ * @since 2021-06-19
+ */
 public interface ScheduleService extends IService<Schedule> {
+
+    //查询
+    Schedule getSchedule();
 
 }
