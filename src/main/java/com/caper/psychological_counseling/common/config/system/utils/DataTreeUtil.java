@@ -1,6 +1,4 @@
-package com.caper.psychological_counseling.common.config.utils;
-
-import com.caper.psychological_counseling.model.domain.SysMenuNode;
+package com.caper.psychological_counseling.common.config.system.utils;
 
 import java.util.ArrayList;
 import java.util.List;
