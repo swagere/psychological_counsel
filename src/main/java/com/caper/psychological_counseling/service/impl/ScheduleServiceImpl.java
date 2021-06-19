@@ -4,7 +4,7 @@ import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.mapper.ScheduleMapper;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.PageHelper;
+//import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,7 +24,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     @Override
     public Schedule getSchedule(){
         Schedule schedule = new Schedule();
-        PageHelper.startPage(1,10);
+        //PageHelper.startPage(1,10);
 
 
 
