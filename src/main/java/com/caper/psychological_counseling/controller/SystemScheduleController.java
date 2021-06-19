@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * author: chou
+ *
+ * 中心管理员
+ * 排班管理
  */
 
 @Slf4j
-@RestController(value = "/system/schedule")
+@RestController
+@RequestMapping(("/sys/schedule"))
 public class SystemScheduleController {
     @Autowired
     private CommonScheduleService commonScheduleService;
@@ -28,7 +32,7 @@ public class SystemScheduleController {
      * 2. 根据user_id查出所有排班 [common_schedule]
      */
     @RequestMapping(value = "/commonSchedules/{role_id}", method = RequestMethod.GET)
-    public AjaxResponse getWeekSchedules(@PathVariable("role_id")Integer role_id) {
-        return AjaxResponse.success();
+    public AjaxResponse getWeekSchedules(@PathVariable("role_id")Long role_id) {
+        return AjaxResponse.success(commonScheduleService.getCommonScheduleByRoleId(role_id));
     }
 }

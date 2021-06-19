@@ -11,8 +11,7 @@ import java.util.List;
 /**
  * author:chou
  *
- * 中心管理员
- * 系统管理
+ * 通用类
  */
 
 @Slf4j
