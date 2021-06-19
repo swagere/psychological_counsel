@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.common.config.auth;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -18,6 +19,9 @@ public class MyRBACService {
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
+    @Resource
+    private MyUserDetailsServiceMapper myUserDetailsServiceMapper;
+
     /**
      * 判断某用户是否具有该request资源的访问权限（页面）
      */
@@ -34,10 +38,27 @@ public class MyRBACService {
             //从内存中获取权限，提升效率
             List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(currentURI);
 
+            System.out.println(authorityList.get(0));
+            System.out.println(userDetails.getAuthorities());
             return userDetails.getAuthorities().contains(authorityList.get(0));
 
         }
 
         return false;
+    }
+
+    @Cacheable(value = USER_DETAIL,key = "#username")
+    public MyUserDetails findByUserName(String username) {
+        return myUserDetailsServiceMapper.findByUserName(username);
+    }
+
+    @Cacheable(value = ROLE_CODES,key = "#username")
+    public List<String> findRoleByUserName(String username) {
+        return myUserDetailsServiceMapper.findRoleByUserName(username);
+    }
+
+    @Cacheable(value = API_URLS,key = "#roleCode")
+    public List<String> findApiByRoleCode(String roleCode) {
+        return myUserDetailsServiceMapper.findApiByRoleCode(roleCode);
     }
 }
