@@ -11,7 +11,9 @@ import org.springframework.util.AntPathMatcher;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
 import java.util.List;
+import java.util.regex.*;
 
 
 @Component("rabcService")
@@ -33,9 +35,19 @@ public class MyRBACService {
 
             //本次需要访问的资源
             //从内存中获取权限，提升效率
-            List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(currentURI);
+//            List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(currentURI);
 
-            return userDetails.getAuthorities().contains(authorityList.get(0));
+            Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+            boolean flag = false;
+            for (GrantedAuthority authority : authorities) {
+                String pattern = authority.getAuthority();
+                if (Pattern.matches(pattern, currentURI)) {
+                    flag = true;
+                    break;
+                }
+            }
+            System.out.println(flag);
+            return flag;
 
         }
 

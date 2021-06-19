@@ -23,8 +23,8 @@ public class CommonController {
     @Autowired
     private SysMenuService sysMenuService;
 
-    @RequestMapping(value = "/tree/user", method = RequestMethod.GET)
-    public List<SysMenuNode> userTree() {
-        return sysMenuService.getMenuTreeByUsername("201801");
+    @RequestMapping(value = "/tree/user/{username}", method = RequestMethod.GET)
+    public List<SysMenuNode> userTree(@PathVariable("username") String username) {
+        return sysMenuService.getMenuTreeByUsername(username);
     }
 }
