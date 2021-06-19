@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 public class MyUserDetailsService implements UserDetailsService {
 
     @Resource
-    MyUserDetailsServiceMapper myUserDetailsServiceMapper;
+    private MyUserDetailsServiceMapper myUserDetailsServiceMapper;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -30,8 +31,13 @@ public class MyUserDetailsService implements UserDetailsService {
         List<String> roleCodes = myUserDetailsServiceMapper.findRoleByUsername(s);
 
         //根据角色加载权限
-        List<String> authorities = myUserDetailsServiceMapper.findAuthorityByRoleCodes(roleCodes);
+        List<String> authorities = new ArrayList<>();
+        for(String roleCode : roleCodes){
+            //通过用户角色列表加载用户的资源权限列表
+            authorities.addAll(myUserDetailsServiceMapper.findApiByRoleCode(roleCode));
+        }
 
+        //角色是一个特殊的权限，ROLE_前缀
         roleCodes.stream()
                 .map(rc->"ROLE_" + rc)
                 .collect(Collectors.toList());

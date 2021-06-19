@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.caper.psychological_counseling.mapper.SystemMapper" >
+
+    <select id="selectMenuTree"
+            resultType="com.caper.psychological_counseling.model.domain.SysMenu">
+        SELECT id,menu_pid,menu_pids,is_leaf,menu_name,url,icon,sort,level,status
+        FROM sys_menu o
+        <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+            AND (menu_pids like CONCAT('%[',#{rootMenuId},']%') OR id = #{rootMenuId})
+            <if test="menuNameLike !=null and menuNameLike != '' " >
+                AND menu_name like CONCAT('%',#{menuNameLike},'%')
+            </if>
+            <if test="menuStatus !=null " >
+                AND status = #{menuStatus}
+            </if>
+        </trim>
+        ORDER BY level,sort
+    </select>
+</mapper>

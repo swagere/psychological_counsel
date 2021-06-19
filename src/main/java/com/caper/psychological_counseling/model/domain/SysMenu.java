@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.model.domain;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -10,34 +11,30 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="VisitRecord对象", description="")
-public class VisitRecord extends Model<VisitRecord> {
+@ApiModel(value="SysMenu对象", description="")
+public class SysMenu extends Model<SysMenu> {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    private Long applicationId;
+    private String menuName;
 
-    private Long stuId;
+    private String url;
 
-    private Long systemId;
+    private Long menuPid;
 
-    private Integer isChecked;
+    private String menuPids;
 
-    private Integer rank;
+    private Integer isLeaf;
+
+    private String icon;
+
+    private Integer sort;
+
+    private Integer level;
 
     private Integer status;
-
-    private String type;
-
-    private Integer diag;
-
-    private String result;
-
-    private Long scheduleId;
-
-    private Integer isDeleted;
 
 
     @Override
