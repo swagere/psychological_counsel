@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.common.config.auth;
 
+import com.caper.psychological_counseling.mapper.MyUserDetailsServiceMapper;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -27,7 +27,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public SysUser getSysUser(Long id){
         System.out.println(id);
-        return dozerMapper.map(sysUserMapper.findByUserId(id),SysUser.class);
+        return sysUserMapper.findByUserId(id);
     }
 
     //更新
