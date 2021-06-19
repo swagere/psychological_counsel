@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan({"com.caper.psychological_counseling"})
+@MapperScan({"com.caper.psychological_counseling.mapper"})
 public class PsychologicalCounselingApplication {
 
     public static void main(String[] args) {
