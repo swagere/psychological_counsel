@@ -37,4 +37,18 @@ public interface MyUserDetailsServiceMapper {
     })
     List<String> findAuthorityByRoleCodes(@Param("roleCodes") List<String> roleCodes);
 
+    //根据用户角色查询api
+    @Select({
+            "<script>",
+            "SELECT url " ,
+            "FROM sys_api a " ,
+            "LEFT JOIN sys_role_api ra ON a.id = ra.api_id " ,
+            "LEFT JOIN sys_role r ON r.id = ra.role_id ",
+            "WHERE r.role_code IN ",
+            "<foreach collection='roleCodes' item='roleCode' open='(' separator=',' close=')'>",
+            "#{roleCode}",
+            "</foreach>",
+            "</script>"
+    })
+    List<String> findApiByRoleCodes(@Param("roleCodes") List<String> roleCodes);
 }

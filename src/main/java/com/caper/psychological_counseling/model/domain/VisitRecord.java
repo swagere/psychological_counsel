@@ -21,7 +21,7 @@ public class VisitRecord extends Model<VisitRecord> {
 
     private Long stuId;
 
-    private Long monitorId;
+    private Long systemId;
 
     private Integer isChecked;
 
