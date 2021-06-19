@@ -65,6 +65,7 @@ public class UserController {
     public AjaxResponse submit_application(@RequestBody Application application){
 
 
+        //建立申请表
 
 
 
