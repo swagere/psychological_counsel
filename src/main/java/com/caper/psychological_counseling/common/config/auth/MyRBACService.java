@@ -35,8 +35,6 @@ public class MyRBACService {
             //从内存中获取权限，提升效率
             List<GrantedAuthority> authorityList = AuthorityUtils.commaSeparatedStringToAuthorityList(currentURI);
 
-            System.out.println(authorityList.get(0));
-            System.out.println(userDetails.getAuthorities());
             return userDetails.getAuthorities().contains(authorityList.get(0));
 
         }
