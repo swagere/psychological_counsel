@@ -1,6 +1,7 @@
 package com.caper.psychological_counseling.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -33,6 +34,7 @@ public class Application extends Model<Application> {
     private String description;
 
     @TableField("is_deleted")
+    @TableLogic
     private Integer deleted;
 
 
