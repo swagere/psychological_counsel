@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.model.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -26,7 +27,8 @@ public class SysMenu extends Model<SysMenu> {
 
     private String menuPids;
 
-    private Integer isLeaf;
+    @TableField("is_leaf")
+    private Integer leaf;
 
     private String icon;
 

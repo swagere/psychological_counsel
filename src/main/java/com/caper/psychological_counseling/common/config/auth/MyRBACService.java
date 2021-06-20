@@ -46,7 +46,6 @@ public class MyRBACService {
                     break;
                 }
             }
-            System.out.println(flag);
             return flag;
 
         }

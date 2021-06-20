@@ -1,5 +1,7 @@
 package com.caper.psychological_counseling.model.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.time.LocalDate;
 import java.io.Serializable;
@@ -31,9 +33,12 @@ public class Schedule extends Model<Schedule> {
 
     private Long areaId;
 
-    private Integer isOccupied;
+    @TableField("is_occupied")
+    private Integer occupied;
 
-    private Integer isDeleted;
+    @TableField("is_deleted")
+    @TableLogic
+    private Integer deleted;
 
 
     @Override

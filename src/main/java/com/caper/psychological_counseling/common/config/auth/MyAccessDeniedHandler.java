@@ -1,4 +1,4 @@
-package com.caper.psychological_counseling.common.config;
+package com.caper.psychological_counseling.common.config.auth;
 
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;

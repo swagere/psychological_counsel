@@ -1,8 +1,11 @@
 package com.caper.psychological_counseling.common.config;
 
+import com.caper.psychological_counseling.common.config.auth.MyAccessDeniedHandler;
+import com.caper.psychological_counseling.common.config.auth.MyAuthenticationEntryPoint;
 import com.caper.psychological_counseling.common.config.auth.MyLogoutSuccessHandler;
 import com.caper.psychological_counseling.common.config.auth.MyUserDetailsService;
 import com.caper.psychological_counseling.common.config.auth.jwt.JwtAuthenticationTokenFilter;
+import com.caper.psychological_counseling.common.config.auth.jwt.TokenClearLogoutHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

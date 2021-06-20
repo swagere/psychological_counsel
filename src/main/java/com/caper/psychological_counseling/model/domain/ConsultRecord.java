@@ -1,5 +1,7 @@
 package com.caper.psychological_counseling.model.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -23,7 +25,8 @@ public class ConsultRecord extends Model<ConsultRecord> {
 
     private Long assistantId;
 
-    private Integer isChecked;
+    @TableField("is_checked")
+    private Integer checked;
 
     private Integer times;
 
@@ -35,7 +38,9 @@ public class ConsultRecord extends Model<ConsultRecord> {
 
     private Long scheduleId;
 
-    private Integer isDeleted;
+    @TableField("is_deleted")
+    @TableLogic
+    private Integer deleted;
 
 
     @Override

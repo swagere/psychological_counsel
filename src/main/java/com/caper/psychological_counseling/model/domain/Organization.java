@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.model.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -23,7 +24,8 @@ public class Organization extends Model<Organization> {
 
     private String orgName;
 
-    private Integer isLeaf;
+    @TableField("is_leaf")
+    private Integer leaf;
 
     private String address;
 
