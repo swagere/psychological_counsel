@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * RBAC
+ * sqlMapper
+ */
+
 @Repository
 public interface SystemCommonMapper {
 

@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.model.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -23,7 +24,8 @@ public class VisitRecord extends Model<VisitRecord> {
 
     private Long systemId;
 
-    private Integer isChecked;
+    @TableField("is_checked")
+    private Integer checked;
 
     private Integer rank;
 
@@ -37,7 +39,8 @@ public class VisitRecord extends Model<VisitRecord> {
 
     private Long scheduleId;
 
-    private Integer isDeleted;
+    @TableField("is_deleted")
+    private Integer deleted;
 
 
     @Override
