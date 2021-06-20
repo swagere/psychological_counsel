@@ -1,4 +1,4 @@
-package com.caper.psychological_counseling.common.config;
+package com.caper.psychological_counseling.common.config.auth.jwt;
 
 import com.caper.psychological_counseling.common.config.auth.MyUserDetailsService;
 import org.springframework.security.core.Authentication;
