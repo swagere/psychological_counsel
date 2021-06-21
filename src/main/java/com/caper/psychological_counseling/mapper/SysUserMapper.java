@@ -17,13 +17,12 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
             "WHERE u.id = #{userId}")
     String findByUserId(@Param("userId") Long id);
 
-    @Update("UPDATE sys_user SET telephone = #{telephone},email = #{email},gender = #{gender},description = #{description},grade = #{grade} WHERE id = #{id}")
+    @Update("UPDATE sys_user SET telephone = #{telephone},email = #{email},gender = #{gender},description = #{description} WHERE id = #{id}")
     void update_name_phone(@Param("id")Long id,
                            @Param("telephone")Long telephone,
                            @Param("email")String email,
                            @Param("gender")Integer gender,
-                           @Param("description")String description,
-                           @Param("grade")Integer grade);
+                           @Param("description")String description);
 
 
 

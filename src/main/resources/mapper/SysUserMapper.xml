@@ -15,6 +15,7 @@
         <result column="description" property="description" />
         <result column="grade" property="grade" />
         <result column="org_id" property="orgId" />
+        <result column="type" property="type"/>
         <result column="enabled" property="enabled" />
     </resultMap>
 

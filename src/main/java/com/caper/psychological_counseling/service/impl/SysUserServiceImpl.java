@@ -36,8 +36,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     //更新
     @Override
-    public void updateSysUser(Long id,Long telephone,String email,Integer gender,String description,Integer grade){
-        sysUserMapper.update_name_phone(id,telephone,email,gender, description, grade);
+    public void updateSysUser(Long id,Long telephone,String email,Integer gender,String description){
+        sysUserMapper.update_name_phone(id,telephone,email,gender, description);
 
     }
 

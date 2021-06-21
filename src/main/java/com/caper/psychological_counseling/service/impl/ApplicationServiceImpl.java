@@ -20,8 +20,6 @@ import java.util.ArrayList;
 public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Application> implements ApplicationService {
 
 
-    @Resource
-    protected Mapper dozerMapper;
 
     @Resource
     private ApplicationMapper applicationMapper;
@@ -31,6 +29,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Appli
     //建立初访记录表
     @Override
     public void buildApplication(Application application){
+
         applicationMapper.insert(application);
 
     }

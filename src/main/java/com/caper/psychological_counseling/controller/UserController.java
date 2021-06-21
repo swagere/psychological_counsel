@@ -4,6 +4,7 @@ import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.SysUser;
 import com.caper.psychological_counseling.model.dto.UserDTO;
+import com.caper.psychological_counseling.service.ApplicationService;
 import com.caper.psychological_counseling.service.SysUserService;
 import com.caper.psychological_counseling.service.impl.ApplicationServiceImpl;
 import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
@@ -26,6 +27,9 @@ public class UserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private ApplicationService applicationService;
+
 
     //获取用户信息，根据当前ID获取
 
@@ -45,12 +49,11 @@ public class UserController {
 
 
     @PutMapping("/user/update")
-    public AjaxResponse updateUser(@RequestParam("userid") Long id,
+    public AjaxResponse updateUser(@RequestParam("id") Long id,
                                    @RequestParam("telephone")Long telephone,
                                    @RequestParam("email")String email,
                                    @RequestParam("gender")Integer gender,
-                                   @RequestParam("description")String description,
-                                   @RequestParam("grade")Integer grade){
+                                   @RequestParam("description")String description){
 
         if(id == null){
 
@@ -58,7 +61,7 @@ public class UserController {
         }
 
         System.out.println(id);
-        sysUserService.updateSysUser(id,telephone,email,gender,description,grade);
+        sysUserService.updateSysUser(id,telephone,email,gender,description);
 
         return AjaxResponse.success();
     }
@@ -76,18 +79,24 @@ public class UserController {
 
     //提交初访申请（建立申请表）
 
-    @PostMapping("/submit")
+    @PostMapping("/user/submit")
     public AjaxResponse submit_application(@RequestBody Application application){
 
         //建立申请表
-        ApplicationServiceImpl applicationService = new ApplicationServiceImpl();
         applicationService.buildApplication(application);
 
 
         return AjaxResponse.success();
     }
 
+    //撤销初访申请（删除）暂时不写
+
+
     //*显示分数、显示所有初访员及其排班时间，用户选初访员时间
+
+
+
+
 
 
 

@@ -13,7 +13,7 @@ public interface SysUserService extends IService<SysUser> {
     String getSysUser(Long id);
 
     //更新
-    void updateSysUser(Long id,Long telephone,String email,Integer gender,String description,Integer grade);
+    void updateSysUser(Long id,Long telephone,String email,Integer gender,String description);
 
     //删除
     void deleteSysUser(Long id);
