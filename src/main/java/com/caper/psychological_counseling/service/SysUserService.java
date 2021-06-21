@@ -3,10 +3,7 @@ package com.caper.psychological_counseling.service;
 import com.caper.psychological_counseling.model.domain.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-/**
- * author: meidou
- */
-
+import java.util.List;
 
 public interface SysUserService extends IService<SysUser> {
 
@@ -19,5 +16,6 @@ public interface SysUserService extends IService<SysUser> {
     //删除
     void deleteSysUser(Long id);
 
+    List<Long> getUserIdsByRoleId(Long role_id);
 
 }
