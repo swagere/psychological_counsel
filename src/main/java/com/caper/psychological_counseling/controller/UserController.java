@@ -29,7 +29,7 @@ public class UserController {
 
     //获取用户信息，根据当前ID获取
 
-    @RequestMapping(value = "/user/{id}", method =  RequestMethod.GET)
+    @RequestMapping(value = "/user/get_user/{id}", method =  RequestMethod.GET)
     public AjaxResponse getUser(@PathVariable("id")Long id){
         //System.out.println(id);
         String name = sysUserService.getSysUser(id);
@@ -44,16 +44,21 @@ public class UserController {
     //修改用户信息
 
 
-    //@ApiImplicitParam(name = "telephone",paramType = "path",dataType = "Integer")
-    @PutMapping("/user")
-    public AjaxResponse updateUser(@RequestBody UserDTO userDTO){
+    @PutMapping("/user/update")
+    public AjaxResponse updateUser(@RequestParam("userid") Long id,
+                                   @RequestParam("telephone")Long telephone,
+                                   @RequestParam("email")String email,
+                                   @RequestParam("gender")Integer gender,
+                                   @RequestParam("description")String description,
+                                   @RequestParam("grade")Integer grade){
 
-        if(userDTO.getId() == null){
+        if(id == null){
 
             //异常
         }
 
-        sysUserService.updateSysUser(userDTO.getId(),userDTO.getUsername(),userDTO.getTelephone());
+        System.out.println(id);
+        sysUserService.updateSysUser(id,telephone,email,gender,description,grade);
 
         return AjaxResponse.success();
     }
