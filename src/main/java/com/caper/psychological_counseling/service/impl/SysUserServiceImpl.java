@@ -9,15 +9,19 @@ import org.dozer.Mapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
-
+import java.util.List;
 
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
+    @Resource
+    protected Mapper dozerMapper;
 
     @Resource
     private SysUserMapper sysUserMapper;
+
+    @Resource
+    private SystemCommonMapper systemCommonMapper;
 
     //查询
     @Override
@@ -38,6 +42,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public void deleteSysUser(Long id){
         sysUserMapper.deleteById(id);
 
+    }
+
+    /**
+     * 根据role_id获取user_id
+     */
+    @Override
+    public List<Long> getUserIdsByRoleId(Long role_id) {
+        //按照role_id查出所有user_id [sys_user_role]
+        List<Long> userIds = systemCommonMapper.getUserIdsByRoleId(role_id);
+        return userIds;
     }
 
 }

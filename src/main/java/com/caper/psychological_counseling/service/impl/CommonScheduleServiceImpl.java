@@ -1,8 +1,12 @@
 package com.caper.psychological_counseling.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.caper.psychological_counseling.mapper.ScheduleMapper;
 import com.caper.psychological_counseling.mapper.SystemCommonMapper;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.mapper.CommonScheduleMapper;
+import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.service.CommonScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +30,7 @@ public class CommonScheduleServiceImpl extends ServiceImpl<CommonScheduleMapper,
     @Resource
     private SystemCommonMapper systemCommonMapper;
 
-    @Override
-    public Map getCommonScheduleByRoleId(Long role_id) {
-        //按照role_id查出所有user_id [sys_user_role]
-        List<Long> userIds = systemCommonMapper.getUserIdsByRoleId(role_id);
-        System.out.println(userIds);
+    @Resource
+    private ScheduleMapper scheduleMapper;
 
-        //根据user_id查出所有排班 [common_schedule]
-
-
-        return null;
-    }
 }
