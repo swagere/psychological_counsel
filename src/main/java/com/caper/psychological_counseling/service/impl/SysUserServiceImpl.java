@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.service.impl;
 
+import com.caper.psychological_counseling.mapper.SystemCommonMapper;
 import com.caper.psychological_counseling.model.domain.SysUser;
 import com.caper.psychological_counseling.mapper.SysUserMapper;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -48,9 +49,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * 根据role_id获取user_id
      */
     @Override
-    public List<Long> getUserIdsByRoleId(Long role_id) {
+    public List<Long> getUserIdsByRoleIdAndAreaId(Long role_id) {
         //按照role_id查出所有user_id [sys_user_role]
-        List<Long> userIds = systemCommonMapper.getUserIdsByRoleId(role_id);
+        List<Long> userIds = systemCommonMapper.getUserIdsByRoleIdAndAreaId(role_id);
         return userIds;
     }
 

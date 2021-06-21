@@ -33,4 +33,12 @@ public class CommonScheduleServiceImpl extends ServiceImpl<CommonScheduleMapper,
     @Resource
     private ScheduleMapper scheduleMapper;
 
+    @Resource
+    private CommonScheduleMapper commonScheduleMapper;
+
+    @Override
+    public void saveCommonSchedule(CommonSchedule commonSchedule) {
+        commonScheduleMapper.insert(commonSchedule);
+    }
+
 }

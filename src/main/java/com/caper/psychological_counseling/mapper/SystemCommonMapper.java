@@ -14,8 +14,5 @@ import java.util.List;
 @Repository
 public interface SystemCommonMapper {
 
-    @Select("select user_id " +
-            "from sys_user_role " +
-            "where role_id = #{role_id}")
-    List<Long> getUserIdsByRoleId(@Param("role_id") Long role_id);
+    List<Long> getUserIdsByRoleIdAndAreaId(@Param("role_id") Long role_id);
 }

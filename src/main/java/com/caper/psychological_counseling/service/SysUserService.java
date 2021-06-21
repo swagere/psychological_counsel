@@ -16,6 +16,6 @@ public interface SysUserService extends IService<SysUser> {
     //删除
     void deleteSysUser(Long id);
 
-    List<Long> getUserIdsByRoleId(Long role_id);
+    List<Long> getUserIdsByRoleIdAndAreaId(Long role_id);
 
 }

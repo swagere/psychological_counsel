@@ -2,6 +2,8 @@ package com.caper.psychological_counseling.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
+import com.caper.psychological_counseling.common.config.exception.CustomException;
+import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.service.CommonScheduleService;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -38,14 +40,16 @@ public class SystemScheduleController {
      * 1. 按照role_id查出所有user_id [sys_user_role]
      * 2. 根据user_id查出所有排班 [common_schedule]
      */
-    @RequestMapping(value = "/commonSchedules/{area_id}/{role_id}", method = RequestMethod.GET)
-    public AjaxResponse getWeekSchedules(@PathVariable("role_id") Long role_id, @PathVariable("area_id") Long area_id) {
-        //按照role_id查出所有user_id [sys_user_role]
-        List<Long> userIds = sysUserService.getUserIdsByRoleId(role_id);
+    @RequestMapping(value = "/commonSchedules/area/{area_id}/role/{role_id}", method = RequestMethod.GET)
+    public AjaxResponse getWeekSchedules(@PathVariable("area_id") Long area_id, @PathVariable("role_id") Long role_id) {
+        System.out.println(area_id);
+        System.out.println(role_id);
+        //按照role_id 和 area_id查出所有user_id [sys_user_role]
+        List<Long> userIds = sysUserService.getUserIdsByRoleIdAndAreaId(role_id);
 
         //根据user_id查出所有排班 [common_schedule]
         QueryWrapper<CommonSchedule> wrapper = new QueryWrapper<>();
-        wrapper.eq("user_id", userIds);
+        wrapper.eq("user_id", userIds).eq("area_id", area_id);
         List<CommonSchedule> list = commonScheduleService.list(wrapper);
         return AjaxResponse.success(list);
     }
@@ -58,8 +62,17 @@ public class SystemScheduleController {
      */
     @RequestMapping(value = "/commonSchedules", method = RequestMethod.POST)
     public AjaxResponse addWeekSchedules(@RequestBody CommonSchedule commonSchedule) {
+        //判断id是否重复
+        CommonSchedule commonSchedule1 = commonScheduleService.getById(commonSchedule.getId());
+        if (commonSchedule1 != null) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"此处只能添加不能修改");
+        }
+
         //区域 时间和老师的配置
-        System.out.println(commonSchedule);
-        return AjaxResponse.success("添加成功");
+        //在指定的时间内，配置老师和区域
+        commonScheduleService.saveCommonSchedule(commonSchedule);
+
+        return AjaxResponse.success();
     }
 }

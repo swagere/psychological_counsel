@@ -7,4 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface CommonScheduleService extends IService<CommonSchedule> {
+
+    void saveCommonSchedule(CommonSchedule commonSchedule);
 }
