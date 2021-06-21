@@ -1,6 +1,5 @@
 package com.caper.psychological_counseling.service.impl;
 
-import com.caper.psychological_counseling.mapper.SystemCommonMapper;
 import com.caper.psychological_counseling.model.domain.SysUser;
 import com.caper.psychological_counseling.mapper.SysUserMapper;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -26,15 +25,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     //查询
     @Override
-    public SysUser getSysUser(Long id){
+    public String getSysUser(Long id){
         System.out.println(id);
         return sysUserMapper.findByUserId(id);
     }
 
     //更新
     @Override
-    public void updateSysUser(SysUser sysUser){
-        sysUserMapper.updateById(sysUser);
+    public void updateSysUser(Long id,String name,Long telephone){
+        sysUserMapper.update_name_phone(id,name,telephone);
 
     }
 
