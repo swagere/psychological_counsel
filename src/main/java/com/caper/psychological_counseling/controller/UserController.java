@@ -69,9 +69,7 @@ public class UserController {
     @DeleteMapping("/user/{id}")
     public AjaxResponse deleteUser(@PathVariable("id")Long id){
 
-        SysUserServiceImpl sysUserService = new SysUserServiceImpl();
         sysUserService.deleteSysUser(id);
-
         return AjaxResponse.success();
     }
 
