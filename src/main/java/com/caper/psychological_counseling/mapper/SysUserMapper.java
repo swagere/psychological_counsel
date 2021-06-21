@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
@@ -18,6 +20,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     @Update("UPDATE sys_user SET username = #{name},telephone = #{telephone} WHERE id = #{userId}")
     void update_name_phone(@Param("userId") Long id,@Param("name")String name,@Param("telephone")Long telephone);
 
-
+    @Select("select user_id from sys_user_role where role_id = #{role_id}")
+    List<Long> selectUserIdsByRoleId(@Param("role_id") Long role_id);
 
 }

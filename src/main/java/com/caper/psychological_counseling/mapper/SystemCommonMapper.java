@@ -14,5 +14,4 @@ import java.util.List;
 @Repository
 public interface SystemCommonMapper {
 
-    List<Long> getUserIdsByRoleIdAndAreaId(@Param("role_id") Long role_id);
 }

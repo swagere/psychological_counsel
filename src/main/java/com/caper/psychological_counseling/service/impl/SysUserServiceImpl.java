@@ -21,9 +21,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Resource
     private SysUserMapper sysUserMapper;
 
-    @Resource
-    private SystemCommonMapper systemCommonMapper;
-
     //查询
     @Override
     public String getSysUser(Long id){
@@ -51,7 +48,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public List<Long> getUserIdsByRoleIdAndAreaId(Long role_id) {
         //按照role_id查出所有user_id [sys_user_role]
-        List<Long> userIds = systemCommonMapper.getUserIdsByRoleIdAndAreaId(role_id);
+        List<Long> userIds = sysUserMapper.selectUserIdsByRoleId(role_id);
         return userIds;
     }
 
