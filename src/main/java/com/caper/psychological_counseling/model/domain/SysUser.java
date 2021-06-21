@@ -24,7 +24,7 @@ public class SysUser extends Model<SysUser> {
 
     private String password;
 
-    private Integer telephone;
+    private Long telephone;
 
     private String email;
 

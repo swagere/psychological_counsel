@@ -3,13 +3,17 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.SysUser;
+import com.caper.psychological_counseling.model.dto.UserDTO;
 import com.caper.psychological_counseling.service.SysUserService;
 import com.caper.psychological_counseling.service.impl.ApplicationServiceImpl;
 import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
+import io.swagger.annotations.ApiImplicitParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
@@ -28,9 +32,10 @@ public class UserController {
     @RequestMapping(value = "/user/{id}", method =  RequestMethod.GET)
     public AjaxResponse getUser(@PathVariable("id")Long id){
         //System.out.println(id);
-        SysUser sysUser = sysUserService.getSysUser(id);
+        String name = sysUserService.getSysUser(id);
+        System.out.println(name);
 
-        return AjaxResponse.success(sysUser);
+        return AjaxResponse.success(name);
 
     }
 
@@ -38,15 +43,17 @@ public class UserController {
 
     //修改用户信息
 
+
+    //@ApiImplicitParam(name = "telephone",paramType = "path",dataType = "Integer")
     @PutMapping("/user")
-    public AjaxResponse updateUser(@RequestBody SysUser sysUser){
-        if(sysUser.getId() == null){
+    public AjaxResponse updateUser(@RequestBody UserDTO userDTO){
+
+        if(userDTO.getId() == null){
 
             //异常
         }
 
-        SysUserServiceImpl sysUserService = new SysUserServiceImpl();
-        sysUserService.updateSysUser(sysUser);
+        sysUserService.updateSysUser(userDTO.getId(),userDTO.getUsername(),userDTO.getTelephone());
 
         return AjaxResponse.success();
     }

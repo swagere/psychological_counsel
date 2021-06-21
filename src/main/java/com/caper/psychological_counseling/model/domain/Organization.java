@@ -29,7 +29,7 @@ public class Organization extends Model<Organization> {
 
     private String address;
 
-    private Integer telephone;
+    private Long telephone;
 
     private String email;
 
