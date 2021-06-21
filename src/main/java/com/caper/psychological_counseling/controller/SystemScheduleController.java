@@ -7,6 +7,7 @@ import com.caper.psychological_counseling.common.config.exception.CustomExceptio
 import com.caper.psychological_counseling.model.domain.Area;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
+import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.AreaService;
 import com.caper.psychological_counseling.service.CommonScheduleService;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -38,7 +39,7 @@ public class SystemScheduleController {
 
     /**
      * 查询
-     * 按角色 返回按周的common排班表
+     * 按角色 校区 返回按周的common排班表
      * @param role_id
      * @return
      *
@@ -58,7 +59,7 @@ public class SystemScheduleController {
         UserIdAndAreaIds ids = new UserIdAndAreaIds();
         ids.setArea_ids(area_ids);
         ids.setUser_ids(user_ids);
-        List<CommonSchedule> commonSchedules = commonScheduleService.getByUserIdsAndAreaIds(ids);
+        List<CommonScheduleVO> commonSchedules = commonScheduleService.getByUserIdsAndAreaIds(ids);
         return AjaxResponse.success(commonSchedules);
     }
 

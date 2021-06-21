@@ -8,6 +8,7 @@ import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.mapper.CommonScheduleMapper;
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
+import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.CommonScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class CommonScheduleServiceImpl extends ServiceImpl<CommonScheduleMapper,
     }
 
     @Override
-    public List<CommonSchedule> getByUserIdsAndAreaIds(UserIdAndAreaIds ids) {
+    public List<CommonScheduleVO> getByUserIdsAndAreaIds(UserIdAndAreaIds ids) {
         return commonScheduleMapper.selectByUserIdsAndAreaIds(ids);
     }
 
