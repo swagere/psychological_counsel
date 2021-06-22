@@ -30,4 +30,17 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
 
         return schedule;
     }
+
+    /**
+     * 生成两周的实际排班表
+     */
+    @Override
+    public void generateTwoWeekSchedule(Integer week, Integer year, Integer month, Integer day) {
+        //创建最近两周
+        for (int i = 1; i <= 14; i++) {
+            week = week + i;
+            day = day + i;
+
+        }
+    }
 }

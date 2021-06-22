@@ -6,15 +6,18 @@ import com.caper.psychological_counseling.common.config.exception.CustomExceptio
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
 import com.caper.psychological_counseling.model.domain.Area;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
+import com.caper.psychological_counseling.model.domain.Organization;
+import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
-import com.caper.psychological_counseling.service.AreaService;
-import com.caper.psychological_counseling.service.CommonScheduleService;
-import com.caper.psychological_counseling.service.SysUserService;
+import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,6 +39,12 @@ public class SystemScheduleController {
 
     @Autowired
     private AreaService areaService;
+
+    @Autowired
+    private OrganizationService organizationService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     /**
      * 查询
@@ -64,7 +73,6 @@ public class SystemScheduleController {
     }
 
     /**
-     * 增加
      * 新增一个common排班表项
      * @param commonSchedule
      * @return
@@ -81,6 +89,38 @@ public class SystemScheduleController {
         //区域 时间和老师的配置
         //在指定的时间内，配置老师和区域
         commonScheduleService.saveCommonSchedule(commonSchedule);
+
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 新增
+     * 定时调用
+     * 用于生成以周为单位的实际排班表
+     *
+     * 暂定与每周日生成下下下周的（即两周之后）
+     * @return
+     */
+    @RequestMapping(value = "/schedules", method = RequestMethod.POST)
+    public AjaxResponse ConvertToScheduleByWeek() {
+//        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        Calendar calendar=Calendar.getInstance();
+        Integer week = calendar.get(Calendar.DAY_OF_WEEK) - 1; //星期
+        Integer year = calendar.get(Calendar.YEAR);
+        Integer month = calendar.get(Calendar.MONTH) + 1;
+        Integer day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        calendar.setTime(new Date());
+        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));//今天的日期
+        calendar.set(Calendar.DAY_OF_MONTH,calendar.get(Calendar.DAY_OF_MONTH)+40);//让日期加1  
+        System.out.println(calendar.get(Calendar.MONTH));//加1之后的日期Top
+
+        scheduleService.generateTwoWeekSchedule(week, year, month, day);
+
+        //创建下下下周
+        for (int i = 1; i <= 7; i++) {
+
+        }
 
         return AjaxResponse.success();
     }

@@ -21,4 +21,5 @@ public interface ScheduleService extends IService<Schedule> {
     //查询
     Schedule getSchedule();
 
+    void generateTwoWeekSchedule(Integer week, Integer year, Integer month, Integer day);
 }

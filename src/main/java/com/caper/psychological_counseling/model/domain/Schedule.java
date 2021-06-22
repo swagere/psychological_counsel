@@ -3,8 +3,12 @@ package com.caper.psychological_counseling.model.domain;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.Date;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,11 +27,11 @@ public class Schedule extends Model<Schedule> {
 
     private Integer week;
 
-    private String date;
+    private Date date;
 
-    private LocalDate beginTime;
+    private String beginTime;
 
-    private LocalDate endTime;
+    private String endTime;
 
     private Long userId;
 
