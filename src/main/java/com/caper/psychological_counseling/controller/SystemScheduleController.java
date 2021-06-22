@@ -9,12 +9,15 @@ import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.model.domain.Organization;
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
+import com.caper.psychological_counseling.model.dto.WeekScheduleDTO;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -98,29 +101,28 @@ public class SystemScheduleController {
      * 定时调用
      * 用于生成以周为单位的实际排班表
      *
-     * 暂定与每周日生成下下下周的（即两周之后）
+     * 生成下四周的排班表
      * @return
      */
-    @RequestMapping(value = "/schedules", method = RequestMethod.POST)
-    public AjaxResponse ConvertToScheduleByWeek() {
+    @RequestMapping(value = "/weekSchedules", method = RequestMethod.POST)
+    public AjaxResponse ConvertToScheduleByWeeks(@RequestBody WeekScheduleDTO scheduleDTO) {
 //        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
-        Calendar calendar=Calendar.getInstance();
-        Integer week = calendar.get(Calendar.DAY_OF_WEEK) - 1; //星期
-        Integer year = calendar.get(Calendar.YEAR);
-        Integer month = calendar.get(Calendar.MONTH) + 1;
-        Integer day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        calendar.setTime(new Date());
-        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));//今天的日期
-        calendar.set(Calendar.DAY_OF_MONTH,calendar.get(Calendar.DAY_OF_MONTH)+40);//让日期加1  
-        System.out.println(calendar.get(Calendar.MONTH));//加1之后的日期Top
 
-        scheduleService.generateTwoWeekSchedule(week, year, month, day);
+        //获得参数
+        String begin_time = scheduleDTO.getBegin_time();
+        String end_time = scheduleDTO.getEnd_time();
 
-        //创建下下下周
-        for (int i = 1; i <= 7; i++) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+        //创建指定日期的实际排班表
+        try {
+            scheduleService.generateTwoWeekSchedule(sdf.parse(begin_time), sdf.parse(end_time));
+        }catch (ParseException e) {
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"传入时间格式有误"));
         }
+
 
         return AjaxResponse.success();
     }

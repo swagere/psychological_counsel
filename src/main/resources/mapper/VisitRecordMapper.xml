@@ -8,14 +8,14 @@
         <result column="application_id" property="applicationId" />
         <result column="stu_id" property="stuId" />
         <result column="system_id" property="systemId" />
-        <result column="is_checked" property="isChecked" />
+        <result column="is_checked" property="checked" />
         <result column="rank" property="rank" />
         <result column="status" property="status" />
         <result column="type" property="type" />
         <result column="diag" property="diag" />
         <result column="result" property="result" />
         <result column="schedule_id" property="scheduleId" />
-        <result column="is_deleted" property="isDeleted" />
+        <result column="is_deleted" property="deleted" />
     </resultMap>
 
 </mapper>

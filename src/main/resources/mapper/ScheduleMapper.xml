@@ -11,8 +11,15 @@
         <result column="end_time" property="endTime" />
         <result column="user_id" property="userId" />
         <result column="area_id" property="areaId" />
-        <result column="is_occupied" property="isOccupied" />
-        <result column="is_deleted" property="isDeleted" />
+        <result column="is_occupied" property="occupied" />
+        <result column="is_deleted" property="deleted" />
     </resultMap>
+
+<!--    <insert id="insertSchedules">-->
+<!--        insert into `schedule` (`week`, date, begin_time, end_time, user_id, area_id, is_occupied, is_deleted) values-->
+<!--        <foreach collection="schedules" item="schedule" separator=",">-->
+<!--            (#{schedule.week}, #{schedule.date}, #{schedule.beginTime}, #{schedule.endTime}, #{schedule.userId}, #{schedule.areaId}, #{schedule.occupied}, #{schedule.deleted})-->
+<!--        </foreach>-->
+<!--    </insert>-->
 
 </mapper>

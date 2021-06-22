@@ -8,13 +8,13 @@
         <result column="consult_id" property="consultId" />
         <result column="stu_id" property="stuId" />
         <result column="assistant_id" property="assistantId" />
-        <result column="is_checked" property="isChecked" />
+        <result column="is_checked" property="checked" />
         <result column="times" property="times" />
         <result column="status" property="status" />
         <result column="result" property="result" />
         <result column="evaluate" property="evaluate" />
         <result column="schedule_id" property="scheduleId" />
-        <result column="is_deleted" property="isDeleted" />
+        <result column="is_deleted" property="deleted" />
     </resultMap>
 
 </mapper>

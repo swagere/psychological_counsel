@@ -12,7 +12,7 @@
         <result column="grade" property="grade" />
         <result column="urgency" property="urgency" />
         <result column="description" property="description" />
-        <result column="is_deleted" property="isDeleted" />
+        <result column="is_deleted" property="deleted" />
     </resultMap>
 
 </mapper>
