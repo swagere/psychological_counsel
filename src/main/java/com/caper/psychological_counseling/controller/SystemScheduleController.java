@@ -90,6 +90,15 @@ public class SystemScheduleController {
                     ,"此处只能添加不能修改");
         }
 
+        //判断是否已存在
+        QueryWrapper<CommonSchedule> wrapper = new QueryWrapper<>();
+        wrapper.eq("week", commonSchedule.getWeek()).eq("user_id", commonSchedule.getUserId()).eq("area_id", commonSchedule.getAreaId()).eq("time_interval", commonSchedule.getTimeInterval());
+        CommonSchedule commonSchedule2 = commonScheduleService.getOne(wrapper);
+        if (commonSchedule2 != null) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"不能重复添加");
+        }
+
         //区域 时间和老师的配置
         //在指定的时间内，配置老师和区域
         commonScheduleService.saveCommonSchedule(commonSchedule);
@@ -151,4 +160,14 @@ public class SystemScheduleController {
 
         return AjaxResponse.success();
     }
+
+    /**
+     * 删除实际记录
+     */
+
+    /**
+     * 新增实际记录
+     *
+     * 注意判断是否已经存在（不能重复添加）
+     */
 }
