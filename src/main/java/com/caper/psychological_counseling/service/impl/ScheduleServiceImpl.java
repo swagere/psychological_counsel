@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.service.impl;
 
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.mapper.ScheduleMapper;
+import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 //import com.github.pagehelper.PageHelper;
@@ -20,14 +21,11 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     @Resource
     ScheduleMapper scheduleMapper;
 
+
     //查询
     @Override
-    public Schedule getSchedule(){
-        Schedule schedule = new Schedule();
-        //PageHelper.startPage(1,10);
-
-
-
-        return schedule;
+    public ScheduleDTO getSchedule(Long area_id,String type){
+        ScheduleDTO scheduleDTO = scheduleMapper.find_schedule(area_id, type);
+        return scheduleDTO;
     }
 }

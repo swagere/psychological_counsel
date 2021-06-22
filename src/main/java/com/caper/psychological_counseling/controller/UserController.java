@@ -3,8 +3,10 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.SysUser;
+import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.model.dto.UserDTO;
 import com.caper.psychological_counseling.service.ApplicationService;
+import com.caper.psychological_counseling.service.ScheduleService;
 import com.caper.psychological_counseling.service.SysUserService;
 import com.caper.psychological_counseling.service.impl.ApplicationServiceImpl;
 import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
@@ -29,6 +31,9 @@ public class UserController {
 
     @Autowired
     private ApplicationService applicationService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
 
     //获取用户信息，根据当前ID获取
@@ -93,6 +98,15 @@ public class UserController {
 
 
     //*显示分数、显示所有初访员及其排班时间，用户选初访员时间
+    //提供校区、类型，然后查询出对应的初访员的排班表。
+    @PutMapping("/get_schedule")
+    public AjaxResponse get_schedule(@RequestParam("area_id")Long id,
+                                     @RequestParam("type")String type){
+
+        ScheduleDTO scheduleDTO = scheduleService.getSchedule(id, type);
+        return  AjaxResponse.success(scheduleDTO);
+    }
+
 
 
 
