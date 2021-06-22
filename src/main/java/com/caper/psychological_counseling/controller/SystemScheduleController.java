@@ -112,12 +112,18 @@ public class SystemScheduleController {
         //获得参数
         String begin_time = scheduleDTO.getBegin_time();
         String end_time = scheduleDTO.getEnd_time();
+        Long org_id = scheduleDTO.getOrg_id();
+        Long role_id = scheduleDTO.getRole_id();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+        //获得教室id
+        List<Long> area_ids = areaService.getAreaIdsByOrgId(org_id);
+        List<Long> user_ids = sysUserService.getUserIdsByRoleIdAndAreaId(role_id);
+
         //创建指定日期的实际排班表
         try {
-            scheduleService.generateTwoWeekSchedule(sdf.parse(begin_time), sdf.parse(end_time));
+            scheduleService.generateWeekSchedule(sdf.parse(begin_time), sdf.parse(end_time), area_ids, user_ids);
         }catch (ParseException e) {
             return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
                     ,"传入时间格式有误"));

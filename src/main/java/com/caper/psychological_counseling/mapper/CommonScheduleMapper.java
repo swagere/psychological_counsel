@@ -6,6 +6,7 @@ import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

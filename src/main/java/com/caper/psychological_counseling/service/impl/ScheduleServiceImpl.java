@@ -8,6 +8,8 @@ import com.caper.psychological_counseling.mapper.CommonScheduleMapper;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.mapper.ScheduleMapper;
+import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
+import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.CommonScheduleService;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -31,6 +33,9 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     @Resource
     private CommonScheduleMapper commonScheduleMapper;
 
+    @Autowired
+    private CommonScheduleService commonScheduleService;
+
     //查询
     @Override
     public Schedule getSchedule(){
@@ -43,10 +48,10 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     }
 
     /**
-     * 生成四周的实际排班表
+     * 生成实际排班表
      */
     @Override
-    public void generateTwoWeekSchedule(Date begin_time, Date end_time) {
+    public void generateWeekSchedule(Date begin_time, Date end_time, List<Long> area_ids, List<Long> user_ids) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(begin_time); //设置起始日期
         int week = calendar.get(Calendar.DAY_OF_WEEK) - 1; //起始日期的星期
@@ -68,10 +73,11 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
             //获取年月日 创建date
             Date date = calendar.getTime();
 
-            //查出week为关键词的common schedule 并创建于schedule
-            QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("week", (week + i)% 7);
-            List<CommonSchedule> commonSchedules = commonScheduleMapper.selectList(queryWrapper);
+            //查出week area_ids为关键词的common schedule 并创建于schedule
+            UserIdAndAreaIds ids = new UserIdAndAreaIds();
+            ids.setArea_ids(area_ids);
+            ids.setUser_ids(user_ids);
+            List<CommonScheduleVO> commonSchedules = commonScheduleService.getByUserIdsAndAreaIds(ids);
 
             String[] begin_times = {"8:00", "9:00","10:00", "11:00", "3:00", "4:00", "5:00"};
             String[] end_times = {"9:00", "10:00","11:00", "12:00", "4:00", "5:00", "6:00"};

@@ -8,4 +8,6 @@ import java.util.Date;
 public class WeekScheduleDTO {
     private String begin_time;
     private String end_time;
+    private Long org_id;
+    private Long role_id;
 }
