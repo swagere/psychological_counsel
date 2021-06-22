@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    @Select("SELECT username,telephone,email,gender\n" +
+    @Select("SELECT name,telephone,email,gender,description,grade\n" +
             "FROM sys_user u\n" +
             "WHERE u.id = #{userId}")
-    String findByUserId(@Param("userId") Long id);
+    UserDTO findByUserId(@Param("userId") Long id);
 
     @Update("UPDATE sys_user SET telephone = #{telephone},email = #{email},gender = #{gender},description = #{description} WHERE id = #{id}")
     void update_name_phone(@Param("id")Long id,

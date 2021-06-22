@@ -10,7 +10,7 @@ import java.util.List;
 public interface SysUserService extends IService<SysUser> {
 
     //查询
-    String getSysUser(Long id);
+    UserDTO getSysUser(Long id);
 
     //更新
     void updateSysUser(Long id,Long telephone,String email,Integer gender,String description);

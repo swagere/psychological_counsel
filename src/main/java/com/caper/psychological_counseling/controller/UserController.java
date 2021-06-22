@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.SysUser;
+import com.caper.psychological_counseling.model.dto.ApplicationDTO;
 import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.model.dto.UserDTO;
 import com.caper.psychological_counseling.service.ApplicationService;
@@ -41,10 +42,10 @@ public class UserController {
     @RequestMapping(value = "/user/get_user/{id}", method =  RequestMethod.GET)
     public AjaxResponse getUser(@PathVariable("id")Long id){
         //System.out.println(id);
-        String name = sysUserService.getSysUser(id);
-        System.out.println(name);
+        UserDTO userDTO = sysUserService.getSysUser(id);
+        System.out.println(userDTO);
 
-        return AjaxResponse.success(name);
+        return AjaxResponse.success(userDTO);
 
     }
 
@@ -94,10 +95,21 @@ public class UserController {
         return AjaxResponse.success();
     }
 
+    //查看自己的初访申请表
+
+    @GetMapping("/user/application/{id}")
+    public AjaxResponse get_application(@PathVariable("id")Long id){
+        ApplicationDTO applicationDTO = applicationService.get_application(id);
+
+
+        return AjaxResponse.success(applicationDTO);
+    }
+
+
     //撤销初访申请（删除）暂时不写
 
 
-    //*显示分数、显示所有初访员及其排班时间，用户选初访员时间
+    //*显示分数、*根据等级来插队，显示所有初访员及其排班时间，用户选初访员时间
     //提供校区、类型，然后查询出对应的初访员的排班表。
     @PutMapping("/get_schedule")
     public AjaxResponse get_schedule(@RequestParam("area_id")Long id,
@@ -107,6 +119,16 @@ public class UserController {
         return  AjaxResponse.success(scheduleDTO);
     }
 
+    //选择初访员，同时建立初访记录表
+
+
+    //查看自己的初访记录表
+
+
+    //推荐咨询师，选择咨询师
+    //创建咨询表
+
+    //
 
 
 

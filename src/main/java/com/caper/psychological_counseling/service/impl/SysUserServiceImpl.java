@@ -29,8 +29,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     //查询
     @Override
-    public String getSysUser(Long id){
-        System.out.println(id);
+    public UserDTO getSysUser(Long id){
+
         return sysUserMapper.findByUserId(id);
     }
 
