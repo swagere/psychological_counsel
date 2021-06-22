@@ -13,6 +13,7 @@ import com.caper.psychological_counseling.model.dto.WeekScheduleDTO;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -97,11 +98,29 @@ public class SystemScheduleController {
     }
 
     /**
+     * 删除一条common排班表项
+     * @return
+     */
+    @RequestMapping(value = "/commonSchedules/{id}", method = RequestMethod.DELETE)
+    public AjaxResponse deleteWeekSchedules(@PathVariable("id") Long id) {
+        if (id == null) {
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR, "id不能为空"));
+        }
+
+        boolean flag = commonScheduleService.removeById(id);
+        if (flag == false) {
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR, "此排班记录不存在或已删除"));
+        }
+
+        return AjaxResponse.success();
+    }
+
+
+    /**
      * 新增
      * 定时调用
      * 用于生成以周为单位的实际排班表
      *
-     * 生成下四周的排班表
      * @return
      */
     @RequestMapping(value = "/weekSchedules", method = RequestMethod.POST)
