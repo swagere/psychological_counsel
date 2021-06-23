@@ -162,8 +162,21 @@ public class SystemScheduleController {
     }
 
     /**
-     * 删除实际记录
+     * 删除一条实际记录
      */
+    @RequestMapping("/singleSchedules/{id}")
+    public AjaxResponse deleteSchedule(@PathVariable("id") Long id) {
+        if (id == null) {
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR, "id不能为空"));
+        }
+
+        boolean flag = scheduleService.removeById(id);
+        if (flag == false) {
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR, "此实际排班记录不存在或已删除"));
+        }
+
+        return AjaxResponse.success();
+    }
 
     /**
      * 新增实际记录
