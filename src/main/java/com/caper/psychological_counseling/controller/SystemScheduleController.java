@@ -223,7 +223,7 @@ public class SystemScheduleController {
     }
 
     /**
-     * 查询区域
+     * 查询地址
      *
      * 输入校区
      */
@@ -231,5 +231,51 @@ public class SystemScheduleController {
     public AjaxResponse selectAreaByOrgId(@PathVariable("org_id") Long org_id) {
         List<AreaVO> res = areaService.getAreaVOByOrgId(org_id);
         return AjaxResponse.success(res);
+    }
+
+    /**
+     * 新增地址
+     */
+    @RequestMapping(value = "/area", method = RequestMethod.POST)
+    public AjaxResponse addArea(@RequestBody Area area) {
+        //检查是否有相同地址
+        QueryWrapper<Area> wrapper = new QueryWrapper<>();
+        wrapper.eq("org_id", area.getOrgId()).eq("area_name", area.getAreaName()).eq("status", 0);
+        if (!areaService.list(wrapper).isEmpty()) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"不能重复添加");
+        }
+
+        //新增地址
+        area.setStatus(0);
+        areaService.saveArea(area);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 删除地址
+     */
+    @RequestMapping(value = "/area/{area_id}", method = RequestMethod.DELETE)
+    public AjaxResponse deleteArea(@PathVariable("area_id") Long area_id) {
+        //判断是否正在被使用
+        //commonSchedule
+        QueryWrapper<CommonSchedule> wrapper = new QueryWrapper<>();
+        wrapper.eq("area_id", area_id);
+        if (!commonScheduleService.list(wrapper).isEmpty()) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"该教室正在被使用，不能直接删除");
+        }
+
+        //schedule
+        java.util.Date date = new java.util.Date();
+        System.out.println(scheduleService.selectByAreaIdAndDate(area_id, date));
+        if (!scheduleService.selectByAreaIdAndDate(area_id, date).isEmpty()) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"该教室正在被使用，不能直接删除");
+        }
+
+        //删除教室
+        areaService.removeById(area_id);
+        return AjaxResponse.success();
     }
 }

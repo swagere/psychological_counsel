@@ -92,7 +92,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
                         schedule.setWeek(commonSchedule.getWeek());
                         schedule.setDate(new java.sql.Date(date.getTime()));
                         schedule.setUserId(commonSchedule.getUserId());
-                        schedule.setAreaId(commonSchedule.getUserId());
+                        schedule.setAreaId(commonSchedule.getAreaId());
                         schedule.setOccupied(0);
                         schedule.setBeginTime(begin_times[j]);
                         schedule.setEndTime(end_times[j]);
@@ -106,7 +106,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
                         schedule.setWeek(commonSchedule.getWeek());
                         schedule.setDate(new java.sql.Date(date.getTime()));
                         schedule.setUserId(commonSchedule.getUserId());
-                        schedule.setAreaId(commonSchedule.getUserId());
+                        schedule.setAreaId(commonSchedule.getAreaId());
                         schedule.setOccupied(0);
                         schedule.setBeginTime(begin_times[j]);
                         schedule.setEndTime(end_times[j]);
@@ -144,4 +144,10 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
 
         scheduleMapper.insert(schedule);
     }
+
+    @Override
+    public List<Long> selectByAreaIdAndDate(Long area_id, Date date) {
+        return scheduleMapper.selectByAreaIdAndDate(area_id, date);
+    }
+
 }

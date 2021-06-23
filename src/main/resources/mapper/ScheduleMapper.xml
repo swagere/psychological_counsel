@@ -15,6 +15,7 @@
         <result column="is_deleted" property="deleted" />
     </resultMap>
 
+
 <!--    <insert id="insertSchedules">-->
 <!--        insert into `schedule` (`week`, date, begin_time, end_time, user_id, area_id, is_occupied, is_deleted) values-->
 <!--        <foreach collection="schedules" item="schedule" separator=",">-->
@@ -27,4 +28,9 @@
 <!--            (#{singleScheduleDTO.week}, #{singleScheduleDTO.date}, #{singleScheduleDTO.beginTime}, #{singleScheduleDTO.endTime}, #{singleScheduleDTO.userId}, #{singleScheduleDTO.areaId}, 0, 0)-->
 <!--    </insert>-->
 
+    <select id="selectByAreaIdAndDate" resultType="java.lang.Long">
+        select id from schedule
+        where area_id = #{area_id}
+        and date >= #{date}
+    </select>
 </mapper>

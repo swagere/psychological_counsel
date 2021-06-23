@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.common.config.auth.jwt;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
+import com.caper.psychological_counseling.service.SysUserService;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 @RestController
@@ -19,6 +22,9 @@ public class JwtAuthController {
 
     @Resource
     JwtAuthService jwtAuthService;
+
+    @Resource
+    SysUserService sysUserService;
 
     /**
      * 登陆认证：学号登陆
@@ -37,7 +43,10 @@ public class JwtAuthController {
                     "用户名或者密码不能为空"));
         }
         try {
-            return AjaxResponse.success(jwtAuthService.login(username, password));
+            HashMap res = new HashMap();
+            res.put("token", jwtAuthService.login(username, password));
+            res.put("id", sysUserService.getUserIdByUserName(username));
+            return AjaxResponse.success(res);
         }catch (CustomException e){
             return AjaxResponse.error(e);
         }

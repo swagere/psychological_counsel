@@ -20,4 +20,6 @@ public interface ScheduleService extends IService<Schedule> {
     long getDateGap(Date begin_time, Date end_time);
 
     void saveSchedule(Schedule schedule);
+
+    List<Long> selectByAreaIdAndDate(Long area_id, Date date);
 }

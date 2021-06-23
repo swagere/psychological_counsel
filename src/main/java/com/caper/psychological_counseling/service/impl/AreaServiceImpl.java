@@ -26,4 +26,9 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements Ar
     public List<AreaVO> getAreaVOByOrgId(Long org_id) {
         return areaMapper.selectAreaVOByOrgId(org_id);
     }
+
+    @Override
+    public void saveArea(Area area) {
+        areaMapper.insert(area);
+    }
 }

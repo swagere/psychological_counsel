@@ -29,4 +29,6 @@ public interface ScheduleMapper extends BaseMapper<Schedule> {
     @Override
     @Options(useGeneratedKeys = true,keyProperty = "id")
     int insert(Schedule entity);
+
+    List<Long> selectByAreaIdAndDate(@Param("area_id") Long area_id, @Param("date") Date date);
 }
