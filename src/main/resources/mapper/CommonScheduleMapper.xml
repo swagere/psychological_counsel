@@ -40,4 +40,21 @@
         and b.`status` = 0
         and c.enabled = 1
     </select>
+
+    <select id="selectByUserIdsAndAreaIdAndWeek" resultMap="BaseResultMap">
+        select a.id, a.`week`, a.user_id, a.area_id, a.time_interval from common_schedule a
+        left join area b on a.area_id = b.id
+        left join sys_user c on a.user_id = c.id
+        where user_id in
+        <foreach collection="ids.user_ids" item="user_id" index="index" open="(" close=")" separator=",">
+            #{user_id}
+        </foreach>
+        and area_id in
+        <foreach collection="ids.area_ids" item="area_id" index="index" open="(" close=")" separator=",">
+            #{area_id}
+        </foreach>
+        and b.`status` = 0
+        and c.enabled = 1
+        and a.`week` = #{ids.week}
+    </select>
 </mapper>

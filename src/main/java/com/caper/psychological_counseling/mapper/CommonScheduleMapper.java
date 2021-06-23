@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
+import com.caper.psychological_counseling.model.dto.UserIdAndAreaIdAndWeek;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import org.apache.ibatis.annotations.Options;
@@ -18,4 +19,6 @@ public interface CommonScheduleMapper extends BaseMapper<CommonSchedule> {
     int insert(CommonSchedule entity);
 
     List<CommonScheduleVO> selectByUserIdsAndAreaIds(@Param("ids")UserIdAndAreaIds ids);
+
+    List<CommonScheduleVO> selectByUserIdsAndAreaIdAndWeek(@Param("ids") UserIdAndAreaIdAndWeek ids);
 }

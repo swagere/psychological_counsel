@@ -22,4 +22,9 @@
 <!--        </foreach>-->
 <!--    </insert>-->
 
+<!--    <insert id="save" parameterType="com.caper.psychological_counseling.model.dto.SingleScheduleDTO" useGeneratedKeys="true" keyProperty="id">-->
+<!--        insert into `schedule` (`week`, date, begin_time, end_time, user_id, area_id, is_occupied, is_deleted) values-->
+<!--            (#{singleScheduleDTO.week}, #{singleScheduleDTO.date}, #{singleScheduleDTO.beginTime}, #{singleScheduleDTO.endTime}, #{singleScheduleDTO.userId}, #{singleScheduleDTO.areaId}, 0, 0)-->
+<!--    </insert>-->
+
 </mapper>

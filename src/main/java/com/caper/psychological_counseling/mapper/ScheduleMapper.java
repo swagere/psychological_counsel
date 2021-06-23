@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.mapper;
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.dto.ScheduleDTO;
+import com.caper.psychological_counseling.model.dto.SingleScheduleDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Options;

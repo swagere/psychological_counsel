@@ -8,6 +8,8 @@ import com.caper.psychological_counseling.model.domain.Area;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.model.domain.Organization;
 import com.caper.psychological_counseling.model.domain.Schedule;
+import com.caper.psychological_counseling.model.dto.ScheduleDTO;
+import com.caper.psychological_counseling.model.dto.SingleScheduleDTO;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.dto.WeekScheduleDTO;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
@@ -17,11 +19,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -164,7 +166,7 @@ public class SystemScheduleController {
     /**
      * 删除一条实际记录
      */
-    @RequestMapping("/singleSchedules/{id}")
+    @RequestMapping(value = "/singleSchedules/{id}", method = RequestMethod.DELETE)
     public AjaxResponse deleteSchedule(@PathVariable("id") Long id) {
         if (id == null) {
             return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR, "id不能为空"));
@@ -183,4 +185,39 @@ public class SystemScheduleController {
      *
      * 注意判断是否已经存在（不能重复添加）
      */
+    @RequestMapping(value = "/singleSchedules", method = RequestMethod.POST)
+    public AjaxResponse addSchedule(@RequestBody SingleScheduleDTO singleScheduleDTO) {
+        //判断是否已存在
+        QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
+        wrapper.eq("week", singleScheduleDTO.getWeek()).eq("date", singleScheduleDTO.getDate()).eq("user_id", singleScheduleDTO.getUserId()).eq("area_id", singleScheduleDTO.getAreaId()).eq("begin_time", singleScheduleDTO.getBeginTime()).eq("end_time", singleScheduleDTO.getEndTime()).eq("is_deleted", 0);
+        Schedule schedule2 = scheduleService.getOne(wrapper);
+        if (schedule2 != null) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"不能重复添加");
+        }
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(sdf.parse(singleScheduleDTO.getDate()).getTime());
+
+            Schedule schedule = new Schedule();
+            schedule.setWeek(singleScheduleDTO.getWeek());
+            schedule.setDate(date);
+            schedule.setBeginTime(singleScheduleDTO.getBeginTime());
+            schedule.setEndTime(singleScheduleDTO.getEndTime());
+            schedule.setAreaId(singleScheduleDTO.getAreaId());
+            schedule.setUserId(singleScheduleDTO.getUserId());
+            schedule.setDeleted(0);
+            schedule.setOccupied(0);
+
+            //区域 时间和老师的配置
+            //在指定的时间内，配置老师和区域
+            scheduleService.saveSchedule(schedule);
+        }catch (ParseException e) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"日期格式有误");
+        }
+
+        return AjaxResponse.success();
+    }
 }
