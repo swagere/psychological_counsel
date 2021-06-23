@@ -16,6 +16,7 @@
         <result column="result" property="result" />
         <result column="schedule_id" property="scheduleId" />
         <result column="is_deleted" property="deleted" />
+        <result column="is_conflict" property="conflict" />
     </resultMap>
 
 </mapper>
