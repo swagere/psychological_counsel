@@ -9,6 +9,10 @@ import java.util.List;
 
 public interface ConsultService extends IService<Consult> {
 
+    //查询符合条件的咨询师
     List<ScheduleVO> find_consults(Long area_id, String type);
+
+    //创建咨询表
+    void build_consult (Consult consult);
 
 }

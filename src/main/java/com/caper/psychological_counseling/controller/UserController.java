@@ -2,6 +2,8 @@ package com.caper.psychological_counseling.controller;
 
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
+import com.caper.psychological_counseling.model.domain.Consult;
+import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.caper.psychological_counseling.model.vo.ApplicationVO;
 import com.caper.psychological_counseling.model.dto.UserDTO;
@@ -9,6 +11,8 @@ import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * author: meidou
@@ -31,6 +35,9 @@ public class UserController {
 
     @Autowired
     private ConsultService consultService;
+
+    @Autowired
+    private ConsultRecordService consultRecordService;
 
 
     //获取用户信息，根据当前ID获取
@@ -92,14 +99,14 @@ public class UserController {
     }
 
 
-    //查看自己的初访申请表
+    //查看自己的初访申请表,根据用户id获取
 
     @GetMapping("/user/application/{id}")
     public AjaxResponse get_application(@PathVariable("id")Long id){
-        ApplicationVO applicationVO = applicationService.get_application(id);
+        List<ApplicationVO> applications = applicationService.get_application(id);
 
 
-        return AjaxResponse.success(applicationVO);
+        return AjaxResponse.success(applications);
     }
 
 
@@ -129,15 +136,15 @@ public class UserController {
     //查看自己的初访记录表
     @GetMapping("/user/getVisitRecord/{id}")
     public  AjaxResponse get_VisitRecord(@PathVariable("id")Long id){
-        VisitRecord visitRecord = visitRecordService.selectByID(id);
+        List<VisitRecord> visitRecords = visitRecordService.selectByID(id);
 
-        System.out.println(visitRecord);
-        return AjaxResponse.success(visitRecordService.selectByID(id));
+        //System.out.println(visitRecord);
+        return AjaxResponse.success(visitRecords);
     }
 
 
     //推荐咨询师，选择咨询师
-    //创建咨询表
+
     @PostMapping("/user/SelectConsultant")
     public AjaxResponse selected_consultant(@RequestParam("area_id")Long id,
                                            @RequestParam("type")String type)
@@ -145,8 +152,28 @@ public class UserController {
         return AjaxResponse.success(consultService.find_consults(id, type));
     }
 
+    //创建咨询表、8次咨询记录表
 
-    //
+    @PostMapping("/user/buildConsult")
+    public AjaxResponse build_consult(Consult consult){
+
+        consultService.build_consult(consult);
+
+        for(int i = 0;i < 8;i++){
+
+            //创建8次咨询记录表
+            ConsultRecord consultRecord = new ConsultRecord();
+            consultRecordService.build_consultRecord(consultRecord);
+        }
+
+
+
+        return AjaxResponse.success();
+    }
+
+
+
+
 
 
 

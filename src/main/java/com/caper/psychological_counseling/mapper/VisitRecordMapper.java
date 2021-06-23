@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
 
@@ -19,7 +21,7 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
     @Select("SELECT *\n" +
             "FROM visit_record\n" +
             "WHERE id = #{id}")
-    VisitRecord selectByID (@Param("id")Long id);
+    List<VisitRecord> selectByID (@Param("id")Long id);
 
 
 

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, VisitRecord> implements VisitRecordService {
@@ -22,7 +23,7 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
-    public VisitRecord selectByID(Long id){
+    public List<VisitRecord> selectByID(Long id){
 
         return visitRecordMapper.selectByID(id);
     }

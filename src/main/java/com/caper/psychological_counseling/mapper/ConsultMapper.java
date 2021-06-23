@@ -1,9 +1,11 @@
 package com.caper.psychological_counseling.mapper;
 
+import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.Consult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -23,6 +25,10 @@ public interface ConsultMapper extends BaseMapper<Consult> {
     List<ScheduleVO> find_consults(@Param("area_id")Long area_id,
                                 @Param("type")String type,
                                 @Param("date") Date date);
+
+    @Override
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    int insert(Consult consult);
 
 
 }

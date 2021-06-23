@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ApplicationMapper extends BaseMapper<Application> {
 
@@ -18,6 +20,6 @@ public interface ApplicationMapper extends BaseMapper<Application> {
     @Select("SELECT a.rank,a.type,a.answer,a.grade,a.urgency,a.description\n" +
             "FROM application a\n" +
             "WHERE a.stu_id = #{user_id}")
-    ApplicationVO get_application(@Param("user_id") Long user_id);
+    List<ApplicationVO> get_application(@Param("user_id") Long user_id);
 
 }

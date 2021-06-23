@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * author: meidou
@@ -33,7 +34,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Appli
 
     //查询自己的初访申请表
     @Override
-    public ApplicationVO get_application(Long user_id){
+    public List<ApplicationVO> get_application(Long user_id){
 
         return applicationMapper.get_application(user_id);
 
