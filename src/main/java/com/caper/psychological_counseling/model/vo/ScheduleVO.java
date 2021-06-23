@@ -1,11 +1,13 @@
-package com.caper.psychological_counseling.model.dto;
+package com.caper.psychological_counseling.model.vo;
 
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class ScheduleDTO {
+public class ScheduleVO {
+
+    private Long id;
 
     private String name;
 

@@ -1,7 +1,5 @@
 package com.caper.psychological_counseling.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
 import com.caper.psychological_counseling.mapper.CommonScheduleMapper;
@@ -11,14 +9,13 @@ import com.caper.psychological_counseling.mapper.ScheduleMapper;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.CommonScheduleService;
-import com.caper.psychological_counseling.model.dto.ScheduleDTO;
+import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -39,11 +36,11 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
 
     //查询
     @Override
-    public List<ScheduleDTO> getSchedule(Long area_id,String type){
+    public List<ScheduleVO> getSchedule(Long area_id, String type){
         Date date = new Date(new java.util.Date().getTime());
 
-        List<ScheduleDTO> scheduleDTO= scheduleMapper.find_schedule(area_id, type,date);
-        return scheduleDTO;
+        List<ScheduleVO> scheduleVO = scheduleMapper.find_schedule(area_id, type,date);
+        return scheduleVO;
     }
 
     /**

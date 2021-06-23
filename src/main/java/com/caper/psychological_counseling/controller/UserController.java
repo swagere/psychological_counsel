@@ -2,27 +2,13 @@ package com.caper.psychological_counseling.controller;
 
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
-import com.caper.psychological_counseling.model.domain.SysUser;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
-import com.caper.psychological_counseling.model.dto.ApplicationDTO;
-import com.caper.psychological_counseling.model.dto.ScheduleDTO;
+import com.caper.psychological_counseling.model.vo.ApplicationVO;
 import com.caper.psychological_counseling.model.dto.UserDTO;
-import com.caper.psychological_counseling.service.ApplicationService;
-import com.caper.psychological_counseling.service.ScheduleService;
-import com.caper.psychological_counseling.service.SysUserService;
-import com.caper.psychological_counseling.service.VisitRecordService;
-import com.caper.psychological_counseling.service.impl.ApplicationServiceImpl;
-import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
-import io.swagger.annotations.ApiImplicitParam;
+import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 /**
  * author: meidou
@@ -42,6 +28,9 @@ public class UserController {
 
     @Autowired
     private VisitRecordService visitRecordService;
+
+    @Autowired
+    private ConsultService consultService;
 
 
     //获取用户信息，根据当前ID获取
@@ -107,10 +96,10 @@ public class UserController {
 
     @GetMapping("/user/application/{id}")
     public AjaxResponse get_application(@PathVariable("id")Long id){
-        ApplicationDTO applicationDTO = applicationService.get_application(id);
+        ApplicationVO applicationVO = applicationService.get_application(id);
 
 
-        return AjaxResponse.success(applicationDTO);
+        return AjaxResponse.success(applicationVO);
     }
 
 
@@ -149,6 +138,13 @@ public class UserController {
 
     //推荐咨询师，选择咨询师
     //创建咨询表
+    @PostMapping("/user/SelectConsultant")
+    public AjaxResponse selected_consultant(@RequestParam("area_id")Long id,
+                                           @RequestParam("type")String type)
+    {
+        return AjaxResponse.success(consultService.find_consults(id, type));
+    }
+
 
     //
 

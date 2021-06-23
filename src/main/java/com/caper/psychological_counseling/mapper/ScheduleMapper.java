@@ -2,11 +2,10 @@ package com.caper.psychological_counseling.mapper;
 
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.caper.psychological_counseling.model.dto.ScheduleDTO;
+import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -20,10 +19,11 @@ public interface ScheduleMapper extends BaseMapper<Schedule> {
             "FROM sys_user u \n" +
             "INNER JOIN schedule c ON(u.id = c.user_id)\n" +
             "INNER JOIN area a ON(c.area_id = a.id)\n" +
-            "WHERE u.type like '%${type}%' and a.org_id = #{area_id} and date >= #{date}")
-    List<ScheduleDTO> find_schedule(@Param("area_id")Long area_id,
-                                    @Param("type")String type,
-                                    @Param("date")Date date);
+            "WHERE u.type like '%${type}%' and a.org_id = #{area_id} and date >= #{date}\n"+
+            "and u.id in (SELECT user_id FROM sys_user_role WHERE role_id = 4)")
+    List<ScheduleVO> find_schedule(@Param("area_id")Long area_id,
+                                   @Param("type")String type,
+                                   @Param("date")Date date);
 
     @Override
     @Options(useGeneratedKeys = true,keyProperty = "id")
