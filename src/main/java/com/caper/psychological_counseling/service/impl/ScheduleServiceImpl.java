@@ -11,6 +11,7 @@ import com.caper.psychological_counseling.mapper.ScheduleMapper;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.CommonScheduleService;
+import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 //import com.github.pagehelper.PageHelper;
@@ -22,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -36,15 +39,14 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     @Autowired
     private CommonScheduleService commonScheduleService;
 
+
     //查询
     @Override
-    public Schedule getSchedule(){
-        Schedule schedule = new Schedule();
-        //PageHelper.startPage(1,10);
+    public List<ScheduleDTO> getSchedule(Long area_id,String type){
+        Date date = new Date(new java.util.Date().getTime());
 
-
-
-        return schedule;
+        List<ScheduleDTO> scheduleDTO= scheduleMapper.find_schedule(area_id, type,date);
+        return scheduleDTO;
     }
 
     /**

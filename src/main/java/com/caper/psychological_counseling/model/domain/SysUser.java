@@ -38,6 +38,8 @@ public class SysUser extends Model<SysUser> {
 
     private Long orgId;
 
+    private String type;
+
     private Integer enabled;
 
 
