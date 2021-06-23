@@ -45,7 +45,7 @@ public class UserController {
 
     //获取用户信息，根据当前ID获取
 
-    @RequestMapping(value = "/user/get_user/{id}", method =  RequestMethod.GET)
+    @RequestMapping(value = "/user/getUser/{id}", method =  RequestMethod.GET)
     public AjaxResponse getUser(@PathVariable("id")Long id){
         //System.out.println(id);
         UserDTO userDTO = sysUserService.getSysUser(id);
@@ -118,7 +118,7 @@ public class UserController {
 
     //*显示分数、*根据等级来插队，显示所有初访员及其排班时间，用户选初访员时间
     //提供校区、类型，然后查询出对应的初访员的排班表。
-    @PutMapping("/get_schedule")
+    @PutMapping("/getSchedule")
     public AjaxResponse get_schedule(@RequestParam("area_id")Long id,
                                      @RequestParam("type")String type){
 

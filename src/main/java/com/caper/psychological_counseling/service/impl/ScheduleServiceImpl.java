@@ -14,7 +14,6 @@ import com.caper.psychological_counseling.service.CommonScheduleService;
 import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-//import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.sql.Date;
-import java.util.Calendar;
 import java.util.List;
 
 @Service
