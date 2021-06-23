@@ -8,7 +8,7 @@
         <result column="org_id" property="orgId" />
         <result column="org_ids" property="orgIds" />
         <result column="org_name" property="orgName" />
-        <result column="is_leaf" property="isLeaf" />
+        <result column="is_leaf" property="leaf" />
         <result column="address" property="address" />
         <result column="telephone" property="telephone" />
         <result column="email" property="email" />

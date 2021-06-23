@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+
 
 @Repository
 public interface ScheduleMapper extends BaseMapper<Schedule> {
@@ -22,4 +25,7 @@ public interface ScheduleMapper extends BaseMapper<Schedule> {
                                     @Param("type")String type,
                                     @Param("date")Date date);
 
+    @Override
+    @Options(useGeneratedKeys = true,keyProperty = "id")
+    int insert(Schedule entity);
 }

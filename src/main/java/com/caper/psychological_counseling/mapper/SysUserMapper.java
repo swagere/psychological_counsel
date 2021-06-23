@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Repository
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
@@ -24,6 +26,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
                            @Param("gender")Integer gender,
                            @Param("description")String description);
 
-
+    @Select("select user_id from sys_user_role where role_id = #{role_id}")
+    List<Long> selectUserIdsByRoleId(@Param("role_id") Long role_id);
 
 }

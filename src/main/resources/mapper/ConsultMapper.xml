@@ -10,7 +10,7 @@
         <result column="type" property="type" />
         <result column="result" property="result" />
         <result column="evaluate" property="evaluate" />
-        <result column="is_deleted" property="isDeleted" />
+        <result column="is_deleted" property="deleted" />
     </resultMap>
 
 </mapper>

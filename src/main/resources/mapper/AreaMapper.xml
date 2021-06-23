@@ -9,5 +9,4 @@
         <result column="area_name" property="areaName" />
         <result column="status" property="status" />
     </resultMap>
-
 </mapper>

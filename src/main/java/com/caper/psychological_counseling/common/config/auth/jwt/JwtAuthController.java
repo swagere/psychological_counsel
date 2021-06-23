@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @RestController
@@ -25,7 +27,7 @@ public class JwtAuthController {
      * @return
      */
     @RequestMapping(value = "/authentication")
-    public AjaxResponse login(@RequestBody Map<String,String> map){
+    public AjaxResponse login(@RequestBody Map<String,String> map, HttpServletResponse response){
         String username = map.get("username");
         String password = map.get("password");
 

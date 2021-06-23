@@ -11,4 +11,33 @@
         <result column="time_interval" property="timeInterval" />
     </resultMap>
 
+    <sql id="base_col">
+        id, week, user_id, area_id, time_interval
+    </sql>
+
+    <resultMap id="CommonScheduleVO" type="com.caper.psychological_counseling.model.vo.CommonScheduleVO">
+        <id column="id" property="id" />
+        <result column="week" property="week" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="user_name" />
+        <result column="area_id" property="areaId" />
+        <result column="area_name" property="areaName" />
+        <result column="time_interval" property="timeInterval" />
+    </resultMap>
+
+    <select id="selectByUserIdsAndAreaIds" resultMap="CommonScheduleVO">
+        select a.`week`, a.user_id, a.time_interval, a.id, a.area_id, b.area_name, c.name as user_name from common_schedule a
+        left join area b on a.area_id = b.id
+        left join sys_user c on a.user_id = c.id
+        where user_id in
+        <foreach collection="ids.user_ids" item="user_id" index="index" open="(" close=")" separator=",">
+            #{user_id}
+        </foreach>
+        and area_id in
+        <foreach collection="ids.area_ids" item="area_id" index="index" open="(" close=")" separator=",">
+            #{area_id}
+        </foreach>
+        and b.`status` = 0
+        and c.enabled = 1
+    </select>
 </mapper>

@@ -9,7 +9,7 @@
         <result column="url" property="url" />
         <result column="menu_pid" property="menuPid" />
         <result column="menu_pids" property="menuPids" />
-        <result column="is_leaf" property="isLeaf" />
+        <result column="is_leaf" property="leaf" />
         <result column="icon" property="icon" />
         <result column="sort" property="sort" />
         <result column="level" property="level" />
