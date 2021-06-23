@@ -20,4 +20,10 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
         visitRecordMapper.insert(visitRecord);
 
     }
+
+    @Override
+    public VisitRecord selectByID(Long id){
+
+        return visitRecordMapper.selectByID(id);
+    }
 }

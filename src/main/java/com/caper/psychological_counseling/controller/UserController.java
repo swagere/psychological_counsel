@@ -16,6 +16,7 @@ import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -137,6 +138,13 @@ public class UserController {
 
 
     //查看自己的初访记录表
+    @GetMapping("/user/getVisitRecord/{id}")
+    public  AjaxResponse get_VisitRecord(@PathVariable("id")Long id){
+        VisitRecord visitRecord = visitRecordService.selectByID(id);
+
+        System.out.println(visitRecord);
+        return AjaxResponse.success(visitRecordService.selectByID(id));
+    }
 
 
     //推荐咨询师，选择咨询师
