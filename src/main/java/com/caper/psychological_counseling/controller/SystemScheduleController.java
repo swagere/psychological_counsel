@@ -278,4 +278,21 @@ public class SystemScheduleController {
         areaService.removeById(area_id);
         return AjaxResponse.success();
     }
+
+    /**
+     * 更改地址
+     */
+    @RequestMapping(value = "/area", method = RequestMethod.PUT)
+    public AjaxResponse updateArea(@RequestBody Area area) {
+        if (area.getId() == null) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"请输入id信息");
+        }
+
+        if (areaService.updateArea(area)) {
+            return AjaxResponse.success();
+        }
+        return AjaxResponse.success("更新地址信息失败");
+    }
+
 }

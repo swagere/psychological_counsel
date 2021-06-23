@@ -14,4 +14,6 @@ public interface AreaService extends IService<Area> {
     List<AreaVO> getAreaVOByOrgId(Long org_id);
 
     void saveArea(Area area);
+
+    boolean updateArea(Area area);
 }

@@ -23,4 +23,6 @@ public interface AreaMapper extends BaseMapper<Area> {
     @Override
     @Options(useGeneratedKeys = true,keyProperty = "id")
     int insert(Area entity);
+
+    boolean updateArea(@Param("area") Area area);
 }

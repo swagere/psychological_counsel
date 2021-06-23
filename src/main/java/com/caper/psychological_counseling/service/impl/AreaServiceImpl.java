@@ -31,4 +31,9 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements Ar
     public void saveArea(Area area) {
         areaMapper.insert(area);
     }
+
+    @Override
+    public boolean updateArea(Area area) {
+        return areaMapper.updateArea(area);
+    }
 }
