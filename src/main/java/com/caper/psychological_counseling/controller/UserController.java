@@ -3,12 +3,14 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.SysUser;
+import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.caper.psychological_counseling.model.dto.ApplicationDTO;
 import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.model.dto.UserDTO;
 import com.caper.psychological_counseling.service.ApplicationService;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.caper.psychological_counseling.service.SysUserService;
+import com.caper.psychological_counseling.service.VisitRecordService;
 import com.caper.psychological_counseling.service.impl.ApplicationServiceImpl;
 import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
 import io.swagger.annotations.ApiImplicitParam;
@@ -17,6 +19,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -35,6 +38,9 @@ public class UserController {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    @Autowired
+    private VisitRecordService visitRecordService;
 
 
     //获取用户信息，根据当前ID获取
@@ -95,6 +101,7 @@ public class UserController {
         return AjaxResponse.success();
     }
 
+
     //查看自己的初访申请表
 
     @GetMapping("/user/application/{id}")
@@ -115,11 +122,18 @@ public class UserController {
     public AjaxResponse get_schedule(@RequestParam("area_id")Long id,
                                      @RequestParam("type")String type){
 
-        ScheduleDTO scheduleDTO = scheduleService.getSchedule(id, type);
-        return  AjaxResponse.success(scheduleDTO);
+        return  AjaxResponse.success(scheduleService.getSchedule(id, type));
     }
 
+
     //选择初访员，同时建立初访记录表
+    @PostMapping("/user/SelectVisitor")
+    public AjaxResponse selected_visitor(@RequestBody VisitRecord visitRecord){
+
+        visitRecordService.insert_visitRecord(visitRecord);
+
+        return AjaxResponse.success();
+    }
 
 
     //查看自己的初访记录表

@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public interface ScheduleMapper extends BaseMapper<Schedule> {
 
@@ -14,8 +17,9 @@ public interface ScheduleMapper extends BaseMapper<Schedule> {
             "FROM sys_user u \n" +
             "INNER JOIN schedule c ON(u.id = c.user_id)\n" +
             "INNER JOIN area a ON(c.area_id = a.id)\n" +
-            "WHERE u.type like '%${type}%' and a.org_id = #{area_id}")
-    ScheduleDTO find_schedule(@Param("area_id")Long area_id,
-                              @Param("type")String type);
+            "WHERE u.type like '%${type}%' and a.org_id = #{area_id} and date >= #{date}")
+    List<ScheduleDTO> find_schedule(@Param("area_id")Long area_id,
+                                    @Param("type")String type,
+                                    @Param("date")Date date);
 
 }
