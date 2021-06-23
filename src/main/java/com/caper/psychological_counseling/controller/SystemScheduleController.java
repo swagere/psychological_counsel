@@ -227,7 +227,7 @@ public class SystemScheduleController {
      *
      * 输入校区
      */
-    @RequestMapping(value = "/sys/area/org/{org_id}")
+    @RequestMapping(value = "/area/org/{org_id}", method = RequestMethod.GET)
     public AjaxResponse selectAreaByOrgId(@PathVariable("org_id") Long org_id) {
         List<AreaVO> res = areaService.getAreaVOByOrgId(org_id);
         return AjaxResponse.success(res);

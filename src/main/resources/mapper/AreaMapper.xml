@@ -10,8 +10,7 @@
         <result column="status" property="status" />
     </resultMap>
 
-    <select id="selectAreaVOByOrgId" resultMap="com.caper.psychological_counseling.model.vo.AreaVO">
-        select id, area_name from area
-        where org_id = #{org_id}
+    <select id="selectAreaVOByOrgId" resultType="com.caper.psychological_counseling.model.vo.AreaVO">
+        select id, area_name from area where org_id = #{org_id}
     </select>
 </mapper>

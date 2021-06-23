@@ -15,5 +15,6 @@ public interface AreaMapper extends BaseMapper<Area> {
     @Select("select id from area where org_id = #{org_id}")
     List<Long> selectAreaIdsByOrgId(@Param("org_id") Long org_id);
 
+//    @Select("select id, areaName from area where org_id = #{org_id}")
     List<AreaVO> selectAreaVOByOrgId(@Param("org_id") Long org_id);
 }
