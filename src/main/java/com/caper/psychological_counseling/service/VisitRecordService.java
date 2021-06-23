@@ -5,4 +5,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 public interface VisitRecordService extends IService<VisitRecord> {
 
+    void insert_visitRecord (VisitRecord visitRecord);
 }
