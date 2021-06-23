@@ -12,6 +12,7 @@ import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.model.dto.SingleScheduleDTO;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.dto.WeekScheduleDTO;
+import com.caper.psychological_counseling.model.vo.AreaVO;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -219,5 +220,16 @@ public class SystemScheduleController {
         }
 
         return AjaxResponse.success();
+    }
+
+    /**
+     * 查询区域
+     *
+     * 输入校区
+     */
+    @RequestMapping(value = "/sys/area/org/{org_id}")
+    public AjaxResponse selectAreaByOrgId(@PathVariable("org_id") Long org_id) {
+        List<AreaVO> res = areaService.getAreaVOByOrgId(org_id);
+        return AjaxResponse.success(res);
     }
 }
