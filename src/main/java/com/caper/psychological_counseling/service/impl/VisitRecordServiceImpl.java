@@ -38,4 +38,10 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
 
         return visitRecordMapper.selectByID(id);
     }
+
+    @Override
+    public void update_result(Integer rank,String type,Integer status,Integer diag,String result,Long id){
+
+        visitRecordMapper.update_visitRecord(rank, type, status, diag, result, id);
+    }
 }
