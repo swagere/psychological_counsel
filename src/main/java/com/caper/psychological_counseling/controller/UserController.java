@@ -160,9 +160,23 @@ public class UserController {
 
     //学生评价咨询记录表
 
+    @PutMapping("/user/updateEvaluate")
+    public AjaxResponse update_evaluate(@RequestParam("evaluate")String evaluate,
+                                        @RequestParam("id")Long id)
+    {
+        consultService.update_evaluate(evaluate, id);
+        return AjaxResponse.success();
+    }
 
 
     //学生评价咨询表
+    @PutMapping("/user/updateRecordEvaluate")
+    public AjaxResponse update_Recordevaluate(@RequestParam("evaluate")String evaluate,
+                                        @RequestParam("id")Long id)
+    {
+        consultRecordService.update_evaluate(evaluate, id);
+        return AjaxResponse.success();
+    }
 
 
 

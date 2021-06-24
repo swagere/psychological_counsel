@@ -32,4 +32,9 @@ public class ConsultServiceImpl extends ServiceImpl<ConsultMapper, Consult> impl
         consultMapper.insert(consult);
 
     }
+
+    //用户评价咨询
+    public void update_evaluate(String evaluate,Long id){
+        consultMapper.update_evaluate(evaluate, id);
+    }
 }

@@ -32,8 +32,11 @@ public interface ConsultMapper extends BaseMapper<Consult> {
     int insert(Consult consult);
 
 
-    @Update("")
-    void update_evaluate(@Param("evaluate") String evaluate);
+    @Update("UPDATE consult\n" +
+            "SET evaluate = #{evaluate}\n" +
+            "WHERE id = #{id} ")
+    void update_evaluate(@Param("evaluate") String evaluate,
+                         @Param("id")Long id);
 
 
 }
