@@ -20,4 +20,6 @@ public interface VisitRecordService extends IService<VisitRecord> {
     boolean updateScheduleIdById(Long schedule_id, Long visitRecord_id);
 
     boolean updateCheck(Long system_id, Long visitRecord_id);
+
+    List<VisitRecordVO> getByOrgIdAndUserId(Long org_id, Long user_id);
 }

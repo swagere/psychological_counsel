@@ -127,8 +127,7 @@ public class SystemVisitController {
      */
     @RequestMapping(value = "/visitRecords/org/{org_id}/user/{user_id}", method = RequestMethod.GET)
     public AjaxResponse getVisitRecords(@PathVariable("org_id")Long org_id, @PathVariable("user_id") Long user_id) {
-
-        return AjaxResponse.success();
+        return AjaxResponse.success(visitRecordService.getByOrgIdAndUserId(org_id, user_id));
     }
 
 }

@@ -82,4 +82,20 @@
         set system_id = #{system_id}, is_checked = 1
         where id = #{id}
     </update>
+
+    <select id="selectByOrgIdAndUserId" resultMap="VisitRecordVO">
+         select a.id, a.stu_id, b.name as stu_name, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
+                c.user_id as tea_id, d.name as tea_name, e.area_name, a.application_id as aid, f.rank, f.type, f.grade, f.urgency
+        from visit_record a
+        left join sys_user b on a.stu_id = b.id
+        left join schedule c on a.schedule_id = c.id
+        left join sys_user d on c.user_id = d.id
+        left join area e on c.area_id = e.id
+        left join application f on a.application_id = f.id
+        where
+        e.org_id = #{org_id}
+        and a.is_deleted = 0
+        and a.is_checked = 1
+        and a.system_id = #{system_id}
+    </select>
 </mapper>
