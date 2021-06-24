@@ -110,6 +110,14 @@ public class SystemVisitController {
         Long system_id = visitRecordToCheckDTO.getSystem_id();
         Long visitRecord_id = visitRecordToCheckDTO.getVisitRecord_id();
 
+        try {
+            visitRecordService.updateCheck(system_id, visitRecord_id);
+        }
+        catch (Exception e){
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"更新失败，记录表/审核员不正确"));
+        }
+
         return AjaxResponse.success();
     }
 

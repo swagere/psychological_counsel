@@ -30,4 +30,6 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
     List<VisitRecordVO> selectByOrgId(@Param("org_id") Long org_id);
 
     boolean updateScheduleIdById(@Param("schedule_id") Long schedule_id, @Param("id") Long visitRecord_id);
+
+    boolean updateCheck(@Param("system_id") Long system_id, @Param("id") Long visitRecord_id);
 }

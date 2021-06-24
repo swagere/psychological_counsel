@@ -44,6 +44,11 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
+    public boolean updateCheck(Long system_id, Long visitRecord_id) {
+        return visitRecordMapper.updateCheck(system_id, visitRecord_id);
+    }
+
+    @Override
     public List<VisitRecord> selectByID(Long id){
 
         return visitRecordMapper.selectByID(id);

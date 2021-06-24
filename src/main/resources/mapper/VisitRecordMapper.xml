@@ -76,4 +76,10 @@
         set schedule_id = #{schedule_id}
         where id = #{id}
     </update>
+
+    <update id="updateCheck">
+        update visit_record
+        set system_id = #{system_id}, is_checked = 1
+        where id = #{id}
+    </update>
 </mapper>
