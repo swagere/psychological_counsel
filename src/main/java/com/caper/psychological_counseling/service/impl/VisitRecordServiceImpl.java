@@ -39,6 +39,11 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
+    public boolean updateScheduleIdById(Long schedule_id, Long visitRecord_id) {
+        return visitRecordMapper.updateScheduleIdById(schedule_id, visitRecord_id);
+    }
+
+    @Override
     public List<VisitRecord> selectByID(Long id){
 
         return visitRecordMapper.selectByID(id);

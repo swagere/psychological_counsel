@@ -60,13 +60,20 @@
     </select>
 
     <select id="selectByOrgId" resultMap="VisitRecordVO">
-        select a.id, a.stu_id, b.name as stu_name, a.application_id as aid, f.rank, f.type, f.grade, f.urgency
+        select a.id, a.stu_id, b.name as stu_name, g.org_name as area_name, a.application_id as aid, f.rank, f.type, f.grade, f.urgency
         from visit_record a
         left join sys_user b on a.stu_id = b.id
         left join application f on a.application_id = f.id
+        left join organization g on a.schedule_id = g.id
         where
         a.is_deleted = 0
         and a.is_checked = 0
         and a.schedule_id = #{org_id}
     </select>
+
+    <update id="updateScheduleIdById">
+        update visit_record
+        set schedule_id = #{schedule_id}
+        where id = #{id}
+    </update>
 </mapper>
