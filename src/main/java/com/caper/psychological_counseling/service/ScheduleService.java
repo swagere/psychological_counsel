@@ -2,8 +2,6 @@ package com.caper.psychological_counseling.service;
 
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.caper.psychological_counseling.model.dto.ScheduleDTO;
-import com.caper.psychological_counseling.model.dto.SingleScheduleDTO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 
 import java.util.List;

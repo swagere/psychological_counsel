@@ -6,9 +6,7 @@ import com.caper.psychological_counseling.common.config.exception.CustomExceptio
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
 import com.caper.psychological_counseling.model.domain.Area;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
-import com.caper.psychological_counseling.model.domain.Organization;
 import com.caper.psychological_counseling.model.domain.Schedule;
-import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.model.dto.SingleScheduleDTO;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.dto.WeekScheduleDTO;
