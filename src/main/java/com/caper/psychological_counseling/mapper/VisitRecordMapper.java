@@ -6,6 +6,7 @@ import com.caper.psychological_counseling.model.vo.VisitRecordScheduleVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,12 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
     @Override
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(VisitRecord visitRecord);
+
+    @Select("SELECT *\n" +
+            "FROM visit_record\n" +
+            "WHERE id = #{id}")
+    List<VisitRecord> selectByID (@Param("id")Long id);
+
 
 
     List<VisitRecordScheduleVO> selectByDateAndChecked(@Param("schedules") List<Long> schedules);

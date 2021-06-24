@@ -4,16 +4,16 @@ import com.caper.psychological_counseling.model.domain.Schedule;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.caper.psychological_counseling.model.dto.ScheduleDTO;
 import com.caper.psychological_counseling.model.dto.SingleScheduleDTO;
+import com.caper.psychological_counseling.model.vo.ScheduleVO;
 
 import java.util.List;
 
 import java.util.Date;
-import java.util.List;
 
 public interface ScheduleService extends IService<Schedule> {
 
     //查询
-    List<ScheduleDTO> getSchedule(Long area_id,String type);
+    List<ScheduleVO> getSchedule(Long area_id, String type);
 
     void generateWeekSchedule(Date begin_time, Date end_time, List<Long> area_ids, List<Long> user_ids);
 

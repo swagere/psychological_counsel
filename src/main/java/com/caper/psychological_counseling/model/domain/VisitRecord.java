@@ -1,6 +1,7 @@
 package com.caper.psychological_counseling.model.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import lombok.experimental.Accessors;
 public class VisitRecord extends Model<VisitRecord> {
 
     private static final long serialVersionUID = 1L;
+
 
     private Long id;
 

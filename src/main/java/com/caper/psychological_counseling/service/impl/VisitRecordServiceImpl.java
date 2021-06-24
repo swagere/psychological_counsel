@@ -32,4 +32,10 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     public List<VisitRecordScheduleVO> getByDateAndChecked(List<Long> schedules1) {
         return visitRecordMapper.selectByDateAndChecked(schedules1);
     }
+
+    @Override
+    public List<VisitRecord> selectByID(Long id){
+
+        return visitRecordMapper.selectByID(id);
+    }
 }

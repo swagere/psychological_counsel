@@ -2,26 +2,17 @@ package com.caper.psychological_counseling.controller;
 
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Application;
-import com.caper.psychological_counseling.model.domain.SysUser;
+import com.caper.psychological_counseling.model.domain.Consult;
+import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
-import com.caper.psychological_counseling.model.dto.ApplicationDTO;
-import com.caper.psychological_counseling.model.dto.ScheduleDTO;
+import com.caper.psychological_counseling.model.vo.ApplicationVO;
 import com.caper.psychological_counseling.model.dto.UserDTO;
-import com.caper.psychological_counseling.service.ApplicationService;
-import com.caper.psychological_counseling.service.ScheduleService;
-import com.caper.psychological_counseling.service.SysUserService;
-import com.caper.psychological_counseling.service.VisitRecordService;
-import com.caper.psychological_counseling.service.impl.ApplicationServiceImpl;
-import com.caper.psychological_counseling.service.impl.SysUserServiceImpl;
-import io.swagger.annotations.ApiImplicitParam;
+import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * author: meidou
@@ -42,10 +33,16 @@ public class UserController {
     @Autowired
     private VisitRecordService visitRecordService;
 
+    @Autowired
+    private ConsultService consultService;
+
+    @Autowired
+    private ConsultRecordService consultRecordService;
+
 
     //获取用户信息，根据当前ID获取
 
-    @RequestMapping(value = "/user/get_user/{id}", method =  RequestMethod.GET)
+    @RequestMapping(value = "/user/getUser/{id}", method =  RequestMethod.GET)
     public AjaxResponse getUser(@PathVariable("id")Long id){
         //System.out.println(id);
         UserDTO userDTO = sysUserService.getSysUser(id);
@@ -102,14 +99,14 @@ public class UserController {
     }
 
 
-    //查看自己的初访申请表
+    //查看自己的初访申请表,根据用户id获取
 
     @GetMapping("/user/application/{id}")
     public AjaxResponse get_application(@PathVariable("id")Long id){
-        ApplicationDTO applicationDTO = applicationService.get_application(id);
+        List<ApplicationVO> applications = applicationService.get_application(id);
 
 
-        return AjaxResponse.success(applicationDTO);
+        return AjaxResponse.success(applications);
     }
 
 
@@ -118,7 +115,7 @@ public class UserController {
 
     //*显示分数、*根据等级来插队，显示所有初访员及其排班时间，用户选初访员时间
     //提供校区、类型，然后查询出对应的初访员的排班表。
-    @PutMapping("/get_schedule")
+    @PutMapping("/getSchedule")
     public AjaxResponse get_schedule(@RequestParam("area_id")Long id,
                                      @RequestParam("type")String type){
 
@@ -137,12 +134,47 @@ public class UserController {
 
 
     //查看自己的初访记录表
+    @GetMapping("/user/getVisitRecord/{id}")
+    public  AjaxResponse get_VisitRecord(@PathVariable("id")Long id){
+        List<VisitRecord> visitRecords = visitRecordService.selectByID(id);
+
+        //System.out.println(visitRecord);
+        return AjaxResponse.success(visitRecords);
+    }
 
 
     //推荐咨询师，选择咨询师
-    //创建咨询表
 
-    //
+    @PostMapping("/user/SelectConsultant")
+    public AjaxResponse selected_consultant(@RequestParam("area_id")Long id,
+                                           @RequestParam("type")String type)
+    {
+        return AjaxResponse.success(consultService.find_consults(id, type));
+    }
+
+    //创建咨询表、8次咨询记录表
+
+    @PostMapping("/user/buildConsult")
+    public AjaxResponse build_consult(Consult consult){
+
+        consultService.build_consult(consult);
+
+        for(int i = 0;i < 8;i++){
+
+            //创建8次咨询记录表
+            ConsultRecord consultRecord = new ConsultRecord();
+            consultRecordService.build_consultRecord(consultRecord);
+
+        }
+
+
+
+        return AjaxResponse.success();
+    }
+
+
+
+
 
 
 
