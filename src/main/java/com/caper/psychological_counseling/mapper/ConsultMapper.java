@@ -8,6 +8,7 @@ import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
@@ -29,6 +30,10 @@ public interface ConsultMapper extends BaseMapper<Consult> {
     @Override
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Consult consult);
+
+
+    @Update("")
+    void update_evaluate(@Param("evaluate") String evaluate);
 
 
 }
