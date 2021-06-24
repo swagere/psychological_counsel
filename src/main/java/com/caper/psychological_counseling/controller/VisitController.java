@@ -34,9 +34,15 @@ public class VisitController {
     public AjaxResponse get_visitRecords(@PathVariable("id")Long id){
 
 
-        return AjaxResponse.success();
+        return AjaxResponse.success(visitRecordService.selectVisitor_Records(id));
     }
 
+    //初访员查询自己的排班表
+    @GetMapping("/visitor/getVisitSchedules/{id}")
+    public AjaxResponse get_visitSchedules(@PathVariable("id")Long id){
+
+        return AjaxResponse.success(visitRecordService.selectVisitor_Schedules(id));
+    }
 
     //初访结束，新增初访结论
     @PutMapping("/visitor/updateResult")
