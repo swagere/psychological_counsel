@@ -9,4 +9,23 @@
         <result column="area_name" property="areaName" />
         <result column="status" property="status" />
     </resultMap>
+
+    <select id="selectAreaVOByOrgId" resultType="com.caper.psychological_counseling.model.vo.AreaVO">
+        select id, area_name from area where org_id = #{org_id}
+    </select>
+
+    <update id="updateArea" parameterType="com.caper.psychological_counseling.model.domain.Area">
+        UPDATE area
+        <set>
+            <if test="area.orgId != null and area.orgId != ''">
+                org_id = #{area.orgId},
+            </if>
+            <if test="area.areaName != null and area.areaName != ''">
+                area_name = #{area.areaName}
+            </if>
+        </set>
+        where id = #{area.id}
+    </update>
+
+
 </mapper>

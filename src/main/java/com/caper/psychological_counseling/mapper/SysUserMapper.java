@@ -29,4 +29,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
     @Select("select user_id from sys_user_role where role_id = #{role_id}")
     List<Long> selectUserIdsByRoleId(@Param("role_id") Long role_id);
 
+    @Select("select id from sys_user where username = #{username}")
+    Long selectIdByUserName(String username);
 }

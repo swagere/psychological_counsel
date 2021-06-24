@@ -6,10 +6,11 @@ import com.caper.psychological_counseling.common.config.exception.CustomExceptio
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
 import com.caper.psychological_counseling.model.domain.Area;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
-import com.caper.psychological_counseling.model.domain.Organization;
 import com.caper.psychological_counseling.model.domain.Schedule;
+import com.caper.psychological_counseling.model.dto.SingleScheduleDTO;
 import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.dto.WeekScheduleDTO;
+import com.caper.psychological_counseling.model.vo.AreaVO;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
 import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +18,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -164,7 +165,7 @@ public class SystemScheduleController {
     /**
      * 删除一条实际记录
      */
-    @RequestMapping("/singleSchedules/{id}")
+    @RequestMapping(value = "/singleSchedules/{id}", method = RequestMethod.DELETE)
     public AjaxResponse deleteSchedule(@PathVariable("id") Long id) {
         if (id == null) {
             return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR, "id不能为空"));
@@ -183,4 +184,112 @@ public class SystemScheduleController {
      *
      * 注意判断是否已经存在（不能重复添加）
      */
+    @RequestMapping(value = "/singleSchedules", method = RequestMethod.POST)
+    public AjaxResponse addSchedule(@RequestBody SingleScheduleDTO singleScheduleDTO) {
+        //判断是否已存在
+        QueryWrapper<Schedule> wrapper = new QueryWrapper<>();
+        wrapper.eq("week", singleScheduleDTO.getWeek()).eq("date", singleScheduleDTO.getDate()).eq("user_id", singleScheduleDTO.getUserId()).eq("area_id", singleScheduleDTO.getAreaId()).eq("begin_time", singleScheduleDTO.getBeginTime()).eq("end_time", singleScheduleDTO.getEndTime()).eq("is_deleted", 0);
+        Schedule schedule2 = scheduleService.getOne(wrapper);
+        if (schedule2 != null) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"不能重复添加");
+        }
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(sdf.parse(singleScheduleDTO.getDate()).getTime());
+
+            Schedule schedule = new Schedule();
+            schedule.setWeek(singleScheduleDTO.getWeek());
+            schedule.setDate(date);
+            schedule.setBeginTime(singleScheduleDTO.getBeginTime());
+            schedule.setEndTime(singleScheduleDTO.getEndTime());
+            schedule.setAreaId(singleScheduleDTO.getAreaId());
+            schedule.setUserId(singleScheduleDTO.getUserId());
+            schedule.setDeleted(0);
+            schedule.setOccupied(0);
+
+            //区域 时间和老师的配置
+            //在指定的时间内，配置老师和区域
+            scheduleService.saveSchedule(schedule);
+        }catch (ParseException e) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"日期格式有误");
+        }
+
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 查询地址
+     *
+     * 输入校区
+     */
+    @RequestMapping(value = "/area/org/{org_id}", method = RequestMethod.GET)
+    public AjaxResponse selectAreaByOrgId(@PathVariable("org_id") Long org_id) {
+        List<AreaVO> res = areaService.getAreaVOByOrgId(org_id);
+        return AjaxResponse.success(res);
+    }
+
+    /**
+     * 新增地址
+     */
+    @RequestMapping(value = "/area", method = RequestMethod.POST)
+    public AjaxResponse addArea(@RequestBody Area area) {
+        //检查是否有相同地址
+        QueryWrapper<Area> wrapper = new QueryWrapper<>();
+        wrapper.eq("org_id", area.getOrgId()).eq("area_name", area.getAreaName()).eq("status", 0);
+        if (!areaService.list(wrapper).isEmpty()) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"不能重复添加");
+        }
+
+        //新增地址
+        area.setStatus(0);
+        areaService.saveArea(area);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 删除地址
+     */
+    @RequestMapping(value = "/area/{area_id}", method = RequestMethod.DELETE)
+    public AjaxResponse deleteArea(@PathVariable("area_id") Long area_id) {
+        //判断是否正在被使用
+        //commonSchedule
+        QueryWrapper<CommonSchedule> wrapper = new QueryWrapper<>();
+        wrapper.eq("area_id", area_id);
+        if (!commonScheduleService.list(wrapper).isEmpty()) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"该教室正在被使用，不能直接删除");
+        }
+
+        //schedule
+        java.util.Date date = new java.util.Date();
+        if (!scheduleService.selectByAreaIdAndDate(area_id, date).isEmpty()) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"该教室正在被使用，不能直接删除");
+        }
+
+        //删除教室
+        areaService.removeById(area_id);
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 更改地址
+     */
+    @RequestMapping(value = "/area", method = RequestMethod.PUT)
+    public AjaxResponse updateArea(@RequestBody Area area) {
+        if (area.getId() == null) {
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"请输入id信息");
+        }
+
+        if (areaService.updateArea(area)) {
+            return AjaxResponse.success();
+        }
+        return AjaxResponse.success("更新地址信息失败");
+    }
+
 }

@@ -16,4 +16,10 @@ public interface ScheduleService extends IService<Schedule> {
     void generateWeekSchedule(Date begin_time, Date end_time, List<Long> area_ids, List<Long> user_ids);
 
     long getDateGap(Date begin_time, Date end_time);
+
+    void saveSchedule(Schedule schedule);
+
+    List<Long> selectByAreaIdAndDate(Long area_id, Date date);
+
+    List<Long> selectByDate(Date date);
 }
