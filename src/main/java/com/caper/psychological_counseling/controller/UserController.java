@@ -164,6 +164,7 @@ public class UserController {
             //创建8次咨询记录表
             ConsultRecord consultRecord = new ConsultRecord();
             consultRecordService.build_consultRecord(consultRecord);
+
         }
 
 
