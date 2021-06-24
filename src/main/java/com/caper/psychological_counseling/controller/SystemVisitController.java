@@ -1,8 +1,6 @@
 package com.caper.psychological_counseling.controller;
 
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
-import com.caper.psychological_counseling.model.domain.Schedule;
-import com.caper.psychological_counseling.model.vo.VisitRecordScheduleVO;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.caper.psychological_counseling.service.VisitRecordService;
 import lombok.extern.slf4j.Slf4j;

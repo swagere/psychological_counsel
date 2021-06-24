@@ -2,8 +2,7 @@ package com.caper.psychological_counseling.mapper;
 
 import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.caper.psychological_counseling.model.vo.VisitRecordScheduleVO;
-import org.apache.ibatis.annotations.Insert;
+import com.caper.psychological_counseling.model.vo.VisitRecordVO;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -26,5 +25,5 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
 
 
 
-    List<VisitRecordScheduleVO> selectByDateAndChecked(@Param("schedules") List<Long> schedules);
+    List<VisitRecordVO> selectByDateAndChecked(@Param("schedules") List<Long> schedules);
 }

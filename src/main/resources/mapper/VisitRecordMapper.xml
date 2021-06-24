@@ -18,7 +18,7 @@
         <result column="is_deleted" property="deleted" />
     </resultMap>
 
-    <select id="selectByDateAndChecked" resultType="com.caper.psychological_counseling.model.vo.VisitRecordScheduleVO">
+    <select id="selectByDateAndChecked" resultType="com.caper.psychological_counseling.model.vo.VisitRecordVO">
         select a.id, a.application_id, a.stu_id, b.name as stu_name, a.schedule_id, c.week, c.date, c.begin_time, c.end_time,
                 c.user_id as tea_id, d.name as tea_name, c.area_id, e.area_name
         from visit_record a
