@@ -34,6 +34,11 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
+    public List<VisitRecordVO> selectByOrgId(Long org_id) {
+        return visitRecordMapper.selectByOrgId(org_id);
+    }
+
+    @Override
     public List<VisitRecord> selectByID(Long id){
 
         return visitRecordMapper.selectByID(id);

@@ -11,6 +11,8 @@ public class VisitApplicationVO {
 
     private String type;
 
+    private Integer grade;
+
     private Integer urgency;
 
 }

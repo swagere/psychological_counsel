@@ -14,4 +14,6 @@ public interface VisitRecordService extends IService<VisitRecord> {
     List<VisitRecord> selectByID(Long id);
 
     List<VisitRecordVO> getByDateAndChecked(List<Long> schedules1);
+
+    List<VisitRecordVO> selectByOrgId(Long org_id);
 }

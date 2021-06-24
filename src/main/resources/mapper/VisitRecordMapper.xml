@@ -17,15 +17,39 @@
         <result column="schedule_id" property="scheduleId" />
         <result column="is_deleted" property="deleted" />
     </resultMap>
+    
+    <resultMap id="VisitRecordVO" type="com.caper.psychological_counseling.model.vo.VisitRecordVO">
+        <id column="id" property="id" />
+        <result column="stu_id" property="stuId" />
+        <result column="stu_name" property="stuName" />
+        <association property="scheduleVO" javaType="com.caper.psychological_counseling.model.vo.ScheduleVO">
+            <id column="sid" property="id" />
+            <result column="tea_id" property="teaId" />
+            <result column="tea_name" property="teaName" />
+            <result column="week" property="week" />
+            <result column="date" property="date" />
+            <result column="begin_time" property="beginTime" />
+            <result column="end_time" property="endTime" />
+            <result column="area_name" property="areaName" />
+        </association>
+        <association property="visitApplicationVO" javaType="com.caper.psychological_counseling.model.vo.VisitApplicationVO">
+            <id column="aid" property="id" />
+            <result column="rank" property="rank" />
+            <result column="type" property="type" />
+            <result column="grade" property="grade" />
+            <result column="urgency" property="urgency" />
+        </association>
+    </resultMap>
 
-    <select id="selectByDateAndChecked" resultType="com.caper.psychological_counseling.model.vo.VisitRecordVO">
-        select a.id, a.application_id, a.stu_id, b.name as stu_name, a.schedule_id, c.week, c.date, c.begin_time, c.end_time,
-                c.user_id as tea_id, d.name as tea_name, c.area_id, e.area_name
+    <select id="selectByDateAndChecked" resultMap="VisitRecordVO">
+        select a.id, a.stu_id, b.name as stu_name, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
+                c.user_id as tea_id, d.name as tea_name, e.area_name, a.application_id as aid, f.rank, f.type, f.grade, f.urgency
         from visit_record a
         left join sys_user b on a.stu_id = b.id
         left join schedule c on a.schedule_id = c.id
         left join sys_user d on c.user_id = d.id
         left join area e on c.area_id = e.id
+        left join application f on a.application_id = f.id
         where
         a.is_deleted = 0
         and a.is_checked = 0
@@ -33,5 +57,16 @@
         <foreach collection="schedules" item="schedule" index="index" open="(" close=")" separator=",">
             #{schedule}
         </foreach>
+    </select>
+
+    <select id="selectByOrgId" resultMap="VisitRecordVO">
+        select a.id, a.stu_id, b.name as stu_name, a.application_id as aid, f.rank, f.type, f.grade, f.urgency
+        from visit_record a
+        left join sys_user b on a.stu_id = b.id
+        left join application f on a.application_id = f.id
+        where
+        a.is_deleted = 0
+        and a.is_checked = 0
+        and a.schedule_id = #{org_id}
     </select>
 </mapper>
