@@ -55,4 +55,10 @@
         where b.org_id = #{org_id}
         and date between #{begin} and #{end}
     </select>
+
+    <update id="updateOccupiedById">
+        update schedule
+        set is_occupied = is_occupied + 1
+        where id = #{schedule_id}
+    </update>
 </mapper>

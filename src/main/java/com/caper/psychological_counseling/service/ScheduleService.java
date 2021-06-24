@@ -26,4 +26,6 @@ public interface ScheduleService extends IService<Schedule> {
     List<Long> selectByOrgIdBetweenDate(Long org_id, Date begin, Date end);
 
     List<Long> selectByDateAndOccupiedAndOrgId(Long org_id, Date time);
+
+    boolean updateOccupiedById(Long schedule_id);
 }

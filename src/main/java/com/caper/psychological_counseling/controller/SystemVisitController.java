@@ -3,10 +3,13 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
+import com.caper.psychological_counseling.model.domain.VisitRecord;
+import com.caper.psychological_counseling.model.dto.VisitRecordToCheckDTO;
 import com.caper.psychological_counseling.model.dto.VisitRecordToScheduleIdDTO;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.caper.psychological_counseling.service.VisitRecordService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -72,7 +75,7 @@ public class SystemVisitController {
      * 2. visit_record链向排班
      * 3. 修改schedule is_occupied
      */
-    @RequestMapping(value = "/visitRecords", method = RequestMethod.POST)
+    @RequestMapping(value = "/visitRecords/schedule", method = RequestMethod.PUT)
     public AjaxResponse ChangeVisitRecordToScheduleId(@RequestBody VisitRecordToScheduleIdDTO visitRecordToScheduleIdDTO) {
         Long schedule_id = visitRecordToScheduleIdDTO.getSchedule_id();
         Long visitRecord_id = visitRecordToScheduleIdDTO.getVisitRecord_id();
@@ -87,15 +90,35 @@ public class SystemVisitController {
         }
 
         //2. 修改schedule is_occupied
+        try {
+            scheduleService.updateOccupiedById(schedule_id);
+        }catch (Exception e){
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"更新失败，排班表/记录表不正确"));
+        }
 
         return AjaxResponse.success();
     }
 
     /**
+     * 同意审核
+     * 1. is_checked
+     * 2. system_id
+     */
+    @RequestMapping(value = "/visitRecords/check", method = RequestMethod.PUT)
+    public AjaxResponse ChangeVisitRecordToCheck(@RequestBody VisitRecordToCheckDTO visitRecordToCheckDTO) {
+        Long system_id = visitRecordToCheckDTO.getSystem_id();
+        Long visitRecord_id = visitRecordToCheckDTO.getVisitRecord_id();
+
+        return AjaxResponse.success();
+    }
+
+
+    /**
      * 获取自己已经审核的初访记录
      */
-    @RequestMapping(value = "/visitRecords/org/{org_id}", method = RequestMethod.GET)
-    public AjaxResponse getVisitRecords(@PathVariable("org_id")Long org_id) {
+    @RequestMapping(value = "/visitRecords/org/{org_id}/user/{user_id}", method = RequestMethod.GET)
+    public AjaxResponse getVisitRecords(@PathVariable("org_id")Long org_id, @PathVariable("user_id") Long user_id) {
 
         return AjaxResponse.success();
     }
