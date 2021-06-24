@@ -1,9 +1,12 @@
-package com.caper.psychological_counseling.model.dto;
+package com.caper.psychological_counseling.model.vo;
 
 import lombok.Data;
 
 @Data
-public class ApplicationDTO {
+public class ApplicationVO {
+
+    private Long id;
+
     private Integer rank;
 
     private String type;
