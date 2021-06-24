@@ -9,7 +9,9 @@ public class ScheduleVO {
 
     private Long id;
 
-    private String name;
+    private Long teaId;
+
+    private String teaName;
 
     private Integer week;
 

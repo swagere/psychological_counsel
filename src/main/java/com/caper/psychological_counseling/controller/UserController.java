@@ -143,7 +143,11 @@ public class UserController {
     }
 
 
-    //推荐咨询师，选择咨询师
+
+
+
+
+    //推荐咨询师排班表，选择咨询师
 
     @PostMapping("/user/SelectConsultant")
     public AjaxResponse selected_consultant(@RequestParam("area_id")Long id,
@@ -152,48 +156,13 @@ public class UserController {
         return AjaxResponse.success(consultService.find_consults(id, type));
     }
 
-    //创建咨询表、8次咨询记录表
 
-    @PostMapping("/user/buildConsult")
-    public AjaxResponse build_consult(Consult consult){
 
-        consultService.build_consult(consult);
-
-        for(int i = 0;i < 8;i++){
-
-            //创建8次咨询记录表
-            ConsultRecord consultRecord = new ConsultRecord();
-            consultRecordService.build_consultRecord(consultRecord);
-
-        }
+    //学生评价咨询记录表
 
 
 
-        return AjaxResponse.success();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //评价
+    //学生评价咨询表
 
 
 
