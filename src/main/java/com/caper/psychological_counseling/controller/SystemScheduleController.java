@@ -268,7 +268,6 @@ public class SystemScheduleController {
 
         //schedule
         java.util.Date date = new java.util.Date();
-        System.out.println(scheduleService.selectByAreaIdAndDate(area_id, date));
         if (!scheduleService.selectByAreaIdAndDate(area_id, date).isEmpty()) {
             throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
                     ,"该教室正在被使用，不能直接删除");

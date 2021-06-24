@@ -22,4 +22,6 @@ public interface ScheduleService extends IService<Schedule> {
     void saveSchedule(Schedule schedule);
 
     List<Long> selectByAreaIdAndDate(Long area_id, Date date);
+
+    List<Long> selectByDate(Date date);
 }

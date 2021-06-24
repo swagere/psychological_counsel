@@ -44,8 +44,6 @@ public class VisitRecord extends Model<VisitRecord> {
     @TableLogic
     private Integer deleted;
 
-    private Integer conflict;
-
 
     @Override
     protected Serializable pkVal() {

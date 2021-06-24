@@ -31,4 +31,6 @@ public interface ScheduleMapper extends BaseMapper<Schedule> {
     int insert(Schedule entity);
 
     List<Long> selectByAreaIdAndDate(@Param("area_id") Long area_id, @Param("date") Date date);
+
+    List<Long> selectByDate(Date date);
 }

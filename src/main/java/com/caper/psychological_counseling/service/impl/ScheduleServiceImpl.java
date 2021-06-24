@@ -150,4 +150,9 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
         return scheduleMapper.selectByAreaIdAndDate(area_id, date);
     }
 
+    @Override
+    public List<Long> selectByDate(Date date) {
+        return scheduleMapper.selectByDate(date);
+    }
+
 }
