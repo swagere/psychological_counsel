@@ -31,4 +31,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     @Select("select id from sys_user where username = #{username}")
     Long selectIdByUserName(String username);
+
+    @Select("select username from sys_user where id = #{id}")
+    String selectUserNameByUserId(Long id);
 }
