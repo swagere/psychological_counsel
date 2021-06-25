@@ -149,8 +149,23 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     }
 
     @Override
-    public List<Long> selectByDate(Date date) {
-        return scheduleMapper.selectByDate(date);
+    public List<Long> selectByDateAndOrgId(Long org_id, Date date) {
+        return scheduleMapper.selectByDateAndOrgId(org_id, date);
+    }
+
+    @Override
+    public List<Long> selectByDateAndOccupiedAndOrgId(Long org_id, Date time) {
+        return scheduleMapper.selectByDateAndOccupiedAndOrgId(org_id, time);
+    }
+
+    @Override
+    public boolean updateOccupiedById(Long schedule_id) {
+        return scheduleMapper.updateOccupiedById(schedule_id);
+    }
+
+    @Override
+    public List<Long> selectByOrgIdBetweenDate(Long org_id, Date begin, Date end) {
+        return scheduleMapper.selectByOrgIdBetweenDate(org_id, begin, end);
     }
 
 }
