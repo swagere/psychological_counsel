@@ -36,7 +36,15 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
             "FROM visit_record\n" +
             "WHERE schedule_id in(SELECT id FROM `schedule` WHERE user_id = #{id} and date >= #{date} )")
     List<VisitRecord> selectVisitorRecords(@Param("id")Long id,
-                                          @Param("date") Date date);
+                                           @Param("date") Date date);
+
+
+    //初访师查看自己的初访记录表（今天以前）
+    @Select("SELECT *\n" +
+            "FROM visit_record\n" +
+            "WHERE schedule_id in(SELECT id FROM `schedule` WHERE user_id = #{id} and date < #{date} )")
+    List<VisitRecord> selectVisitorRecordsBefor(@Param("id")Long id,
+                                           @Param("date") Date date);
 
 
 
@@ -44,7 +52,13 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
     //初访师查看自己的排班时间（今天以及以后）
     @Select("SELECT * FROM `schedule` WHERE user_id = #{id} and date >= #{date}")
     List<ScheduleVO> selectVisitorSchedules(@Param("id")Long id,
-                                           @Param("date")Date date);
+                                            @Param("date")Date date);
+
+
+    //初访师查看自己的排班时间（今天以前）
+    @Select("SELECT * FROM `schedule` WHERE user_id = #{id} and date < #{date}")
+    List<ScheduleVO> selectVisitorSchedulesBefor(@Param("id")Long id,
+                                            @Param("date")Date date);
 
 
     //初访师更新初访结论

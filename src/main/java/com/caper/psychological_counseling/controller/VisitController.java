@@ -61,7 +61,7 @@ public class VisitController {
 
     //创建咨询表、8次咨询记录表
 
-    @PostMapping("/user/buildConsult")
+    @PostMapping("/visitor/buildConsult")
     public AjaxResponse build_consult(){
 
         Consult consult = new Consult();
