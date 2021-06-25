@@ -30,7 +30,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(("/sys/consult"))
+@RequestMapping("/sys/consult")
 public class SystemConsultController {
     @Resource
     private ScheduleService scheduleService;
@@ -79,4 +79,11 @@ public class SystemConsultController {
 
         return AjaxResponse.success(consultRecordVOS);
     }
+
+    /**
+     * 生成结案报告
+     *
+     * 1. 检查是否咨询完成
+     * 2. 生成pdf结案报告
+     */
 }
