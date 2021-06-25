@@ -1,6 +1,8 @@
 package com.caper.psychological_counseling.controller;
 
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
+import com.caper.psychological_counseling.common.config.exception.CustomException;
+import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
 import com.caper.psychological_counseling.common.config.system.SysMenuNode;
 import com.caper.psychological_counseling.common.config.system.SysMenuService;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -61,9 +63,11 @@ public class CommonController {
         if(id == null){
 
             //异常
+//            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR,"豆豆傻逼"));
+            throw new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"此处只能添加不能修改");
         }
 
-        System.out.println(id);
         sysUserService.updateSysUser(id,telephone,email,gender,description);
 
         return AjaxResponse.success();
