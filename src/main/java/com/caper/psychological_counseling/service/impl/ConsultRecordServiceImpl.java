@@ -33,4 +33,14 @@ public class ConsultRecordServiceImpl extends ServiceImpl<ConsultRecordMapper, C
     public List<ConsultRecordVO> selectByConsultId(Long consult_id) {
         return consultRecordMapper.selectByConsultId(consult_id);
     }
+
+    @Override
+    public List<ConsultRecordVO> selectByOrgIdAndChecked(Long org_id) {
+        return consultRecordMapper.selectByOrgIdAndChecked(org_id);
+    }
+
+    @Override
+    public List<ConsultRecordVO> getByDateAndChecked(List<Long> schedules1) {
+        return consultRecordMapper.selectByDateAndChecked(schedules1);
+    }
 }

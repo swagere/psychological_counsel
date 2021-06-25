@@ -26,4 +26,8 @@ public interface ConsultRecordMapper extends BaseMapper<ConsultRecord> {
                          @Param("id")Long id);
 
     List<ConsultRecordVO> selectByConsultId(@Param("consult_id") Long consult_id);
+
+    List<ConsultRecordVO> selectByOrgIdAndChecked(@Param("org_id") Long org_id);
+
+    List<ConsultRecordVO> selectByDateAndChecked(@Param("schedules")List<Long> schedules1);
 }

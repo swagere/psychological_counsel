@@ -52,4 +52,34 @@
         left join sys_user f on a.assistant_id = f.id
         where a.consult_id = #{consult_id}
     </select>
+
+    <!--查询该校区未审核的需紧急排班的-->
+    <select id="selectByOrgIdAndChecked" resultMap="consultRecordVO">
+        select a.id, a.stu_id, b.name as stu_name, g.org_name as area_name
+        from consult_record a
+        left join sys_user b on a.stu_id = b.id
+        left join organization g on a.schedule_id = g.id
+        where
+        a.is_deleted = 0
+        and a.is_checked = 0
+        and a.schedule_id = #{org_id}
+    </select>
+
+    <!--查询后天及以后需要更改时间的-->
+    <select id="selectByDateAndChecked" resultMap="consultRecordVO">
+        select a.id, a.stu_id, b.name as stu_name, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
+        c.user_id as tea_id, d.name as tea_name, e.area_name
+        from consult_record a
+        left join sys_user b on a.stu_id = b.id
+        left join schedule c on a.schedule_id = c.id
+        left join sys_user d on c.user_id = d.id
+        left join area e on c.area_id = e.id
+        where
+        a.is_deleted = 0
+        and a.is_checked = 0
+        and a.schedule_id in
+        <foreach collection="schedules" item="schedule" index="index" open="(" close=")" separator=",">
+            #{schedule}
+        </foreach>
+    </select>
 </mapper>

@@ -15,4 +15,8 @@ public interface ConsultRecordService extends IService<ConsultRecord> {
     void update_evaluate(String evaluate,Long id);
 
     List<ConsultRecordVO> selectByConsultId(Long consult_id);
+
+    List<ConsultRecordVO> selectByOrgIdAndChecked(Long org_id);
+
+    List<ConsultRecordVO> getByDateAndChecked(List<Long> schedules1);
 }
