@@ -28,9 +28,6 @@ public class CommonController {
     @Autowired
     private SysUserService sysUserService;
 
-    @Autowired
-    private SysUserService sysUserService;
-
     @RequestMapping(value = "/tree/user/{id}", method = RequestMethod.GET)
     public List<SysMenuNode> userTree(@PathVariable("id") Long id) {
         String username = sysUserService.getUserNameByUserId(id);

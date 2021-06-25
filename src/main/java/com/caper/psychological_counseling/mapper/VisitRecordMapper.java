@@ -1,6 +1,5 @@
 package com.caper.psychological_counseling.mapper;
 
-import com.caper.psychological_counseling.model.domain.Schedule;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.vo.VisitRecordVO;
@@ -8,7 +7,6 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
-import com.caper.psychological_counseling.model.vo.VisitRecordScheduleVO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -42,7 +40,6 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
     boolean updateCheck(@Param("system_id") Long system_id, @Param("id") Long visitRecord_id);
 
     List<VisitRecordVO> selectByOrgIdAndUserId(@Param("org_id")Long org_id, @Param("system_id")Long system_id);
-    List<VisitRecordScheduleVO> selectByDateAndChecked(@Param("schedules") List<Long> schedules);
 
     //初访师查看自己的初访记录表（今天以及以后）
     @Select("SELECT *\n" +
