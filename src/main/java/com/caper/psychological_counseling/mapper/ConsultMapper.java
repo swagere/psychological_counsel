@@ -4,6 +4,7 @@ import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.Consult;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.domain.Schedule;
+import com.caper.psychological_counseling.model.vo.ConsultVO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -39,4 +40,5 @@ public interface ConsultMapper extends BaseMapper<Consult> {
                          @Param("id")Long id);
 
 
+    List<ConsultVO> selectConsultsByApplicationIds(@Param("application_ids") List<Long> application_ids);
 }

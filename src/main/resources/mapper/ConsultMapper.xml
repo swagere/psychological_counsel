@@ -13,4 +13,17 @@
         <result column="is_deleted" property="deleted" />
     </resultMap>
 
+    <sql id="base_col">
+        id, status, type, result, evaluate
+    </sql>
+
+    <select id="selectConsultsByApplicationIds" resultType="com.caper.psychological_counseling.model.vo.ConsultVO">
+        select <include refid="base_col"/>
+        from consult
+        where application_id in
+        <foreach collection="application_ids" item="application_id" index="index" open="(" close=")" separator=",">
+            #{application_id}
+        </foreach>
+        and is_deleted = 0
+    </select>
 </mapper>

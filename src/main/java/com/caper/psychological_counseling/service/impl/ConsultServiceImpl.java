@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.service.impl;
 
 import com.caper.psychological_counseling.model.domain.Consult;
 import com.caper.psychological_counseling.mapper.ConsultMapper;
+import com.caper.psychological_counseling.model.vo.ConsultVO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import com.caper.psychological_counseling.service.ConsultService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -36,5 +37,10 @@ public class ConsultServiceImpl extends ServiceImpl<ConsultMapper, Consult> impl
     //用户评价咨询
     public void update_evaluate(String evaluate,Long id){
         consultMapper.update_evaluate(evaluate, id);
+    }
+
+    @Override
+    public List<ConsultVO> getConsultsByApplicationIds(List<Long> application_ids) {
+        return consultMapper.selectConsultsByApplicationIds(application_ids);
     }
 }

@@ -109,14 +109,16 @@
         </foreach>
     </select>
 
+    <!--中心管理员查看该校区所有咨询记录-->
     <select id="selectByOrgId" resultMap="VisitRecordVO">
-        select a.id, a.stu_id, b.name as stu_name, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
+        select a.id, a.stu_id, b.name as stu_name, a.system_id, f.name as systemName a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
                 c.user_id as tea_id, d.name as tea_name, e.area_name
         from visit_record a
         left join sys_user b on a.stu_id = b.id
         left join schedule c on a.schedule_id = c.id
         left join sys_user d on c.user_id = d.id
         left join area e on c.area_id = e.id
+        left join sys_user f on a.system_id = f.id
         where
         a.is_deleted = 0
         and e.org_id = #{org_id}

@@ -15,6 +15,10 @@ public class VisitRecordVO extends Model<VisitRecordVO> {
 
     private String stuName;
 
+    private Long systemId;
+
+    private String systemName;
+
     private ScheduleVO scheduleVO;
 
     private VisitApplicationVO visitApplicationVO;
