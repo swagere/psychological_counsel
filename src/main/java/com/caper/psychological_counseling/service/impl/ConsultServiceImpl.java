@@ -34,7 +34,33 @@ public class ConsultServiceImpl extends ServiceImpl<ConsultMapper, Consult> impl
     }
 
     //用户评价咨询
+    @Override
     public void update_evaluate(String evaluate,Long id){
         consultMapper.update_evaluate(evaluate, id);
+    }
+
+    //添加咨询状态
+    @Override
+    public void update_consultStatus(Integer status,Long id){
+        consultMapper.update_consultStatus(status, id);
+    }
+
+    //添加咨询结论
+    @Override
+    public void update_consultResult(String result,Long id){
+        consultMapper.update_consultResult(result, id);
+    }
+
+
+    //添加咨询类型
+    @Override
+    public void update_consultType(String type,Long id){
+        consultMapper.update_consultType(type, id);
+    }
+
+    //查看咨询表（根据状态）
+    @Override
+    public List<Consult> selectConsult(Long id,Integer status){
+        return consultMapper.selectConsult(id, status);
     }
 }
