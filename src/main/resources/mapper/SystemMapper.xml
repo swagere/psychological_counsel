@@ -29,4 +29,20 @@
         ORDER BY level,sort
     </select>
 
+    <select id="selectOrgTree"
+            resultType="com.caper.psychological_counseling.model.domain.Organization">
+        SELECT id,org_id,org_ids,is_leaf,org_name,address,telephone,email,sort,level,status
+        FROM organization o
+        <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+            AND (org_ids like CONCAT('%[',#{rootOrgId},']%') OR id = #{rootOrgId})
+            <if test="orgNameLike != null and orgNameLike != '' " >
+                AND org_name like CONCAT('%',#{orgNameLike},'%')
+            </if>
+            <if test="orgStatus != null " >
+                AND status = #{orgStatus}
+            </if>
+        </trim>
+        ORDER BY level,sort
+    </select>
+
 </mapper>

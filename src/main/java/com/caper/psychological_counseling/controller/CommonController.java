@@ -3,6 +3,9 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.system.SysMenuNode;
 import com.caper.psychological_counseling.common.config.system.SysMenuService;
+import com.caper.psychological_counseling.common.config.system.SysOrgNode;
+import com.caper.psychological_counseling.common.config.system.SysorgService;
+import com.caper.psychological_counseling.service.OrganizationService;
 import com.caper.psychological_counseling.service.SysUserService;
 import com.caper.psychological_counseling.model.dto.UserDTO;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -27,9 +30,13 @@ public class CommonController {
     private SysMenuService sysMenuService;
     @Autowired
     private SysUserService sysUserService;
+    @Autowired
+    private SysorgService sysorgService;
+    @Autowired
+    private OrganizationService organizationService;
 
     @RequestMapping(value = "/tree/user/{id}", method = RequestMethod.GET)
-    public List<SysMenuNode> userTree(@PathVariable("id") Long id) {
+    public List<SysMenuNode> getUserTree(@PathVariable("id") Long id) {
         String username = sysUserService.getUserNameByUserId(id);
         return sysMenuService.getMenuTreeByUsername(username);
     }
@@ -47,10 +54,7 @@ public class CommonController {
     }
 
 
-
     //修改用户信息
-
-
     @PutMapping("/user/update")
     public AjaxResponse updateUser(@RequestParam("id") Long id,
                                    @RequestParam("telephone")Long telephone,
@@ -78,4 +82,22 @@ public class CommonController {
         sysUserService.deleteSysUser(id);
         return AjaxResponse.success();
     }
+
+    /**
+     * 获得组织
+     * 树信息
+     */
+    @RequestMapping(value = "/tree/org/{org_id}", method = RequestMethod.GET)
+    public List<SysOrgNode> getOrgTree(@PathVariable("org_id") Long org_id) {
+        //获取根节点id
+        String pids = organizationService.getById(org_id).getOrgIds();
+        try {
+            Long root_id = Long.valueOf(pids.split(",")[1].replace("[", "").replace("]", ""));
+            return sysorgService.getOrgTreeById(root_id, null, null);
+        }catch (Exception e) {
+            Long root_id = org_id;
+            return sysorgService.getOrgTreeById(root_id, null, null);
+        }
+    }
+
 }
