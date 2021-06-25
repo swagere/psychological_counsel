@@ -20,4 +20,10 @@ public class ConsultRecordServiceImpl extends ServiceImpl<ConsultRecordMapper, C
 
         consultRecordMapper.insert(consultRecord);
     }
+
+    //用户评价咨询
+    @Override
+    public void update_evaluate(String evaluate,Long id){
+        consultRecordMapper.update_evaluate(evaluate, id);
+    }
 }

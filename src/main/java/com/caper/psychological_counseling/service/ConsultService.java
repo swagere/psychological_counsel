@@ -15,4 +15,9 @@ public interface ConsultService extends IService<Consult> {
     //创建咨询表
     void build_consult (Consult consult);
 
+    //用户评价咨询
+    void update_evaluate(String evaluate,Long id);
+
+
+
 }
