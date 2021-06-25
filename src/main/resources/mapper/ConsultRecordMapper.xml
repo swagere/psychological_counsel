@@ -17,4 +17,39 @@
         <result column="is_deleted" property="deleted" />
     </resultMap>
 
+    <resultMap id="consultRecordVO" type="com.caper.psychological_counseling.model.vo.ConsultRecordVO">
+        <id column="id" property="id" />
+        <result column="stu_id" property="stuId" />
+        <result column="stu_name" property="stuName" />
+        <result column="assistant_id" property="assistantId" />
+        <result column="assistant_name" property="assistantName" />
+        <result column="is_checked" property="checked" />
+        <result column="times" property="times" />
+        <result column="status" property="status" />
+        <result column="result" property="result" />
+        <result column="evaluate" property="evaluate" />
+        <association property="scheduleVO" javaType="com.caper.psychological_counseling.model.vo.ScheduleVO">
+            <id column="sid" property="id" />
+            <result column="tea_id" property="teaId" />
+            <result column="tea_name" property="teaName" />
+            <result column="week" property="week" />
+            <result column="date" property="date" />
+            <result column="begin_time" property="beginTime" />
+            <result column="end_time" property="endTime" />
+            <result column="area_name" property="areaName" />
+        </association>
+    </resultMap>
+
+    <select id="selectByConsultId" resultMap="consultRecordVO">
+        select a.id, a.stu_id, b.name as stu_name, a.assistant_id, f.name as assistant_name, a.is_checked as checked,
+        a.times, a.status, a.result, a.evaluate, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
+                c.user_id as tea_id, d.name as tea_name, e.area_name
+        from consult_record a
+        left join sys_user b on a.stu_id = b.id
+        left join schedule c on a.schedule_id = c.id
+        left join sys_user d on c.user_id = d.id
+        left join area e on c.area_id = e.id
+        left join sys_user f on a.assistant_id = f.id
+        where a.consult_id = #{consult_id}
+    </select>
 </mapper>

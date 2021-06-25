@@ -24,6 +24,12 @@
         <result column="stu_name" property="stuName" />
         <result column="system_id" property="systemId" />
         <result column="system_name" property="systemName" />
+        <result column="is_checked" property="checked" />
+        <result column="rank" property="rank" />
+        <result column="status" property="status" />
+        <result column="type" property="type" />
+        <result column="diag" property="diag" />
+        <result column="result" property="result" />
         <association property="scheduleVO" javaType="com.caper.psychological_counseling.model.vo.ScheduleVO">
             <id column="sid" property="id" />
             <result column="tea_id" property="teaId" />
@@ -113,7 +119,7 @@
 
     <!--中心管理员查看该校区所有咨询记录-->
     <select id="selectByOrgId" resultMap="VisitRecordVO">
-        select a.id, a.stu_id, b.name as stu_name, a.system_id, f.name as system_name, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
+        select a.id, a.stu_id, b.name as stu_name, a.system_id, f.name as system_name, a.is_checked as checked, a.rank, a.status, a.type, a.diag, a.result, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
                 c.user_id as tea_id, d.name as tea_name, e.area_name
         from visit_record a
         left join sys_user b on a.stu_id = b.id

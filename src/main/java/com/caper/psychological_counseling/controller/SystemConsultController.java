@@ -4,7 +4,9 @@ import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
 import com.caper.psychological_counseling.model.domain.Consult;
+import com.caper.psychological_counseling.model.vo.ConsultRecordVO;
 import com.caper.psychological_counseling.model.vo.ConsultVO;
+import com.caper.psychological_counseling.service.ConsultRecordService;
 import com.caper.psychological_counseling.service.ConsultService;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.caper.psychological_counseling.service.VisitRecordService;
@@ -39,6 +41,9 @@ public class SystemConsultController {
     @Resource
     private ConsultService consultService;
 
+    @Resource
+    private ConsultRecordService consultRecordService;
+
 
     /**
      * 查看所有人的咨询表
@@ -70,8 +75,8 @@ public class SystemConsultController {
      */
     @RequestMapping(value = "/consultRecord/consult/{consult_id}", method = RequestMethod.GET)
     public AjaxResponse getConsultRecord(@PathVariable("consult_id") Long consult_id) {
-//        List<>
+        List<ConsultRecordVO> consultRecordVOS = consultRecordService.selectByConsultId(consult_id);
 
-        return AjaxResponse.success();
+        return AjaxResponse.success(consultRecordVOS);
     }
 }

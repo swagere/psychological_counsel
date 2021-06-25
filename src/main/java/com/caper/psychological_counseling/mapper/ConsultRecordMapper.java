@@ -3,10 +3,13 @@ package com.caper.psychological_counseling.mapper;
 import com.caper.psychological_counseling.model.domain.Consult;
 import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.caper.psychological_counseling.model.vo.ConsultRecordVO;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ConsultRecordMapper extends BaseMapper<ConsultRecord> {
@@ -21,4 +24,6 @@ public interface ConsultRecordMapper extends BaseMapper<ConsultRecord> {
             "WHERE id = #{id} ")
     void update_evaluate(@Param("evaluate") String evaluate,
                          @Param("id")Long id);
+
+    List<ConsultRecordVO> selectByConsultId(@Param("consult_id") Long consult_id);
 }
