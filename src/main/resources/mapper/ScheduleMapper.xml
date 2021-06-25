@@ -49,11 +49,10 @@
         and b.org_id = #{org_id}
     </select>
 
-    <select id="selectByOrgIdBetweenDate" resultType="java.lang.Long">
+    <select id="selectByOrgId" resultType="java.lang.Long">
         select a.id from schedule a
         left join area b on a.area_id = b.id
         where b.org_id = #{org_id}
-        and date between #{begin} and #{end}
     </select>
 
     <update id="updateOccupiedById">

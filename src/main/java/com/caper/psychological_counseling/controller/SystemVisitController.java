@@ -1,13 +1,15 @@
 package com.caper.psychological_counseling.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
+import com.caper.psychological_counseling.model.domain.Application;
+import com.caper.psychological_counseling.model.domain.Organization;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.caper.psychological_counseling.model.dto.VisitRecordToCheckDTO;
 import com.caper.psychological_counseling.model.dto.VisitRecordToScheduleIdDTO;
-import com.caper.psychological_counseling.service.ScheduleService;
-import com.caper.psychological_counseling.service.VisitRecordService;
+import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,12 @@ public class SystemVisitController {
 
     @Resource
     private VisitRecordService visitRecordService;
+
+    @Resource
+    private ApplicationService applicationService;
+
+    @Resource
+    private AreaService areaService;
 
     /**
      * 获取没有审核的申请记录
@@ -124,10 +132,30 @@ public class SystemVisitController {
 
     /**
      * 获取自己已经审核的初访记录
+     *
+     * 输入：校区 用户id
      */
     @RequestMapping(value = "/visitRecords/org/{org_id}/user/{user_id}", method = RequestMethod.GET)
     public AjaxResponse getVisitRecords(@PathVariable("org_id")Long org_id, @PathVariable("user_id") Long user_id) {
         return AjaxResponse.success(visitRecordService.getByOrgIdAndUserId(org_id, user_id));
+    }
+
+    /**
+     * 查看全部初访申请表
+     *
+     * 输入：校区
+     **/
+    @RequestMapping(value = "/applications/org/{org_id}", method = RequestMethod.GET)
+    public AjaxResponse getApplications(@PathVariable("org_id") Long org_id) {
+        //schedule_id
+        List<Long> schedule_ids = scheduleService.selectByOrgId(org_id);
+
+        //application_id
+        List<Long> application_ids = visitRecordService.getApplicationIdsByScheduleIds(schedule_ids);
+
+        //application
+        List<Application> applications = applicationService.getByIds(application_ids);
+        return AjaxResponse.success(applications);
     }
 
 }

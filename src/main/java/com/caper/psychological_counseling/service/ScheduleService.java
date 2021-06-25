@@ -23,7 +23,7 @@ public interface ScheduleService extends IService<Schedule> {
 
     List<Long> selectByDateAndOrgId(Long org_id, Date date);
 
-    List<Long> selectByOrgIdBetweenDate(Long org_id, Date begin, Date end);
+    List<Long> selectByOrgId(Long org_id);
 
     List<Long> selectByDateAndOccupiedAndOrgId(Long org_id, Date time);
 

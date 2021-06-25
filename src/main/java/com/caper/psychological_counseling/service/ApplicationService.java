@@ -17,4 +17,5 @@ public interface ApplicationService extends IService<Application> {
 
     List<ApplicationVO> get_application(Long user_id);
 
+    List<Application> getByIds(List<Long> application_ids);
 }

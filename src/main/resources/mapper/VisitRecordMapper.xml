@@ -98,4 +98,13 @@
         and a.is_checked = 1
         and a.system_id = #{system_id}
     </select>
+
+    <select id="selectApplicationIdsByScheduleIds" resultType="java.lang.Long">
+        select distinct application_id
+        from visit_record
+        where schedule_id in
+        <foreach collection="schedules" item="schedule" index="index" open="(" close=")" separator=",">
+            #{schedule}
+        </foreach>
+    </select>
 </mapper>

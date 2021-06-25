@@ -164,8 +164,8 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     }
 
     @Override
-    public List<Long> selectByOrgIdBetweenDate(Long org_id, Date begin, Date end) {
-        return scheduleMapper.selectByOrgIdBetweenDate(org_id, begin, end);
+    public List<Long> selectByOrgId(Long org_id) {
+        return scheduleMapper.selectByOrgId(org_id);
     }
 
 }

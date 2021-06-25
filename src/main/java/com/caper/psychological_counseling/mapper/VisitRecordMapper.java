@@ -68,4 +68,5 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
                             @Param("result")String result,
                             @Param("id")Long id);
 
+    List<Long> selectApplicationIdsByScheduleIds(@Param("schedules") List<Long> schedules);
 }

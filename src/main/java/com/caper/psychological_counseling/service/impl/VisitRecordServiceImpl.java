@@ -88,4 +88,9 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
 
         visitRecordMapper.update_visitRecord(rank, type, status, diag, result, id);
     }
+
+    @Override
+    public List<Long> getApplicationIdsByScheduleIds(List<Long> schedule_ids) {
+        return visitRecordMapper.selectApplicationIdsByScheduleIds(schedule_ids);
+    }
 }
