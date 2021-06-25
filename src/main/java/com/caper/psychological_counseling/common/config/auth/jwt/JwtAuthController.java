@@ -44,8 +44,11 @@ public class JwtAuthController {
         }
         try {
             HashMap res = new HashMap();
+            Long id = sysUserService.getUserIdByUserName(username);
             res.put("token", jwtAuthService.login(username, password));
-            res.put("id", sysUserService.getUserIdByUserName(username));
+            res.put("id", id);
+            res.put("role_id", sysUserService.getRoleIdByUserId(id));
+            res.put("org_id", sysUserService.getOrgIdByUserId(id));
             return AjaxResponse.success(res);
         }catch (CustomException e){
             return AjaxResponse.error(e);

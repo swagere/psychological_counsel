@@ -59,4 +59,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUserMapper.selectIdByUserName(username);
     }
 
+    @Override
+    public String getUserNameByUserId(Long id) {
+        return sysUserMapper.selectUserNameByUserId(id);
+    }
+
+    @Override
+    public Long getRoleIdByUserId(Long id) {
+        return sysUserMapper.selectRoleIdByUserId(id);
+    }
+
+    @Override
+    public Long getOrgIdByUserId(Long id) {
+        return sysUserMapper.selectOrgIdByUserId(id);
+    }
+
 }

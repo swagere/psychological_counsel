@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.system.SysMenuNode;
 import com.caper.psychological_counseling.common.config.system.SysMenuService;
+import com.caper.psychological_counseling.service.SysUserService;
 import com.caper.psychological_counseling.model.dto.UserDTO;
 import com.caper.psychological_counseling.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,9 @@ public class CommonController {
     @Autowired
     private SysUserService sysUserService;
 
-    @RequestMapping(value = "/tree/user/{username}", method = RequestMethod.GET)
-    public List<SysMenuNode> userTree(@PathVariable("username") String username) {
+    @RequestMapping(value = "/tree/user/{id}", method = RequestMethod.GET)
+    public List<SysMenuNode> userTree(@PathVariable("id") Long id) {
+        String username = sysUserService.getUserNameByUserId(id);
         return sysMenuService.getMenuTreeByUsername(username);
     }
 

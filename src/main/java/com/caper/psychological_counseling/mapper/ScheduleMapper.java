@@ -31,5 +31,11 @@ public interface ScheduleMapper extends BaseMapper<Schedule> {
 
     List<Long> selectByAreaIdAndDate(@Param("area_id") Long area_id, @Param("date") Date date);
 
-    List<Long> selectByDate(Date date);
+    List<Long> selectByDateAndOrgId(@Param("org_id") Long org_id, @Param("date") Date date);
+
+    List<Long> selectByOrgIdBetweenDate(@Param("org_id")Long org_id, @Param("begin")Date begin, @Param("end")Date end);
+
+    List<Long> selectByDateAndOccupiedAndOrgId(@Param("org_id") Long org_id, @Param("date") Date date);
+
+    boolean updateOccupiedById(@Param("schedule_id") Long schedule_id);
 }

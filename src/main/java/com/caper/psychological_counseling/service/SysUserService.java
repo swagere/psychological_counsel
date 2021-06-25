@@ -21,4 +21,10 @@ public interface SysUserService extends IService<SysUser> {
     List<Long> getUserIdsByRoleIdAndAreaId(Long role_id);
 
     Long getUserIdByUserName(String username);
+
+    String getUserNameByUserId(Long id);
+
+    Long getRoleIdByUserId(Long id);
+
+    Long getOrgIdByUserId(Long id);
 }

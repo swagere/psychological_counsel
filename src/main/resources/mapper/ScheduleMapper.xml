@@ -34,8 +34,31 @@
         and date >= #{date}
     </select>
 
-    <select id="selectByDate" resultType="java.lang.Long">
-        select id from schedule
+    <select id="selectByDateAndOrgId" resultType="java.lang.Long">
+        select a.id from schedule a
+        left join area b on a.area_id = b.id
         where date >= #{date}
+        and b.org_id = #{org_id}
     </select>
+
+    <select id="selectByDateAndOccupiedAndOrgId" resultType="java.lang.Long">
+        select a.id from schedule a
+        left join area b on a.area_id = b.id
+        where date >= #{date}
+        and a.is_occupied > 1
+        and b.org_id = #{org_id}
+    </select>
+
+    <select id="selectByOrgIdBetweenDate" resultType="java.lang.Long">
+        select a.id from schedule a
+        left join area b on a.area_id = b.id
+        where b.org_id = #{org_id}
+        and date between #{begin} and #{end}
+    </select>
+
+    <update id="updateOccupiedById">
+        update schedule
+        set is_occupied = is_occupied + 1
+        where id = #{schedule_id}
+    </update>
 </mapper>
