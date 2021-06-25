@@ -37,8 +37,8 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
-    public List<VisitRecordVO> selectByOrgId(Long org_id) {
-        return visitRecordMapper.selectByOrgId(org_id);
+    public List<VisitRecordVO> selectByOrgIdAndChecked(Long org_id) {
+        return visitRecordMapper.selectByOrgIdAndChecked(org_id);
     }
 
     @Override
@@ -92,5 +92,10 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     @Override
     public List<Long> getApplicationIdsByScheduleIds(List<Long> schedule_ids) {
         return visitRecordMapper.selectApplicationIdsByScheduleIds(schedule_ids);
+    }
+
+    @Override
+    public List<VisitRecordVO> selectByOrgId(Long org_id) {
+        return visitRecordMapper.selectByOrgId(org_id);
     }
 }
