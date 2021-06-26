@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface ScheduleMapper extends BaseMapper<Schedule> {
 
-    @Select("SELECT c.id,u.id,u.name,c.week,c.date,c.begin_time,c.end_time,a.area_name\n" +
+    @Select("SELECT c.id,c.user_id,u.name,c.week,c.date,c.begin_time,c.end_time,a.area_name\n" +
             "FROM sys_user u \n" +
             "INNER JOIN schedule c ON(u.id = c.user_id)\n" +
             "INNER JOIN area a ON(c.area_id = a.id)\n" +

@@ -17,4 +17,7 @@ public class ConsultVO extends Model<ConsultVO> {
     private String result;
 
     private String evaluate;
+
+    private Integer deleted;
+
 }
