@@ -18,13 +18,14 @@ public interface VisitRecordService extends IService<VisitRecord> {
 
     List<VisitRecordVO> getByDateAndChecked(List<Long> schedules1);
 
-    List<VisitRecordVO> selectByOrgId(Long org_id);
+    List<VisitRecordVO> selectByOrgIdAndChecked(Long org_id);
 
     boolean updateScheduleIdById(Long schedule_id, Long visitRecord_id);
 
     boolean updateCheck(Long system_id, Long visitRecord_id);
 
-    List<VisitRecordVO> getByOrgIdAndUserId(Long org_id, Long user_id);
+    List<VisitRecordVO> getByUserId(Long user_id);
+
     //初访员查询自己的初访记录表（根据id和审核状态）
     List<VisitRecord> selectVisitor_Records(Long id,Integer status);
 
@@ -40,4 +41,7 @@ public interface VisitRecordService extends IService<VisitRecord> {
     //初访员更新初访结果
     void update_result(Integer rank,String type,Integer status,Integer diag,String result,Long id);
 
+    List<Long> getApplicationIdsByScheduleIds(List<Long> schedule_ids);
+
+    List<VisitRecordVO> selectByOrgId(Long org_id);
 }

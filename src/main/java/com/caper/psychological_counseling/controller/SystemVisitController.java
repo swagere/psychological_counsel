@@ -1,13 +1,16 @@
 package com.caper.psychological_counseling.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
+import com.caper.psychological_counseling.model.domain.Application;
+import com.caper.psychological_counseling.model.domain.Organization;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.caper.psychological_counseling.model.dto.VisitRecordToCheckDTO;
 import com.caper.psychological_counseling.model.dto.VisitRecordToScheduleIdDTO;
-import com.caper.psychological_counseling.service.ScheduleService;
-import com.caper.psychological_counseling.service.VisitRecordService;
+import com.caper.psychological_counseling.model.vo.VisitRecordVO;
+import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,12 @@ public class SystemVisitController {
     @Resource
     private VisitRecordService visitRecordService;
 
+    @Resource
+    private ApplicationService applicationService;
+
+    @Resource
+    private AreaService areaService;
+
     /**
      * 获取没有审核的申请记录
      *
@@ -43,7 +52,7 @@ public class SystemVisitController {
     public AjaxResponse getWillVisitRecords(@PathVariable("org_id")Long org_id) {
         Map res = new HashMap();
         //--获取紧急申请（今天、明天）+未审核--增加排班--------------------------------------（今天 明天的occupied不能大于1）
-        res.put("urgentVisitRecord", visitRecordService.selectByOrgId(org_id));
+        res.put("urgentVisitRecord", visitRecordService.selectByOrgIdAndChecked(org_id));
 
         //--获取没有审核的申请记录（后天及以后的记录）+未审核--可以更改原排班-----------------
         //1. 获取后天及之后的schedule
@@ -124,10 +133,42 @@ public class SystemVisitController {
 
     /**
      * 获取自己已经审核的初访记录
+     *
+     * 输入：用户id
      */
-    @RequestMapping(value = "/visitRecords/org/{org_id}/user/{user_id}", method = RequestMethod.GET)
-    public AjaxResponse getVisitRecords(@PathVariable("org_id")Long org_id, @PathVariable("user_id") Long user_id) {
-        return AjaxResponse.success(visitRecordService.getByOrgIdAndUserId(org_id, user_id));
+    @RequestMapping(value = "/visitRecords/user/{user_id}", method = RequestMethod.GET)
+    public AjaxResponse getVisitRecordsByUserId(@PathVariable("user_id") Long user_id) {
+        return AjaxResponse.success(visitRecordService.getByUserId(user_id));
+    }
+
+    /**
+     * 查看全部初访申请表
+     *
+     * 输入：校区
+     **/
+    @RequestMapping(value = "/applications/org/{org_id}", method = RequestMethod.GET)
+    public AjaxResponse getApplications(@PathVariable("org_id") Long org_id) {
+        //schedule_id
+        List<Long> schedule_ids = scheduleService.selectByOrgId(org_id);
+
+        //application_id
+        List<Long> application_ids = visitRecordService.getApplicationIdsByScheduleIds(schedule_ids);
+
+        //application
+        List<Application> applications = applicationService.getByIds(application_ids);
+        return AjaxResponse.success(applications);
+    }
+
+    /**
+     * 查看初访记录表
+     *
+     * 输入：校区
+     */
+    @RequestMapping(value = "/visitRecords/org/{org_id}")
+    public AjaxResponse getVisitRecords(@PathVariable("org_id") Long org_id) {
+
+        List<VisitRecordVO> res = visitRecordService.selectByOrgId(org_id);
+        return AjaxResponse.success(res);
     }
 
 }

@@ -40,6 +40,11 @@ public class ConsultServiceImpl extends ServiceImpl<ConsultMapper, Consult> impl
         consultMapper.update_evaluate(evaluate, id);
     }
 
+    @Override
+    public List<ConsultVO> getConsultsByApplicationIds(List<Long> application_ids) {
+        return consultMapper.selectConsultsByApplicationIds(application_ids);
+    }
+
     //添加咨询状态
     @Override
     public void update_consultStatus(Integer status,Long id){

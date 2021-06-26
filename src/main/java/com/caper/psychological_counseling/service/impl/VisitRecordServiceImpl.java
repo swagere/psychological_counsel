@@ -37,8 +37,8 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
-    public List<VisitRecordVO> selectByOrgId(Long org_id) {
-        return visitRecordMapper.selectByOrgId(org_id);
+    public List<VisitRecordVO> selectByOrgIdAndChecked(Long org_id) {
+        return visitRecordMapper.selectByOrgIdAndChecked(org_id);
     }
 
     @Override
@@ -52,8 +52,8 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
-    public List<VisitRecordVO> getByOrgIdAndUserId(Long org_id, Long user_id) {
-        return visitRecordMapper.selectByOrgIdAndUserId(org_id, user_id);
+    public List<VisitRecordVO> getByUserId(Long user_id) {
+        return visitRecordMapper.selectByUserId(user_id);
     }
 
     //用户查询自己的初访记录表
@@ -102,5 +102,15 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     public void update_result(Integer rank,String type,Integer status,Integer diag,String result,Long id){
 
         visitRecordMapper.update_visitRecord(rank, type, status, diag, result, id);
+    }
+
+    @Override
+    public List<Long> getApplicationIdsByScheduleIds(List<Long> schedule_ids) {
+        return visitRecordMapper.selectApplicationIdsByScheduleIds(schedule_ids);
+    }
+
+    @Override
+    public List<VisitRecordVO> selectByOrgId(Long org_id) {
+        return visitRecordMapper.selectByOrgId(org_id);
     }
 }

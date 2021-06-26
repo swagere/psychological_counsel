@@ -33,13 +33,13 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
 
     List<VisitRecordVO> selectByDateAndChecked(@Param("schedules") List<Long> schedules);
 
-    List<VisitRecordVO> selectByOrgId(@Param("org_id") Long org_id);
+    List<VisitRecordVO> selectByOrgIdAndChecked(@Param("org_id") Long org_id);
 
     boolean updateScheduleIdById(@Param("schedule_id") Long schedule_id, @Param("id") Long visitRecord_id);
 
     boolean updateCheck(@Param("system_id") Long system_id, @Param("id") Long visitRecord_id);
 
-    List<VisitRecordVO> selectByOrgIdAndUserId(@Param("org_id")Long org_id, @Param("system_id")Long system_id);
+    List<VisitRecordVO> selectByUserId(@Param("system_id")Long system_id);
 
     //初访师查看自己的初访记录表（根据id和审核状态）
     @Select("SELECT *\n" +
@@ -96,4 +96,7 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
                             @Param("result")String result,
                             @Param("id")Long id);
 
+    List<Long> selectApplicationIdsByScheduleIds(@Param("schedules") List<Long> schedules);
+
+    List<VisitRecordVO> selectByOrgId(@Param("org_id") Long org_id);
 }

@@ -45,4 +45,11 @@ public class Organization extends Model<Organization> {
         return this.id;
     }
 
+    public Long getOrgPid() {
+        return orgId;
+    }
+
+    public String getOrgPids() {
+        return orgIds;
+    }
 }

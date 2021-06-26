@@ -2,13 +2,13 @@ package com.caper.psychological_counseling.model.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
 @Data
-public class ConsultVO {
-    private Long id;
+public class ConsultVO extends Model<ConsultVO> {
 
-    private Long applicationId;
+    private Long id;
 
     private Integer status;
 
@@ -18,8 +18,6 @@ public class ConsultVO {
 
     private String evaluate;
 
-    @TableField("is_deleted")
-    @TableLogic
     private Integer deleted;
 
 }

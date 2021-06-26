@@ -15,6 +15,22 @@ public class VisitRecordVO extends Model<VisitRecordVO> {
 
     private String stuName;
 
+    private Long systemId;
+
+    private String systemName;
+
+    private Integer is_checked;
+
+    private Integer rank;
+
+    private Integer status;
+
+    private String type;
+
+    private Integer diag;
+
+    private String result;
+
     private ScheduleVO scheduleVO;
 
     private VisitApplicationVO visitApplicationVO;

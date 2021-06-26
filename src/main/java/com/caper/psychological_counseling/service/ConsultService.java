@@ -35,5 +35,5 @@ public interface ConsultService extends IService<Consult> {
 
 
 
-
+    List<ConsultVO> getConsultsByApplicationIds(List<Long> application_ids);
 }

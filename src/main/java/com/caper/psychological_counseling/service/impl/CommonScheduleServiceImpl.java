@@ -3,7 +3,6 @@ package com.caper.psychological_counseling.service.impl;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.caper.psychological_counseling.mapper.ScheduleMapper;
-import com.caper.psychological_counseling.mapper.SystemCommonMapper;
 import com.caper.psychological_counseling.model.domain.CommonSchedule;
 import com.caper.psychological_counseling.mapper.CommonScheduleMapper;
 import com.caper.psychological_counseling.model.domain.Schedule;
@@ -29,9 +28,6 @@ import java.util.Map;
  */
 @Service
 public class CommonScheduleServiceImpl extends ServiceImpl<CommonScheduleMapper, CommonSchedule> implements CommonScheduleService {
-
-    @Resource
-    private SystemCommonMapper systemCommonMapper;
 
     @Resource
     private ScheduleMapper scheduleMapper;

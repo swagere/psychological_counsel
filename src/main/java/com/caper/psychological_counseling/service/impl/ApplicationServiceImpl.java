@@ -39,4 +39,9 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Appli
         return applicationMapper.get_application(user_id);
 
     }
+
+    @Override
+    public List<Application> getByIds(List<Long> application_ids) {
+        return applicationMapper.selectBatchIds(application_ids);
+    }
 }

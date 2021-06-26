@@ -15,4 +15,9 @@ public interface SystemMapper {
                                @Param("menuStatus") Boolean menuStatus);
 
   List<SysMenu> selectMenuByUsername(@Param("username") String username );
+
+  List<Organization> selectOrgTree(@Param("rootOrgId") Long rootOrgId ,
+                             @Param("orgNameLike") String orgNameLike,
+                             @Param("orgStatus") Boolean orgStatus);
+
 }
