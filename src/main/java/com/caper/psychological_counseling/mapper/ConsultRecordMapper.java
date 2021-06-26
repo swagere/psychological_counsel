@@ -33,6 +33,18 @@ public interface ConsultRecordMapper extends BaseMapper<ConsultRecord> {
             "WHERE consult_id = #{id}")
     List<ConsultRecord> selectConsultRecord(@Param("id")Long id);
 
+    //查看咨询记录表的次数（根据Id）
+    @Select("SELECT times\n" +
+            "FROM consult_record\n" +
+            "WHERE id = #{id}")
+    Integer selectConsultRecordTimes(@Param("id")Long id);
+
+    //查看咨询记录表的咨询表id（根据Id）
+    @Select("SELECT consult_id\n" +
+            "FROM consult_record\n" +
+            "WHERE id = #{id}")
+    Long selectConsultId(@Param("id")Long id);
+
     //修改咨询记录结论
     @Update("UPDATE consult_record\n" +
             "SET result = #{result}\n" +

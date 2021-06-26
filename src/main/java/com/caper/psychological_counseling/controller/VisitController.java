@@ -102,6 +102,7 @@ public class VisitController {
             consultRecord.setScheduleId(consultDTO.getScheduleId());
             consultRecord.setStuId(consultDTO.getStuId());
             consultRecord.setDeleted(0);
+            consultRecord.setChecked(0);
             consultRecord.setTimes(i);
             consultRecordService.build_consultRecord(consultRecord);
 

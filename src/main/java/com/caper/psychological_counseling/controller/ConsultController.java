@@ -57,6 +57,18 @@ public class ConsultController {
     public AjaxResponse update_consultRecordStatus(@RequestParam("status") Integer status,
                                                    @RequestParam("id") Long id){
 
+        //第一次咨询记录表开始，对应的咨询表状态也要为开始
+        if(consultRecordService.selectConsultRecordTimes(id) == 1 && status == 1){
+            Long consultID = consultRecordService.selectConsultId(id);
+            consultService.update_consultStatus(3, consultID);
+        }
+
+        //第八次咨询记录表结束，对应的咨询表状态也要结束
+        if(consultRecordService.selectConsultRecordTimes(id) == 8 && status == 1){
+            Long consultID = consultRecordService.selectConsultId(id);
+            consultService.update_consultStatus(1, consultID);
+        }
+
         consultRecordService.update_consultRecordStatus(status, id);
         return AjaxResponse.success();
     }

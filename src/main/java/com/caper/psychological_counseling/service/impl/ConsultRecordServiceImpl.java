@@ -4,6 +4,7 @@ import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.caper.psychological_counseling.mapper.ConsultRecordMapper;
 import com.caper.psychological_counseling.service.ConsultRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -48,5 +49,17 @@ public class ConsultRecordServiceImpl extends ServiceImpl<ConsultRecordMapper, C
     @Override
     public List<ConsultRecord> selectConsultRecord(Long id){
         return consultRecordMapper.selectConsultRecord(id);
+    }
+
+    //查看咨询记录表（根据consultId）
+    @Override
+    public Integer selectConsultRecordTimes(Long id){
+        return consultRecordMapper.selectConsultRecordTimes(id);
+    }
+
+    //查看咨询记录表的咨询表id（根据Id）
+    @Override
+    public Long selectConsultId(Long id){
+        return consultRecordMapper.selectConsultId(id);
     }
 }
