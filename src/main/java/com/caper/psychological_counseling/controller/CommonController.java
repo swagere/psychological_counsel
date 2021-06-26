@@ -7,6 +7,7 @@ import com.caper.psychological_counseling.common.config.system.SysMenuNode;
 import com.caper.psychological_counseling.common.config.system.SysMenuService;
 import com.caper.psychological_counseling.common.config.system.SysOrgNode;
 import com.caper.psychological_counseling.common.config.system.SysorgService;
+import com.caper.psychological_counseling.service.AreaService;
 import com.caper.psychological_counseling.service.OrganizationService;
 import com.caper.psychological_counseling.service.SysUserService;
 import com.caper.psychological_counseling.model.dto.UserDTO;
@@ -36,6 +37,8 @@ public class CommonController {
     private SysorgService sysorgService;
     @Autowired
     private OrganizationService organizationService;
+    @Autowired
+    private AreaService areaService;
 
     @RequestMapping(value = "/tree/user/{id}", method = RequestMethod.GET)
     public List<SysMenuNode> getUserTree(@PathVariable("id") Long id) {
@@ -103,5 +106,24 @@ public class CommonController {
             return sysorgService.getOrgTreeById(root_id, null, null);
         }
     }
+
+    /**
+     * 获得校区
+     * 树信息
+     */
+    @RequestMapping(value = "/tree/area/{org_id}", method = RequestMethod.GET)
+    public List<SysOrgNode> getAreaTree(@PathVariable("org_id") Long org_id) {
+        //获取根节点id
+        String pids = organizationService.getById(org_id).getOrgIds();
+
+        try {
+            Long root_id = Long.valueOf(pids.split(",")[1].replace("[", "").replace("]", ""));
+            return areaService.getAreaTreeById(root_id, null, null);
+        }catch (Exception e) {
+            Long root_id = org_id;
+            return areaService.getAreaTreeById(root_id, null, null);
+        }
+    }
+
 
 }

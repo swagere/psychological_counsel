@@ -20,4 +20,7 @@ public interface SystemMapper {
                              @Param("orgNameLike") String orgNameLike,
                              @Param("orgStatus") Boolean orgStatus);
 
+  List<Organization> selectAreaOrgTree(@Param("rootOrgId") Long rootOrgId ,
+                                       @Param("orgNameLike") String orgNameLike,
+                                       @Param("orgStatus") Boolean orgStatus);
 }
