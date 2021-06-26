@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.service;
 
 import com.caper.psychological_counseling.model.domain.Consult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.caper.psychological_counseling.model.vo.ConsultVO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 
 import java.util.Date;
@@ -29,7 +30,7 @@ public interface ConsultService extends IService<Consult> {
     void update_consultType(String type,Long id);
 
     //查看咨询表（根据状态）
-    List<Consult> selectConsult(Long id,Integer status);
+    List<ConsultVO> selectConsult(Long id, Integer status);
 
 
 

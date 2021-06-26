@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.mapper;
 
 import com.caper.psychological_counseling.model.domain.*;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.caper.psychological_counseling.model.vo.ConsultVO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -69,9 +70,12 @@ public interface ConsultMapper extends BaseMapper<Consult> {
     //查看自己的咨询表（根据状态）
     @Select("SELECT *\n" +
             "FROM consult\n" +
-            "WHERE status = #{status} and schedule_id in(SELECT id FROM `schedule` WHERE user_id = #{id})")
-    List<Consult> selectConsult(@Param("id")Long id,
-                                           @Param("status")Integer status);
+            "WHERE status = #{status} \n" +
+            "and id in\n" +
+            "(SELECT consult_id FROM `consult_record` WHERE schedule_id in \n" +
+            "(SELECT id FROM schedule WHERE user_id = #{id}))")
+    List<ConsultVO> selectConsult(@Param("id")Long id,
+                                  @Param("status")Integer status);
 
 
 

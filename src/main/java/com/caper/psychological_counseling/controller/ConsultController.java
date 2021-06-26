@@ -54,7 +54,8 @@ public class ConsultController {
 
     //添加咨询记录表状态
     @PutMapping("/consult/updateConsultRecordStatus")
-    public AjaxResponse update_consultRecordStatus(Integer status,Long id){
+    public AjaxResponse update_consultRecordStatus(@RequestParam("status") Integer status,
+                                                   @RequestParam("id") Long id){
 
         consultRecordService.update_consultRecordStatus(status, id);
         return AjaxResponse.success();
@@ -63,7 +64,8 @@ public class ConsultController {
     //修改咨询记录结论
 
     @PutMapping("/consult/updateConsultRecordResult")
-    public AjaxResponse update_consultRecordResult(String result,Long id){
+    public AjaxResponse update_consultRecordResult(@RequestParam("result")String result,
+                                                   @RequestParam("id")Long id){
 
         consultRecordService.update_consultRecordResult(result, id);
         return AjaxResponse.success();
@@ -71,30 +73,32 @@ public class ConsultController {
 
 
     //查看咨询表（根据状态）
-    @GetMapping("/consult/selectConsult")
-    public AjaxResponse selectConsult(Long id, Integer status){
+    @PostMapping("/consult/selectConsult")
+    public AjaxResponse selectConsult(@RequestParam("id")Long id,
+                                      @RequestParam("status") Integer status){
 
+        System.out.println(consultService.selectConsult(id, status));
         return AjaxResponse.success(consultService.selectConsult(id, status));
     }
 
     //查看咨询记录表（根据consult id）
-    @GetMapping("/consult/selectConsultRecord")
-    public AjaxResponse selectConsultRecord(Long id){
+    @PostMapping("/consult/selectConsultRecord")
+    public AjaxResponse selectConsultRecord(@RequestParam("id")Long id){
 
         return AjaxResponse.success(consultRecordService.selectConsultRecord(id));
     }
 
     //查看自己的排班表（今天以及以后，今天以及以前，全部）
-    @GetMapping("/consult/getVisitRecordsBefore/{id}")
-    public AjaxResponse get_consultRecordsBefore(@PathVariable("id")Long id){
+    @PostMapping("/consult/getVisitSchedulesBefore/{id}")
+    public AjaxResponse get_consultSchedulesBefore(@PathVariable("id")Long id){
 
 
-        return AjaxResponse.success(visitRecordService.selectVisitor_RecordsBefor(id));
+        return AjaxResponse.success(visitRecordService.selectVisitor_SchedulesBefor(id));
     }
 
 
     
-    @GetMapping("/consult/getVisitSchedules/{id}")
+    @PostMapping("/consult/getVisitSchedules/{id}")
     public AjaxResponse get_consultSchedules(@PathVariable("id")Long id){
 
         return AjaxResponse.success(visitRecordService.selectVisitor_Schedules(id));

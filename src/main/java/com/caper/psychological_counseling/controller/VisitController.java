@@ -96,6 +96,7 @@ public class VisitController {
 
         for(int i = 1;i <= 8;i++){
             //创建8次咨询记录表
+            //对应的排班表的is_occupied +1
             ConsultRecord consultRecord = new ConsultRecord();
             consultRecord.setConsultId(consultDTO.getConsultId());
             consultRecord.setScheduleId(consultDTO.getScheduleId());

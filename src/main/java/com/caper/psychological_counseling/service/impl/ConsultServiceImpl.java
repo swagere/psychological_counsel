@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.service.impl;
 
 import com.caper.psychological_counseling.model.domain.Consult;
 import com.caper.psychological_counseling.mapper.ConsultMapper;
+import com.caper.psychological_counseling.model.vo.ConsultVO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import com.caper.psychological_counseling.service.ConsultService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -60,7 +61,8 @@ public class ConsultServiceImpl extends ServiceImpl<ConsultMapper, Consult> impl
 
     //查看咨询表（根据状态）
     @Override
-    public List<Consult> selectConsult(Long id,Integer status){
+    public List<ConsultVO> selectConsult(Long id, Integer status){
+        System.out.println("mapper:"+consultMapper.selectConsult(id, status));
         return consultMapper.selectConsult(id, status);
     }
 }
