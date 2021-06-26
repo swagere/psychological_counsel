@@ -48,4 +48,9 @@ public class ConsultRecordServiceImpl extends ServiceImpl<ConsultRecordMapper, C
     public boolean updateScheduleIdById(Long schedule_id, Long consultRecord_id) {
         return consultRecordMapper.updateScheduleIdById(schedule_id, consultRecord_id);
     }
+
+    @Override
+    public boolean updateCheck(Long assistant_id, Long consultRecord_id) {
+        return consultRecordMapper.updateCheck(assistant_id, consultRecord_id);
+    }
 }

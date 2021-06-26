@@ -89,4 +89,10 @@
         where id = #{id}
     </update>
 
+    <update id="updateCheck">
+        update consult_record
+        set assistant_id = #{assistant_id}, is_checked = 1
+        where id = #{id}
+    </update>
+
 </mapper>

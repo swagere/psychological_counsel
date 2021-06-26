@@ -32,4 +32,6 @@ public interface ConsultRecordMapper extends BaseMapper<ConsultRecord> {
     List<ConsultRecordVO> selectByDateAndChecked(@Param("schedules")List<Long> schedules1);
 
     boolean updateScheduleIdById(@Param("schedule_id") Long schedule_id, @Param("id") Long consultRecord_id);
+
+    boolean updateCheck(@Param("assistant_id") Long assistant_id, @Param("id") Long consultRecord_id);
 }

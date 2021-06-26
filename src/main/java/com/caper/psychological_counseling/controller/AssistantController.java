@@ -6,6 +6,7 @@ import com.caper.psychological_counseling.common.config.exception.CustomExceptio
 import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.caper.psychological_counseling.model.dto.ConsultRecordToCheckDTO;
 import com.caper.psychological_counseling.model.dto.ConsultRecordToScheduleIdDTO;
+import com.caper.psychological_counseling.model.dto.VisitRecordToCheckDTO;
 import com.caper.psychological_counseling.model.dto.VisitRecordToScheduleIdDTO;
 import com.caper.psychological_counseling.model.vo.ConsultRecordVO;
 import com.caper.psychological_counseling.model.vo.ConsultVO;
@@ -140,6 +141,27 @@ public class AssistantController {
         }catch (Exception e){
             return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
                     ,"更新失败，排班表/记录表不正确"));
+        }
+
+        return AjaxResponse.success();
+    }
+
+    /**
+     * 同意审核
+     * 1. is_checked
+     * 2. assistant_id
+     */
+    @RequestMapping(value = "/consultRecords/check", method = RequestMethod.PUT)
+    public AjaxResponse ChangeConsultRecordToCheck(@RequestBody ConsultRecordToCheckDTO consultRecordToCheckDTO) {
+        Long assistant_id = consultRecordToCheckDTO.getAssistant_id();
+        Long consultRecord_id = consultRecordToCheckDTO.getConsultRecord_id();
+
+        try {
+            consultRecordService.updateCheck(assistant_id, consultRecord_id);
+        }
+        catch (Exception e){
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"更新失败，记录表/审核员不正确"));
         }
 
         return AjaxResponse.success();
