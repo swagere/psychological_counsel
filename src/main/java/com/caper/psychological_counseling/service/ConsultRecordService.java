@@ -23,4 +23,6 @@ public interface ConsultRecordService extends IService<ConsultRecord> {
     boolean updateScheduleIdById(Long schedule_id, Long consultRecord_id);
 
     boolean updateCheck(Long assistant_id, Long consultRecord_id);
+
+    List<ConsultRecordVO> getByUserId(Long user_id);
 }

@@ -167,4 +167,14 @@ public class AssistantController {
         return AjaxResponse.success();
     }
 
+    /**
+     * 获取自己已经审核的咨询记录
+     *
+     * 输入：用户id
+     */
+    @RequestMapping(value = "/consultRecords/user/{user_id}", method = RequestMethod.GET)
+    public AjaxResponse getConsultRecordsByUserId(@PathVariable("user_id") Long user_id) {
+        return AjaxResponse.success(consultRecordService.getByUserId(user_id));
+    }
+
 }

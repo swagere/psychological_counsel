@@ -53,4 +53,9 @@ public class ConsultRecordServiceImpl extends ServiceImpl<ConsultRecordMapper, C
     public boolean updateCheck(Long assistant_id, Long consultRecord_id) {
         return consultRecordMapper.updateCheck(assistant_id, consultRecord_id);
     }
+
+    @Override
+    public List<ConsultRecordVO> getByUserId(Long user_id) {
+        return consultRecordMapper.selectByUserId(user_id);
+    }
 }

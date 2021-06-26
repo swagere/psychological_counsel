@@ -95,4 +95,16 @@
         where id = #{id}
     </update>
 
+    <select id="selectByUserId" resultMap="consultRecordVO">
+        select a.id, a.stu_id, b.name as stu_name, a.times, a.status, a.result, a.evaluate, a.schedule_id as sid, c.week, c.date, c.begin_time, c.end_time,
+                c.user_id as tea_id, d.name as tea_name, e.area_name
+        from consult_record a
+        left join sys_user b on a.stu_id = b.id
+        left join schedule c on a.schedule_id = c.id
+        left join sys_user d on c.user_id = d.id
+        left join area e on c.area_id = e.id
+        where a.is_deleted = 0
+        and a.is_checked = 1
+        and a.assistant_id = #{user_id}
+    </select>
 </mapper>
