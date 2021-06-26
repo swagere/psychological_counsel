@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.mapper;
 
+import com.caper.psychological_counseling.common.config.system.SysOrgNode;
 import com.caper.psychological_counseling.model.domain.Organization;
 import com.caper.psychological_counseling.model.domain.SysMenu;
 import org.apache.ibatis.annotations.Param;
@@ -23,4 +24,6 @@ public interface SystemMapper {
   List<Organization> selectAreaOrgTree(@Param("rootOrgId") Long rootOrgId ,
                                        @Param("orgNameLike") String orgNameLike,
                                        @Param("orgStatus") Boolean orgStatus);
+
+  List<SysOrgNode> selectAreasByOrgId(@Param("org_id") Long org_id);
 }

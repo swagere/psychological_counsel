@@ -19,4 +19,6 @@ public interface AreaService extends IService<Area> {
     boolean updateArea(Area area);
 
     List<SysOrgNode> getAreaTreeById(Long root_id, String orgNameLike, Boolean orgStatus);
+
+    List<SysOrgNode> getAreasByOrgId(Long org_id);
 }

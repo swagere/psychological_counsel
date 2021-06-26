@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
@@ -7,6 +8,7 @@ import com.caper.psychological_counseling.common.config.system.SysMenuNode;
 import com.caper.psychological_counseling.common.config.system.SysMenuService;
 import com.caper.psychological_counseling.common.config.system.SysOrgNode;
 import com.caper.psychological_counseling.common.config.system.SysorgService;
+import com.caper.psychological_counseling.model.domain.Area;
 import com.caper.psychological_counseling.service.AreaService;
 import com.caper.psychological_counseling.service.OrganizationService;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -98,13 +100,12 @@ public class CommonController {
     public List<SysOrgNode> getOrgTree(@PathVariable("org_id") Long org_id) {
         //获取根节点id
         String pids = organizationService.getById(org_id).getOrgIds();
+        Long root_id = org_id;
         try {
-            Long root_id = Long.valueOf(pids.split(",")[1].replace("[", "").replace("]", ""));
-            return sysorgService.getOrgTreeById(root_id, null, null);
-        }catch (Exception e) {
-            Long root_id = org_id;
-            return sysorgService.getOrgTreeById(root_id, null, null);
-        }
+            root_id = Long.valueOf(pids.split(",")[1].replace("[", "").replace("]", ""));
+
+        }catch (Exception e) {}
+        return sysorgService.getOrgTreeById(root_id, null, null);
     }
 
     /**
@@ -115,14 +116,37 @@ public class CommonController {
     public List<SysOrgNode> getAreaTree(@PathVariable("org_id") Long org_id) {
         //获取根节点id
         String pids = organizationService.getById(org_id).getOrgIds();
-
+        Long root_id = org_id;
         try {
-            Long root_id = Long.valueOf(pids.split(",")[1].replace("[", "").replace("]", ""));
-            return areaService.getAreaTreeById(root_id, null, null);
-        }catch (Exception e) {
-            Long root_id = org_id;
-            return areaService.getAreaTreeById(root_id, null, null);
+            root_id = Long.valueOf(pids.split(",")[1].replace("[", "").replace("]", ""));
+
+        }catch (Exception e) {}
+
+        List<SysOrgNode> orgs =  areaService.getAreaTreeById(root_id, null, null);
+        for (SysOrgNode org : orgs) {
+            List<SysOrgNode> children = org.getChildren();
+
+            for (SysOrgNode child : children) {
+                //查出org_id下的所有教室
+                //将教室转化为SysOrgNode
+
+                System.out.println(child.getId());
+                try {
+                    List<SysOrgNode> areas = areaService.getAreasByOrgId(child.getId());
+
+                    //赋值给children
+                    child.setChildren(areas);
+                    child.setLeaf(0);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+
+            }
+
         }
+
+        return orgs;
     }
 
 

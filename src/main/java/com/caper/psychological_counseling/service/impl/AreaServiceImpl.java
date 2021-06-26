@@ -73,4 +73,9 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements Ar
         }
     }
 
+    @Override
+    public List<SysOrgNode> getAreasByOrgId(Long org_id) {
+        return systemMapper.selectAreasByOrgId(org_id);
+    }
+
 }
