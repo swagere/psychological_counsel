@@ -85,23 +85,23 @@ public class ConsultController {
 
 
     //查看咨询表（根据状态）
-    @PostMapping("/consult/selectConsult")
-    public AjaxResponse selectConsult(@RequestParam("id")Long id,
-                                      @RequestParam("status") Integer status){
+    @GetMapping("/consult/selectConsult/user/{id}/status/{status}")
+    public AjaxResponse selectConsult(@PathVariable("id")Long id,
+                                      @PathVariable("status") Integer status){
 
-        System.out.println(consultService.selectConsult(id, status));
+        //System.out.println(consultService.selectConsult(id, status));
         return AjaxResponse.success(consultService.selectConsult(id, status));
     }
 
     //查看咨询记录表（根据consult id）
-    @PostMapping("/consult/selectConsultRecord")
-    public AjaxResponse selectConsultRecord(@RequestParam("id")Long id){
+    @GetMapping("/consult/selectConsultRecord/{id}")
+    public AjaxResponse selectConsultRecord(@PathVariable("id")Long id){
 
         return AjaxResponse.success(consultRecordService.selectConsultRecord(id));
     }
 
     //查看自己的排班表（今天以及以后，今天以及以前，全部）
-    @PostMapping("/consult/getVisitSchedulesBefore/{id}")
+    @GetMapping("/consult/getVisitSchedulesBefore/{id}")
     public AjaxResponse get_consultSchedulesBefore(@PathVariable("id")Long id){
 
 
@@ -110,7 +110,7 @@ public class ConsultController {
 
 
     
-    @PostMapping("/consult/getVisitSchedules/{id}")
+    @GetMapping("/consult/getVisitSchedules/{id}")
     public AjaxResponse get_consultSchedules(@PathVariable("id")Long id){
 
         return AjaxResponse.success(visitRecordService.selectVisitor_Schedules(id));
