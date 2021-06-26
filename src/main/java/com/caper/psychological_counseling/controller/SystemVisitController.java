@@ -134,11 +134,11 @@ public class SystemVisitController {
     /**
      * 获取自己已经审核的初访记录
      *
-     * 输入：校区 用户id
+     * 输入：用户id
      */
-    @RequestMapping(value = "/visitRecords/org/{org_id}/user/{user_id}", method = RequestMethod.GET)
-    public AjaxResponse getVisitRecords(@PathVariable("org_id")Long org_id, @PathVariable("user_id") Long user_id) {
-        return AjaxResponse.success(visitRecordService.getByOrgIdAndUserId(org_id, user_id));
+    @RequestMapping(value = "/visitRecords/user/{user_id}", method = RequestMethod.GET)
+    public AjaxResponse getVisitRecordsByUserId(@PathVariable("user_id") Long user_id) {
+        return AjaxResponse.success(visitRecordService.getByUserId(user_id));
     }
 
     /**

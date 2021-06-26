@@ -52,8 +52,8 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
     @Override
-    public List<VisitRecordVO> getByOrgIdAndUserId(Long org_id, Long user_id) {
-        return visitRecordMapper.selectByOrgIdAndUserId(org_id, user_id);
+    public List<VisitRecordVO> getByUserId(Long user_id) {
+        return visitRecordMapper.selectByUserId(user_id);
     }
 
     //用户查询自己的初访记录表
