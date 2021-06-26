@@ -43,4 +43,9 @@ public class ConsultRecordServiceImpl extends ServiceImpl<ConsultRecordMapper, C
     public List<ConsultRecordVO> getByDateAndChecked(List<Long> schedules1) {
         return consultRecordMapper.selectByDateAndChecked(schedules1);
     }
+
+    @Override
+    public boolean updateScheduleIdById(Long schedule_id, Long consultRecord_id) {
+        return consultRecordMapper.updateScheduleIdById(schedule_id, consultRecord_id);
+    }
 }

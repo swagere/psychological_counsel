@@ -3,6 +3,10 @@ package com.caper.psychological_counseling.controller;
 import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.common.config.exception.CustomException;
 import com.caper.psychological_counseling.common.config.exception.CustomExceptionType;
+import com.caper.psychological_counseling.model.domain.ConsultRecord;
+import com.caper.psychological_counseling.model.dto.ConsultRecordToCheckDTO;
+import com.caper.psychological_counseling.model.dto.ConsultRecordToScheduleIdDTO;
+import com.caper.psychological_counseling.model.dto.VisitRecordToScheduleIdDTO;
 import com.caper.psychological_counseling.model.vo.ConsultRecordVO;
 import com.caper.psychological_counseling.model.vo.ConsultVO;
 import com.caper.psychological_counseling.service.ConsultRecordService;
@@ -10,10 +14,7 @@ import com.caper.psychological_counseling.service.ConsultService;
 import com.caper.psychological_counseling.service.ScheduleService;
 import com.caper.psychological_counseling.service.VisitRecordService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -110,5 +111,37 @@ public class AssistantController {
         //--前端处理-----------------------------------------------------------------------
         //前端获取紧急的记录 匹配schedule_ids与申请表中的schedule_id 以同种颜色展现冲突情况
         return AjaxResponse.success(res);
+    }
+
+
+    /**
+     * 补充/修改 排班信息
+     * 1. schedule表新增紧急排班
+     * 2. schedule_record链向排班
+     * 3. 修改schedule is_occupied
+     */
+    @RequestMapping(value = "/consultRecords/schedule", method = RequestMethod.PUT)
+    public AjaxResponse ChangeConsultRecordToScheduleId(@RequestBody ConsultRecordToScheduleIdDTO consultRecordToScheduleIdDTO) {
+        Long schedule_id = consultRecordToScheduleIdDTO.getSchedule_id();
+        Long consultRecord_id = consultRecordToScheduleIdDTO.getConsultRecord_id();
+
+        //1. visit_record链向排班
+        //查询schedule_id是否存在
+        try {
+            consultRecordService.updateScheduleIdById(schedule_id, consultRecord_id);
+        }catch (Exception e){
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"更新失败，排班表/记录表不正确"));
+        }
+
+        //2. 修改schedule is_occupied
+        try {
+            scheduleService.updateOccupiedById(schedule_id);
+        }catch (Exception e){
+            return AjaxResponse.error(new CustomException(CustomExceptionType.USER_INPUT_ERROR
+                    ,"更新失败，排班表/记录表不正确"));
+        }
+
+        return AjaxResponse.success();
     }
 }

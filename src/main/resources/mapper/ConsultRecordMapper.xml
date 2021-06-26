@@ -82,4 +82,11 @@
             #{schedule}
         </foreach>
     </select>
+
+    <update id="updateScheduleIdById">
+        update consult_record
+        set schedule_id = #{schedule_id}
+        where id = #{id}
+    </update>
+
 </mapper>

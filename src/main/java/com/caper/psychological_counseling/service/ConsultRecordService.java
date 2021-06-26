@@ -19,4 +19,6 @@ public interface ConsultRecordService extends IService<ConsultRecord> {
     List<ConsultRecordVO> selectByOrgIdAndChecked(Long org_id);
 
     List<ConsultRecordVO> getByDateAndChecked(List<Long> schedules1);
+
+    boolean updateScheduleIdById(Long schedule_id, Long consultRecord_id);
 }
