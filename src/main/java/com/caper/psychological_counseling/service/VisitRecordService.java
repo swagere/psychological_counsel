@@ -25,9 +25,7 @@ public interface VisitRecordService extends IService<VisitRecord> {
     boolean updateCheck(Long system_id, Long visitRecord_id);
 
     List<VisitRecordVO> getByUserId(Long user_id);
-    //初访员查询自己的初访记录表
-    List<VisitRecord> selectVisitor_Records(Long id);
-    List<VisitRecordVO> getByOrgIdAndUserId(Long org_id, Long user_id);
+
     //初访员查询自己的初访记录表（根据id和审核状态）
     List<VisitRecord> selectVisitor_Records(Long id,Integer status);
 
