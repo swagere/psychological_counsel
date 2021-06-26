@@ -41,20 +41,48 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
 
     List<VisitRecordVO> selectByOrgIdAndUserId(@Param("org_id")Long org_id, @Param("system_id")Long system_id);
 
-    //初访师查看自己的初访记录表（今天以及以后）
+    //初访师查看自己的初访记录表（根据id和审核状态）
     @Select("SELECT *\n" +
             "FROM visit_record\n" +
-            "WHERE schedule_id in(SELECT id FROM `schedule` WHERE user_id = #{id} and date >= #{date} )")
+            "WHERE schedule_id in(SELECT id FROM `schedule` WHERE user_id = #{id} and status = #{status} )")
     List<VisitRecord> selectVisitorRecords(@Param("id")Long id,
-                                          @Param("date") Date date);
+                                           @Param("status")Integer status);
+
+
+    //初访师查看自己的初访记录表（今天以前）
+    @Select("SELECT *\n" +
+            "FROM visit_record\n" +
+            "WHERE schedule_id in(SELECT id FROM `schedule` WHERE user_id = #{id} and date < #{date} )")
+    List<VisitRecord> selectVisitorRecordsBefor(@Param("id")Long id,
+                                           @Param("date") Date date);
 
 
 
 
     //初访师查看自己的排班时间（今天以及以后）
-    @Select("SELECT * FROM `schedule` WHERE user_id = #{id} and date >= #{date}")
+//    @Select("SELECT * FROM `schedule` WHERE user_id = #{id} and date >= #{date}")
+//    List<ScheduleVO> selectVisitorSchedules(@Param("id")Long id,
+//                                            @Param("date")Date date);
+
+    @Select("SELECT c.id,c.user_id,u.name,c.week,c.date,c.begin_time,c.end_time,a.area_name\n" +
+            "FROM sys_user u \n" +
+            "INNER JOIN schedule c ON(u.id = c.user_id)\n" +
+            "INNER JOIN area a ON(c.area_id = a.id)\n" +
+            "WHERE  date >= #{date}\n"+
+            "and u.id = #{id}")
     List<ScheduleVO> selectVisitorSchedules(@Param("id")Long id,
-                                           @Param("date")Date date);
+                                   @Param("date")Date date);
+
+
+    //初访师查看自己的排班时间（今天以前）
+    @Select("SELECT c.id,c.user_id,u.name,c.week,c.date,c.begin_time,c.end_time,a.area_name\n" +
+            "FROM sys_user u \n" +
+            "INNER JOIN schedule c ON(u.id = c.user_id)\n" +
+            "INNER JOIN area a ON(c.area_id = a.id)\n" +
+            "WHERE  date < #{date}\n"+
+            "and u.id = #{id}")
+    List<ScheduleVO> selectVisitorSchedulesBefor(@Param("id")Long id,
+                                            @Param("date")Date date);
 
 
     //初访师更新初访结论

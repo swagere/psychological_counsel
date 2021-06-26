@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.model.vo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -9,9 +10,9 @@ public class ScheduleVO {
 
     private Long id;
 
-    private Long teaId;
+    private Long userId;
 
-    private String teaName;
+    private String name;
 
     private Integer week;
 

@@ -64,11 +64,19 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     }
 
 
-    //初访员查询自己的初访记录表
+    //初访员查询自己的初访记录表（根据id和审核状态）
     @Override
-    public List<VisitRecord> selectVisitor_Records(Long id){
+    public List<VisitRecord> selectVisitor_Records(Long id,Integer status){
+
+        return visitRecordMapper.selectVisitorRecords(id, status);
+    }
+
+
+    //初访员查询自己的初访记录表（今天以及以后）
+    @Override
+    public List<VisitRecord> selectVisitor_RecordsBefor(Long id){
         Date date = new Date(new java.util.Date().getTime());
-        return visitRecordMapper.selectVisitorRecords(id, date);
+        return visitRecordMapper.selectVisitorRecordsBefor(id, date);
     }
 
 
@@ -79,6 +87,13 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     public List<ScheduleVO> selectVisitor_Schedules(Long id){
         Date date = new Date(new java.util.Date().getTime());
         return visitRecordMapper.selectVisitorSchedules(id, date);
+    }
+
+    //初访员查询自己的排班表（今天以前）
+    @Override
+    public List<ScheduleVO> selectVisitor_SchedulesBefor(Long id){
+        Date date = new Date(new java.util.Date().getTime());
+        return visitRecordMapper.selectVisitorSchedulesBefor(id, date);
     }
 
 
