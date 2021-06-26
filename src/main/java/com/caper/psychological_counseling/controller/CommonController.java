@@ -9,6 +9,7 @@ import com.caper.psychological_counseling.common.config.system.SysMenuService;
 import com.caper.psychological_counseling.common.config.system.SysOrgNode;
 import com.caper.psychological_counseling.common.config.system.SysorgService;
 import com.caper.psychological_counseling.model.domain.Area;
+import com.caper.psychological_counseling.model.domain.SysUser;
 import com.caper.psychological_counseling.service.AreaService;
 import com.caper.psychological_counseling.service.OrganizationService;
 import com.caper.psychological_counseling.service.SysUserService;
@@ -147,6 +148,17 @@ public class CommonController {
         }
 
         return orgs;
+    }
+
+    /**
+     * 中心管理员与咨询助理
+     * 排班
+     * 输入 校区和角色
+     * 获取用户及id
+     */
+    @RequestMapping(value = "/users/org/{org_id}/role/{role_id}", method = RequestMethod.GET)
+    public AjaxResponse getUsersByOrgIdAndRoleId(@PathVariable Long org_id, @PathVariable Long role_id) {
+        return AjaxResponse.success(sysUserService.getByOrgIdAndRoleId(org_id, role_id));
     }
 
 

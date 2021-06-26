@@ -19,4 +19,11 @@
         <result column="enabled" property="enabled" />
     </resultMap>
 
+    <select id="selectByOrgIdAndRoleId" resultType="com.caper.psychological_counseling.model.vo.SysUserVO">
+        select a.id, a.name
+        from sys_user a
+        left join sys_user_role b on a.id = b.user_id
+        where a.org_id = #{org_id}
+        and b.role_id = #{role_id}
+    </select>
 </mapper>

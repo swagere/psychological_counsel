@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.service.impl;
 import com.caper.psychological_counseling.model.domain.SysUser;
 import com.caper.psychological_counseling.mapper.SysUserMapper;
 import com.caper.psychological_counseling.model.dto.UserDTO;
+import com.caper.psychological_counseling.model.vo.SysUserVO;
 import com.caper.psychological_counseling.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
@@ -72,6 +73,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public Long getOrgIdByUserId(Long id) {
         return sysUserMapper.selectOrgIdByUserId(id);
+    }
+
+    @Override
+    public List<SysUserVO> getByOrgIdAndRoleId(Long org_id, Long role_id) {
+        return sysUserMapper.selectByOrgIdAndRoleId(org_id, role_id);
     }
 
 }
