@@ -60,4 +60,21 @@
         set is_occupied = is_occupied + 1
         where id = #{schedule_id}
     </update>
+
+    <select id="selectByUserIdsAndAreaIds" resultType="com.caper.psychological_counseling.model.vo.ScheduleVO">
+        select a.id, a.`week`, a.user_id, c.name as name, a.date, a.begin_time, a.end_time, b.area_name as area_name
+        from schedule a
+        left join area b on a.area_id = b.id
+        left join sys_user c on a.user_id = c.id
+        where user_id in
+        <foreach collection="ids.user_ids" item="user_id" index="index" open="(" close=")" separator=",">
+            #{user_id}
+        </foreach>
+        and area_id in
+        <foreach collection="ids.area_ids" item="area_id" index="index" open="(" close=")" separator=",">
+            #{area_id}
+        </foreach>
+        and b.`status` = 0
+        and c.enabled = 1
+    </select>
 </mapper>

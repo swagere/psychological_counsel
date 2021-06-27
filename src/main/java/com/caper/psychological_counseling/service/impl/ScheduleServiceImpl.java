@@ -164,6 +164,11 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     }
 
     @Override
+    public List<ScheduleVO> getByUserIdsAndAreaIds(UserIdAndAreaIds ids) {
+        return scheduleMapper.selectByUserIdsAndAreaIds(ids);
+    }
+
+    @Override
     public List<Long> selectByOrgId(Long org_id) {
         return scheduleMapper.selectByOrgId(org_id);
     }
