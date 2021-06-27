@@ -148,6 +148,8 @@ public class UserController {
     }
 
 
+
+
     //选择初访员，同时建立初访记录表
     @PostMapping("/user/SelectVisitor")
     public AjaxResponse selected_visitor(@RequestBody VisitRecord visitRecord){
@@ -173,6 +175,7 @@ public class UserController {
 
 
     //推荐咨询师排班表，选择咨询师
+    //显示最近7天的排班时间，选中后 8次咨询记录自动选中8周的同一时间和地点
 
     @PostMapping("/user/SelectConsultant")
     public AjaxResponse selected_consultant(@RequestParam("area_id")Long id,
