@@ -1,9 +1,11 @@
 package com.caper.psychological_counseling.service;
 
+import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.caper.psychological_counseling.model.vo.VisitRecordVO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
+import org.apache.ibatis.annotations.Param;
 
 
 import javax.xml.crypto.Data;
@@ -44,4 +46,6 @@ public interface VisitRecordService extends IService<VisitRecord> {
     List<Long> getApplicationIdsByScheduleIds(List<Long> schedule_ids);
 
     List<VisitRecordVO> selectByOrgId(Long org_id);
+
+    List<Application> select_Applications(Long org_id);
 }

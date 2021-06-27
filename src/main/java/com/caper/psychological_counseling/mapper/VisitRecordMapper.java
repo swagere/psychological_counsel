@@ -1,5 +1,6 @@
 package com.caper.psychological_counseling.mapper;
 
+import com.caper.psychological_counseling.model.domain.Application;
 import com.caper.psychological_counseling.model.domain.VisitRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.vo.VisitRecordVO;
@@ -99,4 +100,11 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
     List<Long> selectApplicationIdsByScheduleIds(@Param("schedules") List<Long> schedules);
 
     List<VisitRecordVO> selectByOrgId(@Param("org_id") Long org_id);
+
+    //初访员查看初访申请表，根据org_id
+    @Select("SELECT *\n" +
+            "FROM application\n" +
+            "WHERE stu_id in(SELECT id\n" +
+            "FROM sys_user WHERE org_id = #{org_id})")
+    List<Application> select_Applications(@Param("org_id")Long org_id);
 }

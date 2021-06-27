@@ -78,7 +78,13 @@ public class VisitController {
         return AjaxResponse.success();
     }
 
-    //查看初访申请表
+    //查看初访申请表。根据校区
+    @GetMapping("/visitor/selectApplication/{org_id}")
+    public AjaxResponse selectApplication(@PathVariable("org_id")Long org_id){
+
+
+        return AjaxResponse.success(visitRecordService.select_Applications(org_id));
+    }
 
 
 
