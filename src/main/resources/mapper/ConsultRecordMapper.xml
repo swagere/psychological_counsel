@@ -107,4 +107,20 @@
         and a.is_checked = 1
         and a.assistant_id = #{user_id}
     </select>
+
+    <select id="selectReportByConsultId" resultType="com.caper.psychological_counseling.model.vo.ReportRecord">
+        select result as diag, CONCAT(b.date," ", b.begin_time, " - ", b.end_time) as time, c.area_name as classroom
+        from consult_record a
+        left join schedule b on a.schedule_id = b.id
+        left join area c on b.area_id = c.id
+        where consult_id = #{consult_id}
+    </select>
+
+    <select id="selectConsultorNameByConsultId" resultType="java.lang.String">
+        select c.name
+        from consult_record a
+        left join schedule b on a.schedule_id = b.id
+        left join sys_user c on  b.user_id = c.id
+        where a.consult_id = #{id}
+    </select>
 </mapper>

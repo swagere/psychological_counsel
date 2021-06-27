@@ -4,6 +4,7 @@ import com.caper.psychological_counseling.model.domain.Consult;
 import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.vo.ConsultRecordVO;
+import com.caper.psychological_counseling.model.vo.ReportRecord;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -71,4 +72,8 @@ public interface ConsultRecordMapper extends BaseMapper<ConsultRecord> {
     boolean updateCheck(@Param("assistant_id") Long assistant_id, @Param("id") Long consultRecord_id);
 
     List<ConsultRecordVO> selectByUserId(@Param("user_id") Long user_id);
+
+    List<ReportRecord> selectReportByConsultId(@Param("consult_id") Long consult_id);
+
+    List<String> selectConsultorNameByConsultId(Long id);
 }

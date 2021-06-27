@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.service.impl;
 import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.caper.psychological_counseling.mapper.ConsultRecordMapper;
 import com.caper.psychological_counseling.model.vo.ConsultRecordVO;
+import com.caper.psychological_counseling.model.vo.ReportRecord;
 import com.caper.psychological_counseling.service.ConsultRecordService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.ibatis.annotations.Param;
@@ -92,5 +93,15 @@ public class ConsultRecordServiceImpl extends ServiceImpl<ConsultRecordMapper, C
     @Override
     public Long selectConsultId(Long id){
         return consultRecordMapper.selectConsultId(id);
+    }
+
+    @Override
+    public List<ReportRecord> selectReportByConsultId(Long consult_id) {
+        return consultRecordMapper.selectReportByConsultId(consult_id);
+    }
+
+    @Override
+    public List<String> getConsultorNameByConsultId(Long id) {
+        return consultRecordMapper.selectConsultorNameByConsultId(id);
     }
 }
