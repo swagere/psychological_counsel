@@ -61,8 +61,8 @@ public class DynamicallyGeneratedWordService {
 		}
 
 
-//		String filePath = "/home/user/conseling/reports/" + consult_id + ".doc";
-		String filePath = "D://" + consult_id + ".doc";
+		String filePath = "/home/user/conseling/reports/" + consult_id + ".doc";
+//		String filePath = "D://" + consult_id + ".doc";
 
 		//查看文件是否存在 若存在则直接读取
 		File file = new File(filePath);
