@@ -44,4 +44,30 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationMapper, Appli
     public List<Application> getByIds(List<Long> application_ids) {
         return applicationMapper.selectBatchIds(application_ids);
     }
+
+    //计算得分(id为初访申请表id)
+    @Override
+    public void update_grade(Integer grade, Long id){
+        applicationMapper.update_grade(grade, id);
+    }
+
+
+    //评判危险等级(id为初访申请表id)
+    @Override
+    public void update_urgency(Integer urgency,Long id){
+        applicationMapper.update_urgency(urgency, id);
+    }
+
+    //查询答案
+    @Override
+    public String select_answer(Long id){
+        return applicationMapper.select_answer(id);
+    }
+
+
+    //导入答案
+    @Override
+    public void update_answer(Long id,String answer){
+        applicationMapper.update_answer(id, answer);
+    }
 }

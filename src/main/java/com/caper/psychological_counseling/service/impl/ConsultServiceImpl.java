@@ -6,9 +6,11 @@ import com.caper.psychological_counseling.model.vo.ConsultVO;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import com.caper.psychological_counseling.service.ConsultService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -22,9 +24,14 @@ public class ConsultServiceImpl extends ServiceImpl<ConsultMapper, Consult> impl
     //查询符合条件的咨询师
     @Override
     public List<ScheduleVO> find_consults(Long area_id, String type){
-        Date date = new Date(new java.util.Date().getTime());
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
+        Date end_time = calendar.getTime();//7天后的时间
 
-        return  consultMapper.find_consults(area_id, type, date);
+
+        return  consultMapper.find_consults(area_id, type, date,end_time);
     }
 
     //创建咨询表
@@ -32,6 +39,20 @@ public class ConsultServiceImpl extends ServiceImpl<ConsultMapper, Consult> impl
     public void build_consult (Consult consult){
         consultMapper.insert(consult);
 
+    }
+
+    //查询排班表的日期、time、校区、咨询师。根据排班表id
+    @Override
+    public ScheduleVO find_schedule(Long id){
+        return consultMapper.find_schedule(id);
+    }
+
+
+
+    //根据时间、time、校区、咨询师查找排班id
+    @Override
+    public Long  find_scheduleId(Long area_id,Date date,String begin_time,String end_time,Long user_id){
+        return consultMapper.find_scheduleId(area_id, date, begin_time, end_time, user_id);
     }
 
     //用户评价咨询

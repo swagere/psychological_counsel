@@ -4,12 +4,16 @@ import com.caper.psychological_counseling.common.config.exception.AjaxResponse;
 import com.caper.psychological_counseling.model.domain.Consult;
 import com.caper.psychological_counseling.model.domain.ConsultRecord;
 import com.caper.psychological_counseling.model.dto.ConsultDTO;
+import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import com.caper.psychological_counseling.service.ConsultRecordService;
 import com.caper.psychological_counseling.service.ConsultService;
 import com.caper.psychological_counseling.service.VisitRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * author:meidou
@@ -74,7 +78,13 @@ public class VisitController {
         return AjaxResponse.success();
     }
 
-    //查看初访申请表
+    //查看初访申请表。根据校区
+    @GetMapping("/visitor/selectApplication/{org_id}")
+    public AjaxResponse selectApplication(@PathVariable("org_id")Long org_id){
+
+
+        return AjaxResponse.success(visitRecordService.select_Applications(org_id));
+    }
 
 
 
@@ -86,21 +96,51 @@ public class VisitController {
     public AjaxResponse build_consult(@RequestBody ConsultDTO consultDTO){
 
         Consult consult = new Consult();
+
+        //设置默认值和申请表id
         consult.setApplicationId(consultDTO.getApplicationId());
         consult.setStatus(4);
         consult.setDeleted(0);
+
+        //建立咨询表
         consultService.build_consult(consult);
 
+
+
+        //找出schedule对应的日期
+        Long scheduleId = consultDTO.getScheduleId();
+        ScheduleVO find = consultService.find_schedule(consultDTO.getScheduleId());
 
 
 
         for(int i = 1;i <= 8;i++){
             //创建8次咨询记录表
             //对应的排班表的is_occupied +1
+            if(i != 1){
+
+
+                //日期+7天
+                Date date = find.getDate();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.DAY_OF_MONTH, 7);
+                Date end_time = calendar.getTime();
+                find.setDate(end_time);
+
+                //设置要查询的日期
+                Date date1 = find.getDate();
+                String begin_time = find.getBeginTime();
+                String end_time1 = find.getEndTime();
+                Long user_id = find.getUserId();
+                Long area_id = find.getAreaId();
+
+                //查询+7天后的scheduleId
+                scheduleId = consultService.find_scheduleId(area_id,date1,begin_time,end_time1,user_id);
+            }
             ConsultRecord consultRecord = new ConsultRecord();
-            consultRecord.setConsultId(consultDTO.getConsultId());
-            consultRecord.setScheduleId(consultDTO.getScheduleId());
+            consultRecord.setConsultId(consult.getId());
             consultRecord.setStuId(consultDTO.getStuId());
+            consultRecord.setScheduleId(scheduleId);
             consultRecord.setDeleted(0);
             consultRecord.setChecked(0);
             consultRecord.setTimes(i);
