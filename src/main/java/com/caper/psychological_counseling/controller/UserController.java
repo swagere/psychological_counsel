@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,6 +40,9 @@ public class UserController {
     @Autowired
     private ConsultRecordService consultRecordService;
 
+    @Autowired
+    private QuestionnaireService questionnaireService;
+
 
 
     //提交初访申请（建立申请表）
@@ -52,6 +56,72 @@ public class UserController {
 
         return AjaxResponse.success();
     }
+
+    //展示问卷，用户填写问卷
+    @GetMapping("/user/showQuestionnaire")
+    public AjaxResponse show_questionnaire(){
+
+        return AjaxResponse.success(questionnaireService.show_questionnaire());
+
+    }
+
+
+    //前端返回answer结果(一个String类型的字符串，0代表选中，1代表未选中)
+    //*显示分数、*根据等级来插队
+    @PostMapping("/user/getAnswer")
+    public AjaxResponse getAnswer(//@RequestParam("answer")String answer,
+                                  @RequestParam("id")Long id){
+        //分数大于30等级为5，大于25等级为4，大于20等级为3，大于15等级为2，大于0等级为1,
+        //只要选了紧急项，等级一律为5
+        Long[] anw = new Long[]{(long) 1, (long)2,(long)5,(long)10};
+        int grade = 0;
+        int urgency = 0;
+        int flag = 0;
+
+
+        for(int i = 1; i <= anw.length; i++){
+
+            grade = grade + questionnaireService.get_grade(anw[i]);
+            if(questionnaireService.get_urgent(anw[i]) == 1){
+                urgency = 5;
+                flag = 1;
+            }
+
+        }
+        if(flag == 0){
+
+            if(grade >=30 ){
+                urgency = 5;
+            }
+            else if(grade >= 25){
+                urgency = 4;
+            }
+            else if(grade >= 20){
+                urgency = 3;
+            }
+            else if(grade >= 15){
+                urgency = 2;
+            }
+            else {
+                urgency = 1;
+            }
+
+        }
+
+        applicationService.update_urgency(urgency, id);
+
+
+
+
+        return AjaxResponse.success();
+    }
+
+
+
+
+
+
+
 
 
     //查看自己的初访申请表,根据用户id获取
@@ -132,6 +202,9 @@ public class UserController {
         consultRecordService.update_evaluate(evaluate, id);
         return AjaxResponse.success();
     }
+
+
+
 
 
 
