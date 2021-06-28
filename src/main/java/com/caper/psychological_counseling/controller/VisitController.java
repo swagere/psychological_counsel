@@ -131,7 +131,7 @@ public class VisitController {
                 Date date1 = find.getDate();
                 String begin_time = find.getBeginTime();
                 String end_time1 = find.getEndTime();
-                Long user_id = find.getUserId();
+                Long user_id = find.getTeaId();
                 Long area_id = find.getAreaId();
 
                 //查询+7天后的scheduleId
