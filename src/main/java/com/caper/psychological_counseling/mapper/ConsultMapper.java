@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 import java.util.List;
 
@@ -23,11 +24,38 @@ public interface ConsultMapper extends BaseMapper<Consult> {
             "FROM sys_user u \n" +
             "INNER JOIN schedule c ON(u.id = c.user_id)\n" +
             "INNER JOIN area a ON(c.area_id = a.id)\n" +
-            "WHERE u.type like '%${type}%' and a.org_id = #{area_id} and date >= #{date}\n"+
+            "WHERE u.type like '%${type}%' and a.org_id = #{area_id} and date >= #{date} and date <=#{end_time}\n"+
             "and u.id in (SELECT user_id FROM sys_user_role WHERE role_id = 3)")
     List<ScheduleVO> find_consults(@Param("area_id")Long area_id,
-                                @Param("type")String type,
-                                @Param("date") Date date);
+                                   @Param("type")String type,
+                                   @Param("date") Date date,
+                                   @Param("end_time")Date end_time);
+
+    //查询排班表的日期、time、校区、咨询师。根据排班表id
+    @Select("SELECT *" +
+            " FROM schedule" +
+            " WHERE id = #{id}")
+    ScheduleVO find_schedule(@Param("id")Long id);
+
+
+
+
+
+    //根据时间、time、校区、咨询师查找排班id
+    @Select("SELECT id" +
+            " FROM schedule" +
+            " WHERE date = #{date} and " +
+            "begin_time = #{begin_time} and " +
+            "end_time = #{end_time} and " +
+            "user_id = #{user_id} and " +
+            "area_id = #{area_id} ")
+    Long  find_scheduleId(@Param("area_id")Long area_id,
+                          @Param("date")Date date,
+                          @Param("begin_time")String begin_time,
+                          @Param("end_time")String end_time,
+                          @Param("user_id")Long user_id);
+
+
 
     //创建咨询表
     @Override

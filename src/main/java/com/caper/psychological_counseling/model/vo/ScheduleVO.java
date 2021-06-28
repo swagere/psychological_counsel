@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 public class ScheduleVO {
@@ -16,7 +17,7 @@ public class ScheduleVO {
 
     private Integer week;
 
-    private String date;
+    private Date date;
 
     private String beginTime;
 
@@ -24,6 +25,7 @@ public class ScheduleVO {
 
     private String areaName;
 
+    private Long areaId;
 
 
 
