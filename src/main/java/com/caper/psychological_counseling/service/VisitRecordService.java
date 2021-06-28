@@ -48,4 +48,6 @@ public interface VisitRecordService extends IService<VisitRecord> {
     List<VisitRecordVO> selectByOrgId(Long org_id);
 
     List<Application> select_Applications(Long org_id);
+
+    void occupied(@Param("id")Long id);
 }
