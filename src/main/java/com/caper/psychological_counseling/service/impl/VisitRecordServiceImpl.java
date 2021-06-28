@@ -120,4 +120,10 @@ public class VisitRecordServiceImpl extends ServiceImpl<VisitRecordMapper, Visit
     public List<Application> select_Applications(Long org_id){
         return visitRecordMapper.select_Applications(org_id);
     }
+
+
+    @Override
+    public void occupied(Long id){
+        visitRecordMapper.occupied(id);
+    }
 }

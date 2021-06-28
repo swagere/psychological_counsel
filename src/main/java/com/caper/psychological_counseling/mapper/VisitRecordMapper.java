@@ -107,4 +107,11 @@ public interface VisitRecordMapper extends BaseMapper<VisitRecord> {
             "WHERE stu_id in(SELECT id\n" +
             "FROM sys_user WHERE org_id = #{org_id})")
     List<Application> select_Applications(@Param("org_id")Long org_id);
+
+
+    //选中的排班对应的is_occupied加1,根据schedule的id
+    @Update("UPDATE `schedule`\n" +
+            "SET is_occupied = is_deleted + 1\n" +
+            "WHERE id = #{id}")
+    void occupied(@Param("id")Long id);
 }

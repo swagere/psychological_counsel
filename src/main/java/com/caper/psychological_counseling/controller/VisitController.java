@@ -145,10 +145,13 @@ public class VisitController {
             consultRecord.setChecked(0);
             consultRecord.setTimes(i);
             consultRecordService.build_consultRecord(consultRecord);
+            visitRecordService.occupied(scheduleId);
 
         }
 
         return AjaxResponse.success();
     }
+
+
 
 }
