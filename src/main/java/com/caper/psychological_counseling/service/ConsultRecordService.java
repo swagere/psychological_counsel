@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.caper.psychological_counseling.model.vo.ConsultRecordVO;
 
 import java.util.List;
+
+import com.caper.psychological_counseling.model.vo.ReportRecord;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -49,4 +51,7 @@ public interface ConsultRecordService extends IService<ConsultRecord> {
     Long selectConsultId(Long id);
 
 
+    List<ReportRecord> selectReportByConsultId(Long consult_id);
+
+    List<String> getConsultorNameByConsultId(Long id);
 }

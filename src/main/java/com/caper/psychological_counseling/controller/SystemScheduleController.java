@@ -12,6 +12,7 @@ import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.dto.WeekScheduleDTO;
 import com.caper.psychological_counseling.model.vo.AreaVO;
 import com.caper.psychological_counseling.model.vo.CommonScheduleVO;
+import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import com.caper.psychological_counseling.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
@@ -219,6 +220,29 @@ public class SystemScheduleController {
 
         return AjaxResponse.success();
     }
+
+
+    /**
+     * 查看实际排班表
+     * 输入：校区 角色
+     */
+    @RequestMapping(value = "/schedules/org/{org_id}/role/{role_id}")
+    public AjaxResponse getSchedules(@PathVariable("org_id") Long org_id, @PathVariable("role_id") Long role_id) {
+        //org_id 查出 area_ids
+        List<Long> area_ids = areaService.getAreaIdsByOrgId(org_id);
+
+        //按照role_id查出user_ids [sys_user_role] 即这个角色的所有人
+        List<Long> user_ids = sysUserService.getUserIdsByRoleIdAndAreaId(role_id);
+
+        //根据user_ids 和 area_ids查出所有排班 [schedule]
+        UserIdAndAreaIds ids = new UserIdAndAreaIds();
+        ids.setArea_ids(area_ids);
+        ids.setUser_ids(user_ids);
+        List<ScheduleVO> scheduleVOS = scheduleService.getByUserIdsAndAreaIds(ids);
+        return AjaxResponse.success(scheduleVOS);
+
+    }
+
 
     /**
      * 查询地址

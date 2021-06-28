@@ -3,6 +3,7 @@ package com.caper.psychological_counseling.mapper;
 import com.caper.psychological_counseling.model.domain.SysUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.caper.psychological_counseling.model.dto.UserDTO;
+import com.caper.psychological_counseling.model.vo.SysUserVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -40,4 +41,6 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
 
     @Select("select org_id from sys_user where id = #{id}")
     Long selectOrgIdByUserId(Long id);
+
+    List<SysUserVO> selectByOrgIdAndRoleId(@Param("org_id") Long org_id, @Param("role_id") Long role_id);
 }

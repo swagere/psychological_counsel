@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.service;
 
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface ScheduleService extends IService<Schedule> {
     List<Long> selectByDateAndOccupiedAndOrgId(Long org_id, Date time);
 
     boolean updateOccupiedById(Long schedule_id);
+
+    List<ScheduleVO> getByUserIdsAndAreaIds(UserIdAndAreaIds ids);
 }

@@ -11,9 +11,9 @@ public class ScheduleVO {
 
     private Long id;
 
-    private Long userId;
+    private Long teaId;
 
-    private String name;
+    private String teaName;
 
     private Integer week;
 

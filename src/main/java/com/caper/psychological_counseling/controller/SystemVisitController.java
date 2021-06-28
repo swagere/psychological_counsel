@@ -150,9 +150,14 @@ public class SystemVisitController {
     public AjaxResponse getApplications(@PathVariable("org_id") Long org_id) {
         //schedule_id
         List<Long> schedule_ids = scheduleService.selectByOrgId(org_id);
+        System.out.println(schedule_ids);
 
         //application_id
         List<Long> application_ids = visitRecordService.getApplicationIdsByScheduleIds(schedule_ids);
+
+        if (application_ids.isEmpty()) {
+            return AjaxResponse.error(new CustomException(CustomExceptionType.SYSTEM_ERROR, "该校区没有符合条件的申请表"));
+        }
 
         //application
         List<Application> applications = applicationService.getByIds(application_ids);

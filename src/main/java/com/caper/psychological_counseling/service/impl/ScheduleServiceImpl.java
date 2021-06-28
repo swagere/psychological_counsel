@@ -63,7 +63,7 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
 
         //创建指定时间范围内
         List<Schedule> schedules = new ArrayList<>();
-        for (int i = 1; i <= days; i++) {
+        for (int i = 1; i <= days + 1; i++) {
             //第i天
             calendar.add(Calendar.DAY_OF_MONTH,1);
 
@@ -161,6 +161,11 @@ public class ScheduleServiceImpl extends ServiceImpl<ScheduleMapper, Schedule> i
     @Override
     public boolean updateOccupiedById(Long schedule_id) {
         return scheduleMapper.updateOccupiedById(schedule_id);
+    }
+
+    @Override
+    public List<ScheduleVO> getByUserIdsAndAreaIds(UserIdAndAreaIds ids) {
+        return scheduleMapper.selectByUserIdsAndAreaIds(ids);
     }
 
     @Override

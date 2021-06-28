@@ -2,6 +2,7 @@ package com.caper.psychological_counseling.mapper;
 
 import com.caper.psychological_counseling.model.domain.Schedule;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.caper.psychological_counseling.model.dto.UserIdAndAreaIds;
 import com.caper.psychological_counseling.model.vo.ScheduleVO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -39,4 +40,5 @@ public interface ScheduleMapper extends BaseMapper<Schedule> {
 
     boolean updateOccupiedById(@Param("schedule_id") Long schedule_id);
 
+    List<ScheduleVO> selectByUserIdsAndAreaIds(@Param("ids") UserIdAndAreaIds ids);
 }

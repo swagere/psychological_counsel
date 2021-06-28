@@ -31,10 +31,11 @@
 
     <select id="selectOrgTree"
             resultType="com.caper.psychological_counseling.model.domain.Organization">
-        SELECT id,org_id,org_ids,is_leaf,org_name,address,telephone,email,sort,level,status
+        SELECT id,org_id,org_ids,is_leaf as leaf,org_name,address,telephone,email,sort,level,status
         FROM organization o
         <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
             AND (org_ids like CONCAT('%[',#{rootOrgId},']%') OR id = #{rootOrgId})
+            AND level &lt;= '2'
             <if test="orgNameLike != null and orgNameLike != '' " >
                 AND org_name like CONCAT('%',#{orgNameLike},'%')
             </if>
@@ -43,6 +44,30 @@
             </if>
         </trim>
         ORDER BY level,sort
+    </select>
+
+    <select id="selectAreaOrgTree"
+            resultType="com.caper.psychological_counseling.model.domain.Organization">
+        SELECT id,org_id,org_ids,is_leaf as leaf,org_name,address,telephone,email,sort,level,status
+        FROM organization o
+        <trim prefix="WHERE" prefixOverrides="AND|OR" suffixOverrides="AND|OR">
+            AND (org_ids like CONCAT('%[',#{rootOrgId},']%') OR id = #{rootOrgId} )
+            AND level &lt;= '2'
+            <if test="orgNameLike != null and orgNameLike != '' " >
+                AND org_name like CONCAT('%',#{orgNameLike},'%')
+            </if>
+            <if test="orgStatus != null " >
+                AND status = #{orgStatus}
+            </if>
+        </trim>
+        ORDER BY level,sort
+    </select>
+
+    <select id="selectAreasByOrgId"
+            resultType="com.caper.psychological_counseling.model.domain.Organization">
+        SELECT id,org_id,1 as leaf,area_name as org_name
+        from area
+        where org_id = #{org_id}
     </select>
 
 </mapper>
